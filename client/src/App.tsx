@@ -12,6 +12,7 @@ import SalePage from './components/pages/SalePage';
 import RevuePage from './components/pages/RevuePage';
 import ServicePage from './components/pages/ServicePage';
 import MasterPage from './components/pages/MasterPage';
+import Loader from './hocs/Loader';
 
 function App(): JSX.Element {
   const theme = createTheme({
@@ -30,6 +31,7 @@ function App(): JSX.Element {
 
   return (
     <ThemeProvider theme={theme}>
+      <Loader isLoading={user.status==='loading'} >
       <>
         <Navbar />
         <Box mt={5}>
@@ -60,6 +62,7 @@ function App(): JSX.Element {
           </Container>
         </Box>
       </>
+      </Loader>
     </ThemeProvider>
   );
 }

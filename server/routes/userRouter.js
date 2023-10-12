@@ -5,12 +5,12 @@ const { User } = require('../db/models');
 const router = express.Router();
 
 router.post('/signup', async (req, res) => {
-  const { username, email, password } = req.body;
-  if (username && email && password) {
+  const { name, phone, password } = req.body;
+  if (name && phone && password) {
     try {
       const [user, created] = await User.findOrCreate({
-        where: { email },
-        defaults: { username, password: await bcrypt.hash(password, 10) },
+        where: { phone },
+        defaults: { name, password: await bcrypt.hash(password, 10) },
       });
       if (!created) return res.sendStatus(401);
 
@@ -27,11 +27,11 @@ router.post('/signup', async (req, res) => {
 });
 
 router.post('/login', async (req, res) => {
-  const { email, password } = req.body;
-  if (email && password) {
+  const { phone, password } = req.body;
+  if (phone && password) {
     try {
       const user = await User.findOne({
-        where: { email },
+        where: { phone },
       });
       if (!(await bcrypt.compare(password, user.password))) {
         return res.sendStatus(401);
