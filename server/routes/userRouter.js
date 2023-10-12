@@ -6,14 +6,19 @@ const router = express.Router();
 
 router.post('/signup', async (req, res) => {
   const { name, phone, password } = req.body;
+  // find и create
   if (name && phone && password) {
     try {
       const [user, created] = await User.findOrCreate({
         where: { phone },
-        defaults: { name, password: await bcrypt.hash(password, 10) },
+        defaults: {
+          name,
+          password: await bcrypt.hash(password, 10),
+          isAdmin: true,
+        },
       });
       if (!created) return res.sendStatus(401);
-
+      console.log(user);
       const sessionUser = JSON.parse(JSON.stringify(user));
       delete sessionUser.password;
       req.session.user = sessionUser;
@@ -23,6 +28,7 @@ router.post('/signup', async (req, res) => {
       return res.sendStatus(500);
     }
   }
+
   return res.sendStatus(500);
 });
 
