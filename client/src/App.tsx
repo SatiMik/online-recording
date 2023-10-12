@@ -31,37 +31,34 @@ function App(): JSX.Element {
 
   return (
     <ThemeProvider theme={theme}>
-      <Loader isLoading={user.status==='loading'} >
-      <>
-        <Navbar />
-        <Box mt={5}>
-          <Container>
-            <Routes>
+      <Loader isLoading={user.status === 'loading'}>
+        <>
+          <Navbar />
+          <Box mt={5}>
+            <Container>
+              <Routes>
+                <Route path="/" element={<MainPage />} />
+                <Route path="/revue" element={<RevuePage />} />
+                <Route path="/sale" element={<SalePage />} />
+                <Route path="/service" element={<ServicePage />} />
+                <Route path="/master" element={<MasterPage />} />
 
-              <Route path="/" element={<MainPage />} />
-              <Route path="/revue" element={<RevuePage />} />
-              <Route path="/sale" element={<SalePage />} />
-              <Route path="/service" element={<ServicePage />} />
-              <Route path="/master" element={<MasterPage />} />
+                <Route element={<PrivateRoute isAllowed={user.status === 'logged'} />}>
+                  <Route path="/userRevue" element={<UserRevuePage />} />
+                </Route>
 
-              <Route element={<PrivateRoute isAllowed={user.status === 'logged'} />}>
-                <Route path="/userRevue" element={<UserRevuePage />} />
-              </Route>
-
-
-              <Route
-                path="/:auth"
-                element={
-                  <PrivateRoute isAllowed={user.status === 'guest'}>
-                    <AuthPage />
-                  </PrivateRoute>
-                }
-              />
-
-            </Routes>
-          </Container>
-        </Box>
-      </>
+                <Route
+                  path="/:auth"
+                  element={
+                    <PrivateRoute isAllowed={user.status === 'guest'}>
+                      <AuthPage />
+                    </PrivateRoute>
+                  }
+                />
+              </Routes>
+            </Container>
+          </Box>
+        </>
       </Loader>
     </ThemeProvider>
   );

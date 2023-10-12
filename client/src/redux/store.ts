@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 import userReducer from './slices/user/UserSlice';
 import masterReducer from './slices/master/MasterSlice';
+import serviceReducer from './slices/service/ServiceSlice';
 
 export const store = configureStore({
   reducer: {
     user: userReducer,
     masters: masterReducer,
+    services: serviceReducer,
   },
 });
 
