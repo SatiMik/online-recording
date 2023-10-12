@@ -13,6 +13,7 @@ import RevuePage from './components/pages/RevuePage';
 import ServicePage from './components/pages/ServicePage';
 import MasterPage from './components/pages/MasterPage';
 import Loader from './hocs/Loader';
+import ApplicationPage from './components/pages/ApplicationPage';
 
 function App(): JSX.Element {
   const theme = createTheme({
@@ -42,6 +43,7 @@ function App(): JSX.Element {
                 <Route path="/sale" element={<SalePage />} />
                 <Route path="/service" element={<ServicePage />} />
                 <Route path="/master" element={<MasterPage />} />
+                <Route path="/application" element={<ApplicationPage />} />
 
                 <Route element={<PrivateRoute isAllowed={user.status === 'logged'} />}>
                   <Route path="/userRevue" element={<UserRevuePage />} />
