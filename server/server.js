@@ -4,6 +4,7 @@ const morgan = require('morgan');
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
 const userRouter = require('./routes/userRouter');
+const multerRouter = require('./routes/multerRouter');
 require('dotenv').config();
 
 const app = express();
@@ -29,5 +30,6 @@ app.use(
 );
 
 app.use('/api/user', userRouter);
+app.use('/sale', multerRouter)
 
 app.listen(PORT, () => console.log(`Started on port ${PORT}`));
