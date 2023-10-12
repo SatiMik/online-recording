@@ -4,6 +4,8 @@ const morgan = require('morgan');
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
 const userRouter = require('./routes/userRouter');
+const masterRouter = require('./routes/masterRouter');
+
 require('dotenv').config();
 
 const app = express();
@@ -25,9 +27,10 @@ app.use(
       maxAge: 1000 * 60 * 60 * 12,
       httpOnly: true,
     },
-  }),
+  })
 );
 
 app.use('/api/user', userRouter);
+app.use('/api/master', masterRouter);
 
 app.listen(PORT, () => console.log(`Started on port ${PORT}`));
