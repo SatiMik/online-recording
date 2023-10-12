@@ -1,24 +1,24 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Box, Container } from '@mui/material';
 
-import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
-import ServiceCard from './ServiceCard';
-import { getServiceThunk } from '../../../redux/slices/service/ServiceThunks';
+import ServiceCardList from './ServiceCardList';
+import type { CategoryType } from '../../../types/serviceTypes';
 
-export default function ServiceList(): JSX.Element {
-  const services = useAppSelector((store) => store.services);
+type ServiceListPropsType = {
+  categories: CategoryType[];
+};
 
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    void dispatch(getServiceThunk());
-  }, []);
-
-  const user = useAppSelector((store) => store.user);
+export default function ServiceList({ categories }: ServiceListPropsType): JSX.Element {
   return (
     <Box mt={5}>
       <Container>
-        <h2>Наши сервисы:</h2>
-        {services?.map((service) => <ServiceCard key={service.id} service={service} user={user} />)}
+        <h2>Услуги:</h2>
+        {categories?.map((category) => (
+          <>
+            <h2>{category.name}</h2>
+            <ServiceCardList key={category.id} category={category} />
+          </>
+        ))}
       </Container>
     </Box>
   );

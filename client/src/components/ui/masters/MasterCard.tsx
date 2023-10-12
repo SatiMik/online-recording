@@ -27,7 +27,7 @@ type BookCardPropsType = {
 function MasterCard({ master, user }: BookCardPropsType): JSX.Element {
   const [open, setOpen] = useState<boolean>(false);
   const dispatch = useAppDispatch();
-  console.log(user);
+
   
   return (
     <Box mt={8}>

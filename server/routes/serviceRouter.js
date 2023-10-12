@@ -1,32 +1,21 @@
 const router = require('express').Router();
-const { Service } = require('../db/models');
+const { Service, Category } = require('../db/models');
 
-router
-  .route('/')
-  .get(async (req, res) => {
-    try {
-      const services = await Service.findAll();
-      return res.json(services);
-    } catch (error) {
-      console.log(error);
-      return res.sendStatus(500);
-    }
-  })
-  .post(async (req, res) => {
-    try {
-      const { name, price, time, categoryId } = req.body;
-      const service = await Service.create({
-        name,
-        price,
-        time,
-        categoryId,
-      });
-      res.json(service);
-    } catch (error) {
-      console.log(error);
-      return res.sendStatus(500);
-    }
-  });
+router.route('/').post(async (req, res) => {
+  try {
+    const { name, price, time, categoryId } = req.body;
+    const service = await Service.create({
+      name,
+      price,
+      time,
+      categoryId,
+    });
+    res.json(service);
+  } catch (error) {
+    console.log(error);
+    return res.sendStatus(500);
+  }
+});
 
 router
   .route('/:serviceId')
@@ -70,4 +59,22 @@ router
     }
   });
 
+router.get('/categories/category', async (req, res) => {
+  const categories = await Category.findAll();
+
+  res.json(categories);
+});
+
+router.get('/categories/:categoryId', async (req, res) => {
+  try {
+    const { categoryId } = req.params;
+
+    const services = await Service.findAll({ where: { categoryId } });
+
+    return res.json(services);
+  } catch (error) {
+    console.log(error);
+    return res.sendStatus(500);
+  }
+});
 module.exports = router;

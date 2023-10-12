@@ -5,10 +5,10 @@ module.exports = {
       'Categories',
       [
         {
-          name: 'John Doe',
+          name: 'Ногти',
         },
         {
-          name: 'Абра-кадабра',
+          name: 'Не ногти',
         },
       ],
       {}

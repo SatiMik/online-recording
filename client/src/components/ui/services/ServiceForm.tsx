@@ -13,7 +13,6 @@ export default function ServiceForm(): JSX.Element {
     time: 0,
     categoryId: 1,
   });
-
   const changeHandler: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
@@ -28,25 +27,35 @@ export default function ServiceForm(): JSX.Element {
         onChange={changeHandler}
       />
       <TextField
-        name="desc"
+        name="price"
         variant="outlined"
         placeholder="Цена"
         value={inputs.price}
         onChange={changeHandler}
+        type="number"
       />
       <TextField
-        name="img"
+        name="time"
         variant="outlined"
         placeholder="Время оказания услуги"
         value={inputs.time}
         onChange={changeHandler}
+        type="number"
       />
 
       <Button
         type="submit"
         variant="outlined"
         size="large"
-        onClick={() => void dispatch(addServiceThunk(inputs))}
+        onClick={() => {
+          void dispatch(addServiceThunk(inputs));
+          setInputs({
+            name: '',
+            price: 0,
+            time: 0,
+            categoryId: 1,
+          });
+        }}
       >
         Send
       </Button>
