@@ -4,7 +4,14 @@ const morgan = require('morgan');
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
 const userRouter = require('./routes/userRouter');
+const applicationRouter = require('./routes/applicationRouter');
 const masterRouter = require('./routes/masterRouter');
+const serviceRouter = require('./routes/serviceRouter');
+const categoryRouter = require('./routes/categoryRouter');
+
+
+const multerRouter = require('./routes/multerRouter');
+
 
 require('dotenv').config();
 
@@ -27,10 +34,18 @@ app.use(
       maxAge: 1000 * 60 * 60 * 12,
       httpOnly: true,
     },
-  })
+  }),
 );
 
 app.use('/api/user', userRouter);
+app.use('/api/application', applicationRouter);
 app.use('/api/master', masterRouter);
+
+app.use('/api/service', serviceRouter);
+app.use('/api/categories', categoryRouter);
+
+
+app.use('/sale', multerRouter)
+
 
 app.listen(PORT, () => console.log(`Started on port ${PORT}`));

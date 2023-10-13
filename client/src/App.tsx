@@ -13,6 +13,8 @@ import RevuePage from './components/pages/RevuePage';
 import ServicePage from './components/pages/ServicePage';
 import MasterPage from './components/pages/MasterPage';
 import Loader from './hocs/Loader';
+import ApplicationPage from './components/pages/ApplicationPage';
+import CategoryPage from './components/pages/CategoryPage';
 
 function App(): JSX.Element {
   const theme = createTheme({
@@ -31,37 +33,40 @@ function App(): JSX.Element {
 
   return (
     <ThemeProvider theme={theme}>
-      <Loader isLoading={user.status==='loading'} >
-      <>
-        <Navbar />
-        <Box mt={5}>
-          <Container>
-            <Routes>
+      <Loader isLoading={user.status === 'loading'}>
+        <>
+          <Navbar />
+          <Box mt={5}>
+            <Container>
+              <Routes>
+                <Route path="/" element={<MainPage />} />
+                <Route path="/revue" element={<RevuePage />} />
+                <Route path="/sale" element={<SalePage />} />
+                <Route path="/service" element={<CategoryPage />} />
+                <Route path="/services/:serviceId" element={<ServicePage />} />
 
-              <Route path="/" element={<MainPage />} />
-              <Route path="/revue" element={<RevuePage />} />
-              <Route path="/sale" element={<SalePage />} />
-              <Route path="/service" element={<ServicePage />} />
-              <Route path="/master" element={<MasterPage />} />
+                <Route path="/master" element={<MasterPage />} />
 
-              <Route element={<PrivateRoute isAllowed={user.status === 'logged'} />}>
-                <Route path="/userRevue" element={<UserRevuePage />} />
-              </Route>
+                <Route element={<PrivateRoute isAllowed={user.status === 'logged'} />}>
+                  <Route path="/userRevue" element={<UserRevuePage />} />
+                </Route>
 
+                <Route element={<PrivateRoute isAllowed={user.status === 'logged' && user?.isAdmin} />}>
+                  <Route path="/application" element={<ApplicationPage />} />
+                </Route>
 
-              <Route
-                path="/:auth"
-                element={
-                  <PrivateRoute isAllowed={user.status === 'guest'}>
-                    <AuthPage />
-                  </PrivateRoute>
-                }
-              />
-
-            </Routes>
-          </Container>
-        </Box>
-      </>
+                <Route
+                  path="/:auth"
+                  element={
+                    <PrivateRoute isAllowed={user.status === 'guest'}>
+                      <AuthPage />
+                    </PrivateRoute>
+                  }
+                />
+              </Routes>
+            </Container>
+          </Box>
+        </>
       </Loader>
     </ThemeProvider>
   );

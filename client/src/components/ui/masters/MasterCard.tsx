@@ -28,6 +28,7 @@ function MasterCard({ master, user }: BookCardPropsType): JSX.Element {
   const [open, setOpen] = useState<boolean>(false);
   const dispatch = useAppDispatch();
 
+  
   return (
     <Box mt={8}>
       <Container>
