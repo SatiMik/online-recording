@@ -32,13 +32,12 @@ function App(): JSX.Element {
 
   return (
     <ThemeProvider theme={theme}>
-      <Loader isLoading={user.status === 'loading'} >
+      <Loader isLoading={user.status === 'loading'}>
         <>
           <Navbar />
           <Box mt={5}>
             <Container>
               <Routes>
-
                 <Route path="/" element={<MainPage />} />
                 <Route path="/revue" element={<RevuePage />} />
                 <Route path="/sale" element={<SalePage />} />
@@ -50,7 +49,6 @@ function App(): JSX.Element {
                   <Route path="/userRevue" element={<UserRevuePage />} />
                 </Route>
 
-
                 <Route
                   path="/:auth"
                   element={
@@ -59,7 +57,6 @@ function App(): JSX.Element {
                     </PrivateRoute>
                   }
                 />
-
               </Routes>
             </Container>
           </Box>

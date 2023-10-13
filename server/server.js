@@ -18,6 +18,7 @@ app.use(cors({ credentials: true, origin: true }));
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public'));
 app.use(
   session({
     name: 'sid',
@@ -35,6 +36,6 @@ app.use(
 app.use('/api/user', userRouter);
 app.use('/api/application', applicationRouter);
 app.use('/api/master', masterRouter);
-app.use('/sale', multerRouter)
+app.use('/sales', multerRouter);
 
 app.listen(PORT, () => console.log(`Started on port ${PORT}`));
