@@ -1,15 +1,15 @@
-import type { CategoryType, ServiceFormType, ServiceType } from '../types/serviceTypes';
+import type { CategoryType } from '../types/categoryTypes';
+import type { ServiceFormType, ServiceType } from '../types/serviceTypes';
 import apiService from './config';
 
 export const getServices = async (id: CategoryType['id']): Promise<ServiceType[]> => {
-  const { data } = await apiService<ServiceType[]>(`/api/service/categories/${id}`);
+  const { data } = await apiService<ServiceType[]>(`/api/service/services/${id}`);
 
- 
   return data;
 };
 
 export const submitService = async (formData: ServiceFormType): Promise<ServiceType> => {
-  const { data } = await apiService.post<ServiceType>('/api/service', formData);
+  const { data } = await apiService.post<ServiceType>('/api/service/', formData);
   return data;
 };
 
@@ -26,9 +26,9 @@ export const editService = async (
   return data;
 };
 
-export const getCategories = async (): Promise<CategoryType[]> => {
-  const { data } = await apiService<CategoryType[]>('/api/service/categories/category');
-//  console.log(data);
- 
-  return data;
-};
+// export const getCategories = async (): Promise<CategoryType[]> => {
+//   const { data } = await apiService<CategoryType[]>('/api/service/categories/category');
+// //  console.log(data);
+
+//   return data;
+// };

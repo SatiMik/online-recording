@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Service, Category } = require('../db/models');
+const { Service } = require('../db/models');
 
 router.route('/').post(async (req, res) => {
   try {
@@ -10,6 +10,7 @@ router.route('/').post(async (req, res) => {
       time,
       categoryId,
     });
+
     res.json(service);
   } catch (error) {
     console.log(error);
@@ -59,17 +60,13 @@ router
     }
   });
 
-router.get('/categories/category', async (req, res) => {
-  const categories = await Category.findAll();
-
-  res.json(categories);
-});
-
-router.get('/categories/:categoryId', async (req, res) => {
+router.get('/services/:serviceId', async (req, res) => {
   try {
-    const { categoryId } = req.params;
+    const { serviceId } = req.params;
 
-    const services = await Service.findAll({ where: { categoryId } });
+    const services = await Service.findAll({
+      where: { categoryId: serviceId },
+    });
 
     return res.json(services);
   } catch (error) {

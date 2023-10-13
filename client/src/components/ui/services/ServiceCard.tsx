@@ -3,7 +3,6 @@
 import React, { memo, useState } from 'react';
 import {
   Card,
-  CardMedia,
   CardContent,
   Typography,
   CardActions,
@@ -12,7 +11,7 @@ import {
   Container,
 } from '@mui/material';
 
-import type { UserLoadingType } from '../../../types/userTypes';
+
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 
 import ServiceModal from './ServiceModal';
@@ -27,8 +26,9 @@ function ServiceCard({ service }: ServiceCardPropsType): JSX.Element {
   const [open, setOpen] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   const user = useAppSelector((store) => store.user);
-  // console.log(service);
 
+ 
+ 
   return (
     <Box mt={8}>
       <Container>
@@ -38,10 +38,10 @@ function ServiceCard({ service }: ServiceCardPropsType): JSX.Element {
               {service.name}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              {service.price}
+              Цена: {service.price} рублей
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              {service.time}
+              Время процедуры: {service.time} минут
             </Typography>
           </CardContent>
           <CardActions>

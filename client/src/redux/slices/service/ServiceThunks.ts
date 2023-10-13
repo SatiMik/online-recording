@@ -1,28 +1,28 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import type { CategoryType, ServiceFormType, ServiceType } from '../../../types/serviceTypes';
+import type { ServiceFormType, ServiceType } from '../../../types/serviceTypes';
 import {
   deleteService,
   editService,
   getServices,
   submitService,
 } from '../../../services/serviceServices';
+import type { CategoryType } from '../../../types/categoryTypes';
 
 export const getServiceThunk = createAsyncThunk<ServiceType[], CategoryType['id']>(
-  'master/getServiceThunk',
+  'services/getServiceThunk',
   async (id) => getServices(id),
 );
-
 export const deleteServiceThunk = createAsyncThunk<ServiceType['id'], { id: ServiceType['id'] }>(
-  'master/deleteServiceThunk',
+  'services/deleteServiceThunk',
   async ({ id }) => deleteService(id),
 );
 
 export const addServiceThunk = createAsyncThunk<ServiceType, ServiceFormType>(
-  'master/addServiceThunk',
+  'services/addServiceThunk',
   async (inputs) => submitService(inputs),
 );
 
 export const editServiceThunk = createAsyncThunk<
   ServiceType,
   { id: ServiceType['id']; formData: ServiceFormType }
->('/master/editServiceThunk', async ({ id, formData }) => editService(id, formData));
+>('/services/editServiceThunk', async ({ id, formData }) => editService(id, formData));

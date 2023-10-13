@@ -1,17 +1,18 @@
 import { Box, Button, TextField } from '@mui/material';
 import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { useAppDispatch } from '../../../redux/hooks';
 import type { ServiceFormType } from '../../../types/serviceTypes';
 import { addServiceThunk } from '../../../redux/slices/service/ServiceThunks';
 
 export default function ServiceForm(): JSX.Element {
   const dispatch = useAppDispatch();
-
+  const categoryId = Number(useParams());
   const [inputs, setInputs] = useState<ServiceFormType>({
     name: '',
     price: 0,
     time: 0,
-    categoryId: 1,
+    categoryId,
   });
   const changeHandler: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -32,7 +33,6 @@ export default function ServiceForm(): JSX.Element {
         placeholder="Цена"
         value={inputs.price}
         onChange={changeHandler}
-        type="number"
       />
       <TextField
         name="time"
@@ -40,7 +40,6 @@ export default function ServiceForm(): JSX.Element {
         placeholder="Время оказания услуги"
         value={inputs.time}
         onChange={changeHandler}
-        type="number"
       />
 
       <Button
@@ -53,7 +52,7 @@ export default function ServiceForm(): JSX.Element {
             name: '',
             price: 0,
             time: 0,
-            categoryId: 1,
+            categoryId,
           });
         }}
       >

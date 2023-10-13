@@ -14,6 +14,7 @@ import ServicePage from './components/pages/ServicePage';
 import MasterPage from './components/pages/MasterPage';
 import Loader from './hocs/Loader';
 import ApplicationPage from './components/pages/ApplicationPage';
+import CategoryPage from './components/pages/CategoryPage';
 
 function App(): JSX.Element {
   const theme = createTheme({
@@ -41,7 +42,9 @@ function App(): JSX.Element {
                 <Route path="/" element={<MainPage />} />
                 <Route path="/revue" element={<RevuePage />} />
                 <Route path="/sale" element={<SalePage />} />
-                <Route path="/service" element={<ServicePage />} />
+                <Route path="/service" element={<CategoryPage />} />
+                <Route path="/services/:serviceId" element={<ServicePage />} />
+
                 <Route path="/master" element={<MasterPage />} />
                 <Route path="/application" element={<ApplicationPage />} />
 
