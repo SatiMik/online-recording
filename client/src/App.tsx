@@ -43,10 +43,13 @@ function App(): JSX.Element {
                 <Route path="/sale" element={<SalePage />} />
                 <Route path="/service" element={<ServicePage />} />
                 <Route path="/master" element={<MasterPage />} />
-                <Route path="/application" element={<ApplicationPage />} />
 
                 <Route element={<PrivateRoute isAllowed={user.status === 'logged'} />}>
                   <Route path="/userRevue" element={<UserRevuePage />} />
+                </Route>
+
+                <Route element={<PrivateRoute isAllowed={user.status === 'logged' && user?.isAdmin} />}>
+                  <Route path="/application" element={<ApplicationPage />} />
                 </Route>
 
                 <Route
