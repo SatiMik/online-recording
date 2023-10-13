@@ -1,19 +1,19 @@
 import { Box, Button, TextField } from '@mui/material';
 import React, { useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { useAppDispatch } from '../../../redux/hooks';
 import type { ServiceFormType } from '../../../types/serviceTypes';
 import { addServiceThunk } from '../../../redux/slices/service/ServiceThunks';
 
 export default function ServiceForm(): JSX.Element {
   const dispatch = useAppDispatch();
-
+  const categoryId = Number(useParams());
   const [inputs, setInputs] = useState<ServiceFormType>({
     name: '',
     price: 0,
     time: 0,
-    categoryId: 1,
+    categoryId,
   });
-
   const changeHandler: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
@@ -28,14 +28,14 @@ export default function ServiceForm(): JSX.Element {
         onChange={changeHandler}
       />
       <TextField
-        name="desc"
+        name="price"
         variant="outlined"
         placeholder="Цена"
         value={inputs.price}
         onChange={changeHandler}
       />
       <TextField
-        name="img"
+        name="time"
         variant="outlined"
         placeholder="Время оказания услуги"
         value={inputs.time}
@@ -46,7 +46,15 @@ export default function ServiceForm(): JSX.Element {
         type="submit"
         variant="outlined"
         size="large"
-        onClick={() => void dispatch(addServiceThunk(inputs))}
+        onClick={() => {
+          void dispatch(addServiceThunk(inputs));
+          setInputs({
+            name: '',
+            price: 0,
+            time: 0,
+            categoryId,
+          });
+        }}
       >
         Send
       </Button>

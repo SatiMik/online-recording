@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.post('/signup', async (req, res) => {
   const { name, phone, password } = req.body;
-  // find и create
+  // посмотреть как прикручивать админку
   if (name && phone && password) {
     try {
       const [user, created] = await User.findOrCreate({
@@ -14,11 +14,10 @@ router.post('/signup', async (req, res) => {
         defaults: {
           name,
           password: await bcrypt.hash(password, 10),
-          isAdmin: true,
         },
       });
       if (!created) return res.sendStatus(401);
-      console.log(user);
+
       const sessionUser = JSON.parse(JSON.stringify(user));
       delete sessionUser.password;
       req.session.user = sessionUser;

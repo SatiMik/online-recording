@@ -1,24 +1,27 @@
 import React, { useEffect } from 'react';
-import { Box, Container } from '@mui/material';
 
+import { Box, Container } from '@mui/material';
+import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
-import ServiceCard from './ServiceCard';
 import { getServiceThunk } from '../../../redux/slices/service/ServiceThunks';
+import ServiceCard from './ServiceCard';
 
 export default function ServiceList(): JSX.Element {
-  const services = useAppSelector((store) => store.services);
-
   const dispatch = useAppDispatch();
+  const {serviceId} = useParams();
+
+  
   useEffect(() => {
-    void dispatch(getServiceThunk());
+    void dispatch(getServiceThunk(Number(serviceId)));
   }, []);
 
-  const user = useAppSelector((store) => store.user);
+  const services = useAppSelector((store) => store.services);
+  
+
   return (
     <Box mt={5}>
       <Container>
-        <h2>Наши сервисы:</h2>
-        {services?.map((service) => <ServiceCard key={service.id} service={service} user={user} />)}
+        {services?.map((service) => <ServiceCard key={service.id} service={service} />)}
       </Container>
     </Box>
   );
