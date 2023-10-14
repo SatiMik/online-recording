@@ -4,8 +4,11 @@ const { Master } = require('../db/models');
 router
   .route('/')
   .get(async (req, res) => {
+    console.log('-------------');
     try {
       const masters = await Master.findAll();
+      console.log('-------------');
+
       return res.json(masters);
     } catch (error) {
       console.log(error);

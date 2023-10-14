@@ -25,4 +25,3 @@ export const getMasters = async (): Promise<MasterType[]> => {
   };
   
   
-  
