@@ -1,13 +1,16 @@
 export type UserType = {
-    id: number;
-    phone: number;
-    role: boolean;
+  id: number;
+  name: string;
+  phone: number;
+  isAdmin: boolean;
 };
 
 export type UserSignUpType = Omit<UserType, 'id'> & { password: string };
-export type UserLoginType = Omit<UserSignUpType, 'phone'>;
+export type UserLoginType = Omit<UserSignUpType, 'name'>;
 
 export type UserLoadingType =
-    | (UserType & { status: 'logged' })
-    | { status: 'loading' }
-    | { status: 'guest' };
+  | (UserType & { status: 'logged' })
+  | { status: 'loading' }
+  | { status: 'guest' };
+
+
