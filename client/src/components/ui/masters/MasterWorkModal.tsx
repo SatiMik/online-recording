@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { Box, Button, Modal } from '@mui/material';
 import Carousel from 'react-material-ui-carousel';
@@ -7,6 +7,8 @@ import Carousel from 'react-material-ui-carousel';
 import { useAppDispatch } from '../../../redux/hooks';
 
 import MasterWork from './MasterWork';
+import type { MasterType, MasterWorkType } from '../../../types/masterTypes';
+import { getWorks } from '../../../services/masterServices';
 
 const style = {
   position: 'absolute' as const,
@@ -20,27 +22,26 @@ const style = {
   p: 4,
 };
 
-const arr = [
-  {
-    image: 'https://screenshots.codesandbox.io/8e8dw/6.png',
-    masterId: 1,
-  },
-  {
-    image:
-      'https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/234b2896510375.5eb03a443f9f2.png',
-    masterId: 1,
-  },
-];
+
 type MasterWorkModalProps = {
   works: boolean;
   setWorks: (works: boolean) => void;
+  master: MasterType;
 };
 
-export default function MasterWorkModal({ works, setWorks }: MasterWorkModalProps): JSX.Element {
+export default function MasterWorkModal({
+  works,
+  setWorks,
+  master,
+}: MasterWorkModalProps): JSX.Element {
   const dispatch = useAppDispatch();
-  //   const [items, setItems] = useState<MasterWorkType[]>([]);
 
-  //   useEffect(()=>},[])
+  const [items, setItems] = useState<MasterWorkType[]>([]);
+  useEffect(() => {
+    getWorks(master.id)
+      .then((data) => setItems(data))
+      .catch(console.log);
+  }, []);
 
   return (
     <Modal
@@ -49,18 +50,10 @@ export default function MasterWorkModal({ works, setWorks }: MasterWorkModalProp
       aria-describedby="modal-modal-description"
     >
       <Box sx={style}>
+        <Button onClick={() => setWorks(false)}>Закрыть</Button>
         <Carousel>
-          {arr.map((item, i) => (
-            <>
-              <MasterWork key={i} item={item} />
-              <Button
-                onClick={() => {
-                  setWorks(false);
-                }}
-              >
-                Закрыть
-              </Button>
-            </>
+          {items.map((item, i) => (
+            <MasterWork key={i} item={item} />
           ))}
         </Carousel>
       </Box>

@@ -12,3 +12,4 @@ export type MasterWorkType = {
   image: string;
   masterId: number;
 };
+
