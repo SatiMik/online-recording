@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import { useAppDispatch } from '../../redux/hooks';
 import { loginHandlerThunk, signUpHandlerThunk } from '../../redux/slices/user/UserThunks';
 import type { UserLoginType, UserSignUpType } from '../../types/userTypes';
-//прикрутить валидацию на телефон
+// прикрутить валидацию на телефон
 export default function AuthPage(): JSX.Element {
   const { auth } = useParams();
   const dispatch = useAppDispatch();

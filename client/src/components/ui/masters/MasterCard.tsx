@@ -18,6 +18,7 @@ import type { UserLoadingType } from '../../../types/userTypes';
 import { useAppDispatch } from '../../../redux/hooks';
 import { deleteMasterThunk } from '../../../redux/slices/master/MasterThunks';
 import MasterModal from './MasterModal';
+import MasterWorkModal from './MasterWorkModal';
 
 type BookCardPropsType = {
   master: MasterType;
@@ -27,6 +28,8 @@ type BookCardPropsType = {
 function MasterCard({ master, user }: BookCardPropsType): JSX.Element {
   const [open, setOpen] = useState<boolean>(false);
   const dispatch = useAppDispatch();
+
+  const [works,setWorks] = useState<boolean>(false);
 
   
   return (
@@ -41,8 +44,8 @@ function MasterCard({ master, user }: BookCardPropsType): JSX.Element {
             <Typography variant="body2" color="text.secondary">
               {master.desc}
             </Typography>
-            <Button onClick={() => (window.location.href = `/master/${master.id}`)} size="small">
-              Перейти на книгу
+            <Button onClick={() => setWorks(true)} size="small">
+              Посмотреть работы
             </Button>
           </CardContent>
           <CardActions>
@@ -61,6 +64,7 @@ function MasterCard({ master, user }: BookCardPropsType): JSX.Element {
             )}
           </CardActions>
           {open && <MasterModal open={open} master={master} setOpen={setOpen} />}
+          {works && <MasterWorkModal works={works} setWorks={setWorks}/>}
         </Card>
       </Container>
     </Box>
