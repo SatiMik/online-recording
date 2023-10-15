@@ -3,12 +3,14 @@ import { Box } from '@mui/material';
 import ApplicationCard from './ApplicationCard';
 import { useAppSelector } from '../../../redux/hooks';
 
-export default function PostsList(): JSX.Element {
+export default function ApplicationList(): JSX.Element {
     const applications = useAppSelector((store) => store.application);
 
     return (
-        <Box display="flex" flexWrap="wrap">
-            {applications?.map((application) => <ApplicationCard key={application.id} application={application} />)}
+        <Box style={{ width: 500, height: 200, borderRadius: '10px' }} display="flex" flexWrap="wrap" justifyContent="center">
+            {applications?.map((application) => (
+                <ApplicationCard key={application.id} application={application} />
+            ))}
         </Box>
     );
 }

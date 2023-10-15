@@ -9,3 +9,8 @@ export const submitApplication = async (formData: ApplicationFormType): Promise<
     const { data } = await apiService.post<ApplicationType>('/api/application', formData);
     return data;
 };
+
+export const deleteApplication = async (id: ApplicationType['id']): Promise<ApplicationType['id']> => {
+    await apiService.delete(`/api/application/${id}`);
+    return id;
+};

@@ -7,8 +7,8 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 // import DialogTitle from '@mui/material/DialogTitle';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks'
-import { addApplicationThunk } from '../../redux/slices/application/ApplicationThunks';
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks'
+import { addApplicationThunk } from '../../../redux/slices/application/ApplicationThunks';
 
 
 type ModalButtonProps = {
@@ -16,15 +16,22 @@ type ModalButtonProps = {
     setOpen: (open: boolean) => void
 }
 export default function ModalButton({ open, setOpen }: ModalButtonProps): JSX.Element {
+    const dispatch = useAppDispatch();
     const [inputs, setInputs] = useState({ clientName: '', phone: '' });
+
+    const user = useAppSelector((store) => store.user);
+    const [userInputs, setUserInputs] = useState({ clientName: user.name, phone: user.phone });
+
+    const [applicationCounter, setApplicationCounter] = useState(0);
+    const counter = (): void => {
+        setApplicationCounter(prev => prev + 1);
+    }
     const handleClose = (): void => {
         setOpen(false)
     }
     const changeHandler: React.ChangeEventHandler<HTMLInputElement> = (e) => {
         setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     };
-    const user = useAppSelector((store) => store.user);
-    const dispatch = useAppDispatch();
     return (
         <Box>
             {
@@ -34,8 +41,43 @@ export default function ModalButton({ open, setOpen }: ModalButtonProps): JSX.El
                         onClose={handleClose}
                         aria-labelledby="alert-dialog-title-logout"
                     >
-                        <DialogTitle id="alert-dialog-title-logout">Мы с вами свяжемся</DialogTitle>
-                    </Dialog>
+                        <DialogContent>
+                            <DialogContentText sx={{ textAlign: 'center' }}>
+                                Подтвердите данные
+                            </DialogContentText>
+                            <Box sx={{ width: '300px' }}>
+                                <TextField
+                                    autoFocus
+                                    margin="dense"
+                                    id="clientName"
+                                    name="clientName"
+                                    label="Ваше Имя"
+                                    type="name"
+                                    fullWidth
+                                    variant="standard"
+                                    onChange={changeHandler}
+                                    value={userInputs.clientName}
+                                />
+                                <TextField
+                                    autoFocus
+                                    margin="dense"
+                                    id="phone"
+                                    name="phone"
+                                    label="Номер телефона"
+                                    type="name"
+                                    fullWidth
+                                    variant="standard"
+                                    onChange={changeHandler}
+                                    value={userInputs.phone}
+                                />
+
+                            </Box>
+                        </DialogContent>
+                        <DialogActions>
+                            <Button onClick={handleClose}>Закрыть</Button>
+                            <Button onClick={() => void dispatch(addApplicationThunk({ phone: userInputs.phone, clientName: userInputs.clientName }))}>Да</Button>
+                        </DialogActions>
+                    </Dialog >
                 )
             }
             {
@@ -64,6 +106,7 @@ export default function ModalButton({ open, setOpen }: ModalButtonProps): JSX.El
                                         fullWidth
                                         variant="standard"
                                         onChange={changeHandler}
+                                        value={inputs.clientName}
                                     />
                                     <TextField
                                         autoFocus
@@ -75,6 +118,7 @@ export default function ModalButton({ open, setOpen }: ModalButtonProps): JSX.El
                                         fullWidth
                                         variant="standard"
                                         onChange={changeHandler}
+                                        value={inputs.phone}
                                     />
                                 </Box>
                             </DialogContent>
@@ -86,6 +130,6 @@ export default function ModalButton({ open, setOpen }: ModalButtonProps): JSX.El
                     </Dialog>
                 )
             }
-        </Box>
-    )
+        </Box >
+    );
 }

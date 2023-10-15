@@ -6,11 +6,15 @@ const router = express.Router();
 
 router.post('/signup', async (req, res) => {
   const { name, phone, password } = req.body;
+  // посмотреть как прикручивать админку
   if (name && phone && password) {
     try {
       const [user, created] = await User.findOrCreate({
         where: { phone },
-        defaults: { name, password: await bcrypt.hash(password, 10) },
+        defaults: {
+          name,
+          password: await bcrypt.hash(password, 10),
+        },
       });
       if (!created) return res.sendStatus(401);
 
@@ -23,6 +27,7 @@ router.post('/signup', async (req, res) => {
       return res.sendStatus(500);
     }
   }
+
   return res.sendStatus(500);
 });
 

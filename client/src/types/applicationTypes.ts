@@ -1,7 +1,7 @@
 export type ApplicationType = {
     id: number;
-    clientName: string;
     phone: string;
+    clientName: string;
 }
 
 export type ApplicationFormType = Omit<ApplicationType, 'id'>;
