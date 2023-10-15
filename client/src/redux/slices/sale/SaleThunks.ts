@@ -1,6 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-import type { SaleFormType, SaleType } from '../../../types/saleTypes';
+import type { SaleType } from '../../../types/saleTypes';
 import apiService from '../../../services/config';
 
 export const getSaleThunk = createAsyncThunk<SaleType[]>('sales/getSales', async () => {

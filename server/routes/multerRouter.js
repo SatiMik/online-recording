@@ -60,4 +60,17 @@ multerRouter.route('/').get(async (req, res) => {
   setTimeout(() => res.json(sales), 2000);
 });
 
+multerRouter.patch('/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    console.log(req.body)
+    await Sale.update({ ...req.body }, { where: { id } });
+    const updatedSale = await Sale.findOne({ where: { id } });
+    return res.json(updatedSale);
+  } catch (err) {
+    console.error(err);
+    return res.sendStatus(500);
+  }
+});
+
 module.exports = multerRouter;
