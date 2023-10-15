@@ -22,7 +22,6 @@ const style = {
   p: 4,
 };
 
-
 type MasterWorkModalProps = {
   works: boolean;
   setWorks: (works: boolean) => void;
