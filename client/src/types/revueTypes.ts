@@ -5,6 +5,8 @@ export type RevueType = {
   text: string;
   status: boolean;
   userId: number;
+  rating: number;
+  date: Date;
   User: UserType;
 };
 
