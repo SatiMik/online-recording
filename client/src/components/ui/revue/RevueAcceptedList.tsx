@@ -13,8 +13,15 @@ import {
 } from '@mui/material';
 
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
-import { getRevuesThunk } from '../../../redux/slices/revue/RevueThunks';
+import {
+  getRevuesThunk,
+  getSortedByABSDateRevuesThunk,
+  getSortedByABSRatingRevuesThunk,
+  getSortedByDESCDateRevuesThunk,
+  getSortedByDESCRatingRevuesThunk,
+} from '../../../redux/slices/revue/RevueThunks';
 import RevueCard from './RevueCard';
+import type { RevueType } from '../../../types/revueTypes';
 
 const options = [
   { title: 'Сначала положительные' },
@@ -31,21 +38,34 @@ const filterOptions = createFilterOptions({
   stringify: (option: FilterOptionType) => option.title,
 });
 export default function RevueAcceptedList(): JSX.Element {
-  const [option, setOption] = React.useState('');
+  const [option, setOption] = React.useState(1);
   const revues = useAppSelector((store) => store.revues);
-  // const [sortedRevues,setSortedRevues] = useState(revue)
+  const [sortedRevues, setSortedRevues] = useState<RevueType[]>(revues);
 
   const dispatch = useAppDispatch();
+  const obj = JSON.parse(JSON.stringify(revues));
+
   useEffect(() => {
-    void dispatch(getRevuesThunk());
-   
-   
+    void dispatch(getRevuesThunk()).then((data) => {
+      setSortedRevues(data.payload);
+    });
   }, []);
 
   const user = useAppSelector((store) => store.user);
   const handleChange = (event: SelectChangeEvent) => {
-    console.log(event.target.value);
     setOption(event.target.value);
+    switch (option) {
+      case 1:
+        setSortedRevues(obj.sort((a, b) => a.rating - b.rating));
+        break;
+      case 2:
+        setSortedRevues(obj.sort((a, b) => b.rating - a.rating));
+
+        break;
+
+      default:
+        break;
+    }
   };
   return (
     <Box mt={5}>
@@ -60,14 +80,12 @@ export default function RevueAcceptedList(): JSX.Element {
               label="Age"
               onChange={handleChange}
             >
-              <MenuItem value="Сначала новые">Сначала новые</MenuItem>
-              <MenuItem value="Сначала старые">Сначала старые</MenuItem>
-              <MenuItem value="Сначала положительные">Сначала положительные</MenuItem>
-              <MenuItem value="Сначала отрицательные">Сначала отрицательные</MenuItem>
+              <MenuItem value={1}>Сначала положительные</MenuItem>
+              <MenuItem value={2}>Сначала отрицательные</MenuItem>
             </Select>
           </FormControl>
         </Box>
-        {revues?.map((revue) =>
+        {sortedRevues?.map((revue) =>
           revue.status ? <RevueCard key={revue.id} revue={revue} user={user} /> : null,
         )}
       </Container>

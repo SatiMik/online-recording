@@ -6,6 +6,10 @@ import {
   deleteRevueThunk,
   editRevueThunk,
   getRevuesThunk,
+  getSortedByABSDateRevuesThunk,
+  getSortedByABSRatingRevuesThunk,
+  getSortedByDESCDateRevuesThunk,
+  getSortedByDESCRatingRevuesThunk,
 } from './RevueThunks';
 
 type RevueState = RevueType[];
