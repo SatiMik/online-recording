@@ -22,7 +22,7 @@ import { deleteServiceThunk } from '../../../redux/slices/service/ServiceThunks'
 type ServiceCardPropsType = {
   service: ServiceType;
 };
-const linkStyle = { color: 'white', mr: 2, fontFamily: 'Raleway, Arial' };
+const linkStyle = { color: 'violet', mr: 2, fontFamily: 'Raleway, Arial' };
 
 function ServiceCard({ service }: ServiceCardPropsType): JSX.Element {
   const [open, setOpen] = useState<boolean>(false);

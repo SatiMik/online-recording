@@ -11,12 +11,17 @@ import { useSelector } from 'react-redux';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { logoutHandlerThunk } from '../../redux/slices/user/UserThunks';
 import ModalButton from './application/ModalButton';
+import AuthModal from './auth/AuthModal';
+import LogoutModal from './auth/LogoutModal';
 
 const linkStyle = { color: 'white', mr: 2, fontFamily: 'Raleway, Arial' };
 
 export default function NavBar(): JSX.Element {
   const user = useAppSelector((store) => store.user);
   const [open, setOpen] = useState(false);
+  const [auth, setAuth] = useState(false);
+  const [authType, setAuthType] = useState(0);
+  const [isLogout,setIsLogout] = useState(false);
   const dispatch = useAppDispatch();
   const applications = useSelector((state) => state.application);
 
@@ -32,8 +37,8 @@ export default function NavBar(): JSX.Element {
           { to: '/master', name: 'Мастера' },
           { to: '/sale', name: 'Акции' },
           { to: '/revue', name: 'Отзывы' },
-          { to: '/signup', name: 'Зарегистрироваться' },
-          { to: '/login', name: 'Войти' },
+          // { to: '/signup', name: 'Зарегистрироваться' },
+          // { to: '/login', name: 'Войти' },
         ]
       : [
           {
@@ -68,14 +73,37 @@ export default function NavBar(): JSX.Element {
             ))}
           </Box>
           <Box>
-            {user.status === 'logged' && (
+            {user.status === 'logged' ? (
               <Button
                 variant="text"
                 sx={linkStyle}
-                onClick={() => void dispatch(logoutHandlerThunk())}
+                onClick={() => setIsLogout(true)}
               >
-                Выйти
+                Выход
               </Button>
+            ) : (
+              <>
+                <Button
+                  variant="text"
+                  sx={linkStyle}
+                  onClick={() => {
+                    setAuth(true);
+                    setAuthType(1);
+                  }}
+                >
+                  Регистрация
+                </Button>
+                <Button
+                  variant="text"
+                  sx={linkStyle}
+                  onClick={() => {
+                    setAuth(true);
+                    setAuthType(2);
+                  }}
+                >
+                  Вход
+                </Button>
+              </>
             )}
           </Box>
 
@@ -92,6 +120,8 @@ export default function NavBar(): JSX.Element {
             Оставить заявку
           </Box>
           <ModalButton open={open} setOpen={setOpen} />
+          <AuthModal auth={auth} setAuth={setAuth} authType={authType} setAuthType={setAuthType} />
+          <LogoutModal  isLogout={isLogout} setIsLogout={setIsLogout}/>
         </Toolbar>
       </AppBar>
     </Box>
