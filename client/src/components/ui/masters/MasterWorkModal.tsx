@@ -53,6 +53,7 @@ export default function MasterWorkModal({
         <Button onClick={() => setWorks(false)}>Закрыть</Button>
         <Carousel>
           {items.map((item, i) => (
+            // eslint-disable-next-line react/no-array-index-key
             <MasterWork key={i} item={item} />
           ))}
         </Carousel>
