@@ -8,6 +8,7 @@ const applicationRouter = require('./routes/applicationRouter');
 const masterRouter = require('./routes/masterRouter');
 const serviceRouter = require('./routes/serviceRouter');
 const categoryRouter = require('./routes/categoryRouter');
+const revueRouter = require('./routes/revueRouter');
 
 const multerRouter = require('./routes/multerRouter');
 
@@ -41,6 +42,7 @@ app.use('/api/master', masterRouter);
 
 app.use('/api/service', serviceRouter);
 app.use('/api/categories', categoryRouter);
+app.use('/api/revue', revueRouter);
 
 app.use('/sale', multerRouter);
 

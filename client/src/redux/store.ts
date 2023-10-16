@@ -4,7 +4,7 @@ import applicationReducer from './slices/application/ApplicationSlice';
 import masterReducer from './slices/master/MasterSlice';
 import serviceReducer from './slices/service/ServiceSlice';
 import categoriesReducer from './slices/categories/CategorySlice';
-
+import revuesReducer from './slices/revue/RevueSlice';
 
 export const store = configureStore({
   reducer: {
@@ -13,6 +13,7 @@ export const store = configureStore({
     masters: masterReducer,
     services: serviceReducer,
     categories: categoriesReducer,
+    revues: revuesReducer,
   },
 });
 // Infer the `RootState` and `AppDispatch` types from the store itself
