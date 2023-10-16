@@ -1,42 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import type { SelectChangeEvent } from '@mui/material';
-import {
-  Autocomplete,
-  Box,
-  Container,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  TextField,
-  createFilterOptions,
-} from '@mui/material';
+import { Box, Container, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
-import {
-  getRevuesThunk,
-  getSortedByABSDateRevuesThunk,
-  getSortedByABSRatingRevuesThunk,
-  getSortedByDESCDateRevuesThunk,
-  getSortedByDESCRatingRevuesThunk,
-} from '../../../redux/slices/revue/RevueThunks';
+import { getRevuesThunk } from '../../../redux/slices/revue/RevueThunks';
 import RevueCard from './RevueCard';
 import type { RevueType } from '../../../types/revueTypes';
 
-const options = [
-  { title: 'Сначала положительные' },
-  { title: 'Сначала отрицательные' },
-  { title: 'Сначала новые' },
-  { title: 'Сначала старые' },
-];
-
-type FilterOptionType = {
-  title: string;
-};
-const filterOptions = createFilterOptions({
-  matchFrom: 'start',
-  stringify: (option: FilterOptionType) => option.title,
-});
 export default function RevueAcceptedList(): JSX.Element {
   const [option, setOption] = React.useState(1);
   const revues = useAppSelector((store) => store.revues);
@@ -82,6 +52,8 @@ export default function RevueAcceptedList(): JSX.Element {
             >
               <MenuItem value={1}>Сначала положительные</MenuItem>
               <MenuItem value={2}>Сначала отрицательные</MenuItem>
+              <MenuItem value={3}>Сначала новые</MenuItem>
+              <MenuItem value={4}>Сначала старые</MenuItem>
             </Select>
           </FormControl>
         </Box>
