@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
   Sale.init(
     {
       img: DataTypes.STRING,
-      description: DataTypes.INTEGER,
+      description: DataTypes.STRING,
     },
     {
       sequelize,

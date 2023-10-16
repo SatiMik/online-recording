@@ -1,4 +1,4 @@
-import { Box, Container, ThemeProvider, createTheme } from '@mui/material';
+import { Box, Container, Icon, ThemeProvider, createTheme } from '@mui/material';
 import React, { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Navbar from './components/ui/Navbar';
@@ -13,11 +13,13 @@ import ServicePage from './components/pages/ServicePage';
 import MasterPage from './components/pages/MasterPage';
 import Loader from './hocs/Loader';
 import ApplicationPage from './components/pages/ApplicationPage';
+import MastersPage from './components/ui/online-record/MastersPage';
+import MasterServicesPage from './components/ui/online-record/MasterServicesPage';
 import CategoryPage from './components/pages/CategoryPage';
 import OnlineRecordPage from './components/pages/OnlineRecordPage';
+import Footer from './components/ui/Footer/Futer';
 
-
-// прописать проверки на гостя, тк нет привата на регистрацию 
+// прописать проверки на гостя, тк нет привата на регистрацию
 
 function App(): JSX.Element {
   const theme = createTheme({
@@ -50,6 +52,9 @@ function App(): JSX.Element {
                 <Route path="/online-record" element={<OnlineRecordPage />} />
 
                 <Route path="/master" element={<MasterPage />} />
+                <Route path="/online-record" element={<OnlineRecordPage />} />
+                <Route path="/online-record/masters" element={<MastersPage />} />
+                <Route path="/online-record/masters/:masterId/services" element={<MasterServicesPage />} />
 
                 <Route element={<PrivateRoute isAllowed={user.status === 'logged'} />}>
                   <Route path="/userRevue" element={<UserRevuePage />} />
@@ -59,12 +64,15 @@ function App(): JSX.Element {
                   element={<PrivateRoute isAllowed={user.status === 'logged' && user?.isAdmin} />}
                 >
                   <Route path="/application" element={<ApplicationPage />} />
+
                 </Route>
               </Routes>
             </Container>
           </Box>
+          
         </>
       </Loader>
+      <Footer />
     </ThemeProvider>
   );
 }
