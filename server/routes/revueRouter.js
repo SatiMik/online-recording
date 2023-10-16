@@ -15,14 +15,20 @@ router
   })
   .post(async (req, res) => {
     try {
-      const { text, status, userId } = req.body;
+      const { text, status, userId, rating, date } = req.body;
 
       const revue = await Revue.create({
         text,
         status,
         userId,
+        rating,
+        date,
       });
-      res.json(revue);
+      const result = await Revue.findOne({
+        where: { id: revue.id },
+        include: User,
+      });
+      res.json(result);
     } catch (error) {
       console.log(error);
       return res.sendStatus(500);
@@ -49,9 +55,15 @@ router
       const { revueId } = req.params;
       const targetRevue = await Revue.findOne({ where: { id: revueId } });
       if (req.body.text) targetRevue.text = req.body.text;
-      if (req.body.status) targetRevue.status = req.body.status;
+      if (req.body.rating) targetRevue.rating = req.body.rating;
+
+      targetRevue.status = !targetRevue.status;
       await targetRevue.save();
-      return res.json(targetRevue.dataValues);
+      const result = await Revue.findOne({
+        where: { id: revueId },
+        include: User,
+      });
+      return res.json(result);
     } catch (error) {
       console.log(error);
       return res.sendStatus(500);

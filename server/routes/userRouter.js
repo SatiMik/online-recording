@@ -6,7 +6,6 @@ const router = express.Router();
 
 router.post('/signup', async (req, res) => {
   const { name, phone, password } = req.body;
-  // посмотреть как прикручивать админку
   if (name && phone && password) {
     try {
       const [user, created] = await User.findOrCreate({
@@ -33,6 +32,7 @@ router.post('/signup', async (req, res) => {
 
 router.post('/login', async (req, res) => {
   const { phone, password } = req.body;
+
   if (phone && password) {
     try {
       const user = await User.findOne({

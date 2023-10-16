@@ -1,6 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { RevueType } from '../../../types/revueTypes';
-import { addRevueThunk, deleteRevueThunk, editRevueThunk, getRevuesThunk } from './RevueThunks';
+import {
+  addRevueThunk,
+  changeStatusThunk,
+  deleteRevueThunk,
+  editRevueThunk,
+  getRevuesThunk,
+} from './RevueThunks';
 
 type RevueState = RevueType[];
 const initialState: RevueState = [];
@@ -26,6 +32,11 @@ export const RevueSlice = createSlice({
       state[index] = action.payload;
     });
     builder.addCase(editRevueThunk.rejected, (state, action) => state);
+    builder.addCase(changeStatusThunk.fulfilled, (state, action) => {
+      const index = state.findIndex((el) => el.id === action.payload.id);
+      state[index] = action.payload;
+    });
+    builder.addCase(changeStatusThunk.rejected, (state, action) => state);
   },
 });
 

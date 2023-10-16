@@ -5,8 +5,7 @@ import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import { getRevuesThunk } from '../../../redux/slices/revue/RevueThunks';
 import RevueCard from './RevueCard';
 
-
-export default function RevueList(): JSX.Element {
+export default function RevueNotAcceptedList(): JSX.Element {
   const revues = useAppSelector((store) => store.revues);
 
   const dispatch = useAppDispatch();
@@ -18,7 +17,10 @@ export default function RevueList(): JSX.Element {
   return (
     <Box mt={5}>
       <Container>
-        {revues?.map((revue) => <RevueCard key={revue.id} revue={revue} user={user} />)}
+        <h2>На рассмотрении:</h2>
+        {revues?.map((revue) =>
+          !revue.status ? <RevueCard key={revue.id} revue={revue} user={user} /> : null,
+        )}
       </Container>
     </Box>
   );
