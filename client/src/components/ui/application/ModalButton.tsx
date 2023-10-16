@@ -2,11 +2,9 @@ import { Box, Dialog, DialogTitle } from '@mui/material'
 import React, { useState } from 'react'
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-// import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
-// import DialogTitle from '@mui/material/DialogTitle';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks'
 import { addApplicationThunk } from '../../../redux/slices/application/ApplicationThunks';
 
@@ -17,28 +15,22 @@ type ModalButtonProps = {
 }
 export default function ModalButton({ open, setOpen }: ModalButtonProps): JSX.Element {
     const dispatch = useAppDispatch();
-    // кнопка огрничения
 
-    // const [submitApplication, setSubmitApplication] = useState(false);
     const user = useAppSelector((store) => store.user);
     const [userInputs, setUserInputs] = useState({ clientName: user.status === 'logged' ? user.name : '', phone: user.status === 'logged' ? user.phone : '' });
 
-    // const submitHandler = (): void => {
-    //     if (submitApplication) {
-    //         <p>fbdfbdsfrg</p>;
-    //         return;
-    //     }
-    //     setSubmitApplication(true);
-    //     // dispatch(addApplicationThunk({ phone: userInputs.phone, clientName: userInputs.clientName }))
-    //     setSubmitApplication(false);
-    // }
-
+    const [applicationCounter, setApplicationCounter] = useState(0);
+    const counter = (): void => {
+        setApplicationCounter(prev => prev + 1);
+    }
     const handleClose = (): void => {
         setOpen(false)
     }
-    const changeHandler: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+
+    const changeHandlerUser: React.ChangeEventHandler<HTMLInputElement> = (e) => {
         setUserInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     };
+
     return (
         <Box>
             {
@@ -62,7 +54,7 @@ export default function ModalButton({ open, setOpen }: ModalButtonProps): JSX.El
                                     type="name"
                                     fullWidth
                                     variant="standard"
-                                    onChange={changeHandler}
+                                    onChange={changeHandlerUser}
                                     value={userInputs.clientName}
                                 />
                                 <TextField
@@ -74,7 +66,7 @@ export default function ModalButton({ open, setOpen }: ModalButtonProps): JSX.El
                                     type="name"
                                     fullWidth
                                     variant="standard"
-                                    onChange={changeHandler}
+                                    onChange={changeHandlerUser}
                                     value={userInputs.phone}
                                 />
 
@@ -82,8 +74,7 @@ export default function ModalButton({ open, setOpen }: ModalButtonProps): JSX.El
                         </DialogContent>
                         <DialogActions>
                             <Button onClick={handleClose}>Закрыть</Button>
-                            <Button onClick={() => void dispatch(addApplicationThunk({ phone: userInputs.phone, clientName: userInputs.clientName }))
-                            }>Да</Button>
+                            <Button onClick={() => void dispatch(addApplicationThunk({ phone: userInputs.phone, clientName: userInputs.clientName }))}>Да</Button>
                         </DialogActions>
                     </Dialog >
                 )
@@ -113,7 +104,7 @@ export default function ModalButton({ open, setOpen }: ModalButtonProps): JSX.El
                                         type="name"
                                         fullWidth
                                         variant="standard"
-                                        onChange={changeHandler}
+                                        onChange={changeHandlerUser}
                                         value={userInputs.clientName}
                                     />
                                     <TextField
@@ -125,7 +116,7 @@ export default function ModalButton({ open, setOpen }: ModalButtonProps): JSX.El
                                         type="name"
                                         fullWidth
                                         variant="standard"
-                                        onChange={changeHandler}
+                                        onChange={changeHandlerUser}
                                         value={userInputs.phone}
                                     />
                                 </Box>
