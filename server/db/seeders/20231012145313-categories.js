@@ -16,20 +16,20 @@ module.exports = {
 
         },
       ],
-      {}
-    );
-    await queryInterface.bulkInsert(
-      'Masters',
-      [
-        {
-          name: 'Дарья',
-          desc: 'бубылда',
-          img: 'https://mdbcdn.b-cdn.net/wp-content/uploads/2018/01/full-carousel.jpg',
-
-        },
-      ],
       {},
     );
+    // await queryInterface.bulkInsert(
+    //   'Masters',
+    //   [
+    //     {
+    //       name: 'Дарья',
+    //       desc: 'бубылда',
+    //       img: 'https://mdbcdn.b-cdn.net/wp-content/uploads/2018/01/full-carousel.jpg',
+
+    //     },
+    //   ],
+    //   {},
+    // );
   },
 
   async down(queryInterface, Sequelize) {
