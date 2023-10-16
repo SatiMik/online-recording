@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import React, { useState } from 'react';
 
-import { Box, Button, Modal, TextField } from '@mui/material';
+import { Box, Button, Modal, Rating, TextField, Typography } from '@mui/material';
 import { useAppDispatch } from '../../../redux/hooks';
 import { editMasterThunk } from '../../../redux/slices/master/MasterThunks';
 import type { RevueFormType, RevueType } from '../../../types/revueTypes';
@@ -30,6 +30,9 @@ export default function RevueModal({ revue, open, setOpen }: RevueModalProps): J
     text: revue.text,
     status: revue.status,
     userId: revue.userId,
+    rating: revue.rating,
+    date: revue.date,
+    User: revue.User,
   });
   const dispatch = useAppDispatch();
   const changeHandler: React.ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -50,7 +53,8 @@ export default function RevueModal({ revue, open, setOpen }: RevueModalProps): J
           value={input.text}
           onChange={changeHandler}
         />
-
+        <Typography component="legend">Ваша оценка:</Typography>
+        <Rating name="rating" variant="outlined" value={input.rating} onChange={changeHandler} />
         <Button
           onClick={() => {
             void dispatch(editRevueThunk({ id: revue.id, formData: input }));

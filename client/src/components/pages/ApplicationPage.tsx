@@ -10,10 +10,7 @@ export default function ApplicationPage(): JSX.Element {
         void dispatch(getApplicationsThunk());
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-    // const [applicationCounter, setApplicationCounter] = useState(0);
-    // const counter = (): void => {
-    //     setApplicationCounter(prev => prev + 1);
-    // }
+ //sdicsoidvncslodncslodncslkdnvljksnf
     const applications = useSelector((state) => state.application);
     return (
         <>

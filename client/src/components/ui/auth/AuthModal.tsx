@@ -43,6 +43,7 @@ export default function AuthModal({
     isAdmin: false,
   });
 
+
   const changeHandler: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     setInput((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
@@ -59,7 +60,6 @@ export default function AuthModal({
       console.error(error);
     }
   };
-  console.log(validPhoneNumber(input.phone));
 
   return (
     <Modal

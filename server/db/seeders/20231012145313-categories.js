@@ -5,10 +5,15 @@ module.exports = {
       'Categories',
       [
         {
-          name: 'Ногти',
+
+          name: 'Косметология',
         },
         {
-          name: 'Не ногти',
+          name: 'Ногтевой сервис',
+        },
+        {
+          name: 'Парикмахерские услуги',
+
         },
       ],
       {}
@@ -20,9 +25,10 @@ module.exports = {
           name: 'Дарья',
           desc: 'бубылда',
           img: 'https://mdbcdn.b-cdn.net/wp-content/uploads/2018/01/full-carousel.jpg',
+
         },
       ],
-      {}
+      {},
     );
   },
 

@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import type { RevueFormType, RevueType } from '../../../types/revueTypes';
-import { deleteRevue, editRevue, getRevues, submitRevue } from '../../../services/revueServices';
+import { deleteRevue, editRevue, editStatus, getRevues, submitRevue } from '../../../services/revueServices';
 
 export const getRevuesThunk = createAsyncThunk<RevueType[]>('revue/getRevuesThunk', async () =>
   getRevues(),
@@ -20,3 +20,9 @@ export const editRevueThunk = createAsyncThunk<
   RevueType,
   { id: RevueType['id']; formData: RevueFormType }
 >('/revue/deleteRevueThunk', async ({ id, formData }) => editRevue(id, formData));
+
+export const changeStatusThunk = createAsyncThunk<
+  RevueType,
+  { id: RevueType['id']; status: RevueFormType['status'] }
+>('revue/changeStatusThunk', async ({ id, status }) => editStatus(id, status));
+
