@@ -1,7 +1,6 @@
 import { Box, Container, ThemeProvider, createTheme } from '@mui/material';
 import React, { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import AuthPage from './components/pages/AuthPage';
 import Navbar from './components/ui/Navbar';
 import MainPage from './components/pages/MainPage';
 import PrivateRoute from './hocs/PrivateRoute';
@@ -16,6 +15,9 @@ import Loader from './hocs/Loader';
 import ApplicationPage from './components/pages/ApplicationPage';
 import CategoryPage from './components/pages/CategoryPage';
 import OnlineRecordPage from './components/pages/OnlineRecordPage';
+
+
+// прописать проверки на гостя, тк нет привата на регистрацию 
 
 function App(): JSX.Element {
   const theme = createTheme({
@@ -58,15 +60,6 @@ function App(): JSX.Element {
                 >
                   <Route path="/application" element={<ApplicationPage />} />
                 </Route>
-
-                <Route
-                  path="/:auth"
-                  element={
-                    <PrivateRoute isAllowed={user.status === 'guest'}>
-                      <AuthPage />
-                    </PrivateRoute>
-                  }
-                />
               </Routes>
             </Container>
           </Box>
