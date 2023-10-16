@@ -3,7 +3,7 @@ import type { RevueFormType, RevueType } from '../types/revueTypes';
 import apiService from './config';
 
 
-export const getRevues = async (type:number): Promise<RevueType[]> => {
+export const getRevues = async (): Promise<RevueType[]> => {
   const { data } = await apiService<RevueType[]>('/api/revue');
   return data;
 };

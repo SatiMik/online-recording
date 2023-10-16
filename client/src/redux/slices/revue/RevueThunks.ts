@@ -1,6 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import type { RevueFormType, RevueType } from '../../../types/revueTypes';
-import { deleteRevue, editRevue, editStatus, getRevues, submitRevue } from '../../../services/revueServices';
+import {
+  deleteRevue,
+  editRevue,
+  editStatus,
+  getRevues,
+  submitRevue,
+} from '../../../services/revueServices';
 
 export const getRevuesThunk = createAsyncThunk<RevueType[]>('revue/getRevuesThunk', async () =>
   getRevues(),
@@ -26,3 +32,20 @@ export const changeStatusThunk = createAsyncThunk<
   { id: RevueType['id']; status: RevueFormType['status'] }
 >('revue/changeStatusThunk', async ({ id, status }) => editStatus(id, status));
 
+export const getSortedByABSDateRevuesThunk = createAsyncThunk<RevueType[]>(
+  'revue/getSortedByABSDateRevuesThunk',
+  async () => getRevues(),
+);
+
+export const getSortedByDESCDateRevuesThunk = createAsyncThunk<RevueType[]>(
+  'revue/getSortedByDESCDateRevuesThunk',
+  async () => getRevues(),
+);
+export const getSortedByABSRatingRevuesThunk = createAsyncThunk<RevueType[]>(
+  'revue/getSortedByABSRatingRevuesThunk',
+  async () => getRevues(),
+);
+export const getSortedByDESCRatingRevuesThunk = createAsyncThunk<RevueType[]>(
+  'revue/getSortedByDESCRatingRevuesThunk',
+  async () => getRevues(),
+);
