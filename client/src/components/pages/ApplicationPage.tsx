@@ -10,7 +10,7 @@ export default function ApplicationPage(): JSX.Element {
         void dispatch(getApplicationsThunk());
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-
+ //sdicsoidvncslodncslodncslkdnvljksnf
     const applications = useSelector((state) => state.application);
     return (
         <>
