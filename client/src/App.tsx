@@ -1,4 +1,4 @@
-import { Box, Container, ThemeProvider, createTheme } from '@mui/material';
+import { Box, Container, Icon, ThemeProvider, createTheme } from '@mui/material';
 import React, { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import AuthPage from './components/pages/AuthPage';
@@ -14,6 +14,9 @@ import ServicePage from './components/pages/ServicePage';
 import MasterPage from './components/pages/MasterPage';
 import Loader from './hocs/Loader';
 import ApplicationPage from './components/pages/ApplicationPage';
+import OnlineRecordPage from './components/ui/online-record/OnlineRecordPage';
+import MastersPage from './components/ui/online-record/MastersPage';
+import MasterServicesPage from './components/ui/online-record/MasterServicesPage';
 
 function App(): JSX.Element {
   const theme = createTheme({
@@ -43,6 +46,9 @@ function App(): JSX.Element {
                 <Route path="/sale" element={<SalePage />} />
                 <Route path="/service" element={<ServicePage />} />
                 <Route path="/master" element={<MasterPage />} />
+                <Route path="/online-record" element={<OnlineRecordPage />} />
+                <Route path="/online-record/masters" element={<MastersPage />} />
+                <Route path="/online-record/masters/:masterId/services" element={<MasterServicesPage />} />
 
                 <Route element={<PrivateRoute isAllowed={user.status === 'logged'} />}>
                   <Route path="/userRevue" element={<UserRevuePage />} />
@@ -50,6 +56,7 @@ function App(): JSX.Element {
 
                 <Route element={<PrivateRoute isAllowed={user.status === 'logged' && user?.isAdmin} />}>
                   <Route path="/application" element={<ApplicationPage />} />
+
                 </Route>
 
                 <Route

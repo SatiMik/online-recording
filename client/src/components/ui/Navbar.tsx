@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
+import { Link as NavLink } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 import MailIcon from '@mui/icons-material/Mail';
 import { Link, IconButton, Badge } from '@mui/material';
-import { Link as NavLink } from 'react-router-dom';
-
 import { useSelector } from 'react-redux';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { logoutHandlerThunk } from '../../redux/slices/user/UserThunks';
@@ -34,6 +33,7 @@ export default function NavBar(): JSX.Element {
                 { to: '/revue', name: 'Отзывы' },
                 { to: '/signup', name: 'Зарегистрироваться' },
                 { to: '/login', name: 'Войти' },
+
             ]
             : [
                 { to: '/application', name: <><IconButton><Badge badgeContent={applications.length} color="secondary"><MailIcon style={{ color: 'white' }} /></Badge></IconButton> </> },
@@ -43,6 +43,21 @@ export default function NavBar(): JSX.Element {
                 { to: '/sale', name: 'Акции' },
                 { to: '/revue', name: 'Отзывы' },
                 { to: '/userRecords', name: 'Мои записи' },
+                {
+                    to: '/online-record', name:
+                        <>  <Button
+                            disabled
+                            sx={{
+                                padding: '8px 16px',
+                                backgroundColor: 'white',
+                                color: '#6a329f',
+                                borderRadius: '4px',
+                                cursor: 'pointer',
+                            }}
+                        >
+                            Онлайн запись
+                        </Button></>
+                },
             ];
 
     return (
@@ -81,6 +96,20 @@ export default function NavBar(): JSX.Element {
                         Оставить заявку
                     </Box>
                     <ModalButton open={open} setOpen={setOpen} />
+                    {/* <Box>
+
+                        <Button
+                            sx={{
+                                padding: '8px 16px',
+                                backgroundColor: 'white',
+                                color: '#6a329f',
+                                borderRadius: '4px',
+                                cursor: 'pointer',
+                            }}
+                        >
+                            Онлайн запись
+                        </Button>
+                    </Box> */}
                 </Toolbar>
             </AppBar>
         </Box>
