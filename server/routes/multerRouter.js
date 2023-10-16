@@ -57,13 +57,13 @@ multerRouter.delete('/:id', async (req, res) => {
 
 multerRouter.route('/').get(async (req, res) => {
   const sales = await Sale.findAll();
-  setTimeout(() => res.json(sales), 2000);
+  res.json(sales);
 });
 
 multerRouter.patch('/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    console.log(req.body)
+    console.log(req.body);
     await Sale.update({ ...req.body }, { where: { id } });
     const updatedSale = await Sale.findOne({ where: { id } });
     return res.json(updatedSale);

@@ -17,6 +17,7 @@ import MastersPage from './components/ui/online-record/MastersPage';
 import MasterServicesPage from './components/ui/online-record/MasterServicesPage';
 import CategoryPage from './components/pages/CategoryPage';
 import OnlineRecordPage from './components/pages/OnlineRecordPage';
+import Footer from './components/ui/Footer/Futer';
 
 // прописать проверки на гостя, тк нет привата на регистрацию
 
@@ -68,8 +69,10 @@ function App(): JSX.Element {
               </Routes>
             </Container>
           </Box>
+          
         </>
       </Loader>
+      <Footer />
     </ThemeProvider>
   );
 }
