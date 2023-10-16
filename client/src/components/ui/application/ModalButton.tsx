@@ -17,20 +17,27 @@ type ModalButtonProps = {
 }
 export default function ModalButton({ open, setOpen }: ModalButtonProps): JSX.Element {
     const dispatch = useAppDispatch();
-    const [inputs, setInputs] = useState({ clientName: '', phone: '' });
+    // кнопка огрничения
 
+    // const [submitApplication, setSubmitApplication] = useState(false);
     const user = useAppSelector((store) => store.user);
-    const [userInputs, setUserInputs] = useState({ clientName: user.name, phone: user.phone });
+    const [userInputs, setUserInputs] = useState({ clientName: user.status === 'logged' ? user.name : '', phone: user.status === 'logged' ? user.phone : '' });
 
-    const [applicationCounter, setApplicationCounter] = useState(0);
-    const counter = (): void => {
-        setApplicationCounter(prev => prev + 1);
-    }
+    // const submitHandler = (): void => {
+    //     if (submitApplication) {
+    //         <p>fbdfbdsfrg</p>;
+    //         return;
+    //     }
+    //     setSubmitApplication(true);
+    //     // dispatch(addApplicationThunk({ phone: userInputs.phone, clientName: userInputs.clientName }))
+    //     setSubmitApplication(false);
+    // }
+
     const handleClose = (): void => {
         setOpen(false)
     }
     const changeHandler: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-        setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+        setUserInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     };
     return (
         <Box>
@@ -75,7 +82,8 @@ export default function ModalButton({ open, setOpen }: ModalButtonProps): JSX.El
                         </DialogContent>
                         <DialogActions>
                             <Button onClick={handleClose}>Закрыть</Button>
-                            <Button onClick={() => void dispatch(addApplicationThunk({ phone: userInputs.phone, clientName: userInputs.clientName }))}>Да</Button>
+                            <Button onClick={() => void dispatch(addApplicationThunk({ phone: userInputs.phone, clientName: userInputs.clientName }))
+                            }>Да</Button>
                         </DialogActions>
                     </Dialog >
                 )
@@ -106,7 +114,7 @@ export default function ModalButton({ open, setOpen }: ModalButtonProps): JSX.El
                                         fullWidth
                                         variant="standard"
                                         onChange={changeHandler}
-                                        value={inputs.clientName}
+                                        value={userInputs.clientName}
                                     />
                                     <TextField
                                         autoFocus
@@ -118,13 +126,13 @@ export default function ModalButton({ open, setOpen }: ModalButtonProps): JSX.El
                                         fullWidth
                                         variant="standard"
                                         onChange={changeHandler}
-                                        value={inputs.phone}
+                                        value={userInputs.phone}
                                     />
                                 </Box>
                             </DialogContent>
                             <DialogActions>
                                 <Button onClick={handleClose}>Закрыть</Button>
-                                <Button onClick={() => void dispatch(addApplicationThunk({ phone: inputs.phone, clientName: inputs.clientName }))}>Отправить</Button>
+                                <Button onClick={() => void dispatch(addApplicationThunk({ phone: userInputs.phone, clientName: userInputs.clientName }))}>Отправить</Button>
                             </DialogActions>
                         </Dialog>
                     </Dialog>
