@@ -1,32 +1,22 @@
 const router = require('express').Router();
 const { Service } = require('../db/models');
 
-router
-  .route('/')
-  .get(async (req, res) => {
-    try {
-      const services = await Service.findAll();
-      return res.json(services);
-    } catch (error) {
-      console.log(error);
-      return res.sendStatus(500);
-    }
-  })
-  .post(async (req, res) => {
-    try {
-      const { name, price, time, categoryId } = req.body;
-      const service = await Service.create({
-        name,
-        price,
-        time,
-        categoryId,
-      });
-      res.json(service);
-    } catch (error) {
-      console.log(error);
-      return res.sendStatus(500);
-    }
-  });
+router.route('/').post(async (req, res) => {
+  try {
+    const { name, price, time, categoryId } = req.body;
+    const service = await Service.create({
+      name,
+      price,
+      time,
+      categoryId,
+    });
+
+    res.json(service);
+  } catch (error) {
+    console.log(error);
+    return res.sendStatus(500);
+  }
+});
 
 router
   .route('/:serviceId')
@@ -70,4 +60,18 @@ router
     }
   });
 
+router.get('/services/:serviceId', async (req, res) => {
+  try {
+    const { serviceId } = req.params;
+
+    const services = await Service.findAll({
+      where: { categoryId: serviceId },
+    });
+
+    return res.json(services);
+  } catch (error) {
+    console.log(error);
+    return res.sendStatus(500);
+  }
+});
 module.exports = router;

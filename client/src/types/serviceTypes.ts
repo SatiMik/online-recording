@@ -6,4 +6,5 @@ export type ServiceType = {
   categoryId: number;
 };
 
+
 export type ServiceFormType = Omit<ServiceType, 'id'>;

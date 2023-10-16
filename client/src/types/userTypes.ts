@@ -1,7 +1,7 @@
 export type UserType = {
   id: number;
   name: string;
-  phone: number;
+  phone: string;
   isAdmin: boolean;
 };
 
@@ -13,7 +13,4 @@ export type UserLoadingType =
   | { status: 'loading' }
   | { status: 'guest' };
 
-// export type AdminLoadingType =
-//   | (UserType & { isAdmin: boolean } & { status: 'logged' })
-//   | { status: 'loading' }
-//   | { status: 'guest' };
+

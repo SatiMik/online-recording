@@ -1,11 +1,12 @@
 const router = require('express').Router();
-const { Master } = require('../db/models');
+const { Master, Example } = require('../db/models');
 
 router
   .route('/')
   .get(async (req, res) => {
     try {
       const masters = await Master.findAll();
+
       return res.json(masters);
     } catch (error) {
       console.log(error);
@@ -68,4 +69,14 @@ router
     }
   });
 
+router.get('/works/:masterId', async (req, res) => {
+  try {
+    const { masterId } = req.params;
+    const works = await Example.findAll({ where: { masterId } });
+    res.status(200).json(works);
+  } catch (error) {
+    console.log(error);
+    return res.sendStatus(500);
+  }
+});
 module.exports = router;

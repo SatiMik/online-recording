@@ -1,7 +1,6 @@
 import { Box, Container, Icon, ThemeProvider, createTheme } from '@mui/material';
 import React, { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import AuthPage from './components/pages/AuthPage';
 import Navbar from './components/ui/Navbar';
 import MainPage from './components/pages/MainPage';
 import PrivateRoute from './hocs/PrivateRoute';
@@ -14,9 +13,12 @@ import ServicePage from './components/pages/ServicePage';
 import MasterPage from './components/pages/MasterPage';
 import Loader from './hocs/Loader';
 import ApplicationPage from './components/pages/ApplicationPage';
-import OnlineRecordPage from './components/ui/online-record/OnlineRecordPage';
 import MastersPage from './components/ui/online-record/MastersPage';
 import MasterServicesPage from './components/ui/online-record/MasterServicesPage';
+import CategoryPage from './components/pages/CategoryPage';
+import OnlineRecordPage from './components/pages/OnlineRecordPage';
+
+// прописать проверки на гостя, тк нет привата на регистрацию
 
 function App(): JSX.Element {
   const theme = createTheme({
@@ -44,7 +46,10 @@ function App(): JSX.Element {
                 <Route path="/" element={<MainPage />} />
                 <Route path="/revue" element={<RevuePage />} />
                 <Route path="/sale" element={<SalePage />} />
-                <Route path="/service" element={<ServicePage />} />
+                <Route path="/service" element={<CategoryPage />} />
+                <Route path="/services/:serviceId" element={<ServicePage />} />
+                <Route path="/online-record" element={<OnlineRecordPage />} />
+
                 <Route path="/master" element={<MasterPage />} />
                 <Route path="/online-record" element={<OnlineRecordPage />} />
                 <Route path="/online-record/masters" element={<MastersPage />} />
@@ -54,19 +59,12 @@ function App(): JSX.Element {
                   <Route path="/userRevue" element={<UserRevuePage />} />
                 </Route>
 
-                <Route element={<PrivateRoute isAllowed={user.status === 'logged' && user?.isAdmin} />}>
+                <Route
+                  element={<PrivateRoute isAllowed={user.status === 'logged' && user?.isAdmin} />}
+                >
                   <Route path="/application" element={<ApplicationPage />} />
 
                 </Route>
-
-                <Route
-                  path="/:auth"
-                  element={
-                    <PrivateRoute isAllowed={user.status === 'guest'}>
-                      <AuthPage />
-                    </PrivateRoute>
-                  }
-                />
               </Routes>
             </Container>
           </Box>

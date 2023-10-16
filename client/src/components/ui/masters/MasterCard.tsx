@@ -12,12 +12,17 @@ import {
   Checkbox,
   Box,
   Container,
+  Link,
 } from '@mui/material';
+import { Link as NavLink } from 'react-router-dom';
 import type { MasterType } from '../../../types/masterTypes';
 import type { UserLoadingType } from '../../../types/userTypes';
 import { useAppDispatch } from '../../../redux/hooks';
 import { deleteMasterThunk } from '../../../redux/slices/master/MasterThunks';
 import MasterModal from './MasterModal';
+import MasterWorkModal from './MasterWorkModal';
+
+const linkStyle = { color: 'violet', mr: 2, fontFamily: 'Raleway, Arial' };
 
 type BookCardPropsType = {
   master: MasterType;
@@ -27,8 +32,9 @@ type BookCardPropsType = {
 function MasterCard({ master, user }: BookCardPropsType): JSX.Element {
   const [open, setOpen] = useState<boolean>(false);
   const dispatch = useAppDispatch();
-  console.log(user);
-  
+
+  const [works, setWorks] = useState<boolean>(false);
+
   return (
     <Box mt={8}>
       <Container>
@@ -41,8 +47,8 @@ function MasterCard({ master, user }: BookCardPropsType): JSX.Element {
             <Typography variant="body2" color="text.secondary">
               {master.desc}
             </Typography>
-            <Button onClick={() => (window.location.href = `/master/${master.id}`)} size="small">
-              Перейти на книгу
+            <Button onClick={() => setWorks(true)} size="small">
+              Посмотреть работы
             </Button>
           </CardContent>
           <CardActions>
@@ -59,8 +65,12 @@ function MasterCard({ master, user }: BookCardPropsType): JSX.Element {
                 </Button>
               </>
             )}
+            <Link key="Открыть" component={NavLink} to="/online-record" sx={linkStyle}>
+              Записаться
+            </Link>
           </CardActions>
           {open && <MasterModal open={open} master={master} setOpen={setOpen} />}
+          {works && <MasterWorkModal works={works} setWorks={setWorks} master={master} />}
         </Card>
       </Container>
     </Box>

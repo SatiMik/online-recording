@@ -33,8 +33,11 @@ function ServiceModal({ service, open, setOpen }: ServiceModalProps): JSX.Elemen
     time: service.time,
     categoryId: service.categoryId,
   });
+  
+  
   const dispatch = useAppDispatch();
   const changeHandler: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+  
     setInput((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
@@ -53,18 +56,21 @@ function ServiceModal({ service, open, setOpen }: ServiceModalProps): JSX.Elemen
           onChange={changeHandler}
         />
         <TextField
-          name="desc"
+          name="price"
           variant="outlined"
           placeholder="Цена"
           value={input.price}
           onChange={changeHandler}
+          type='number'
+
         />
         <TextField
-          name="img"
+          name="time"
           variant="outlined"
           placeholder="Время оказания услуги"
           value={input.time}
           onChange={changeHandler}
+          type='number'
         />
         <Button
           onClick={() => {

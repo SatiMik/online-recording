@@ -5,6 +5,7 @@ module.exports = {
       'Categories',
       [
         {
+
           name: 'Косметология',
         },
         {
@@ -12,6 +13,19 @@ module.exports = {
         },
         {
           name: 'Парикмахерские услуги',
+
+        },
+      ],
+      {}
+    );
+    await queryInterface.bulkInsert(
+      'Masters',
+      [
+        {
+          name: 'Дарья',
+          desc: 'бубылда',
+          img: 'https://mdbcdn.b-cdn.net/wp-content/uploads/2018/01/full-carousel.jpg',
+
         },
       ],
       {},

@@ -1,4 +1,4 @@
-import type { MasterFormType, MasterType } from '../types/masterTypes';
+import type { MasterFormType, MasterType, MasterWorkType } from '../types/masterTypes';
 import apiService from './config';
 
 
@@ -25,4 +25,7 @@ export const getMasters = async (): Promise<MasterType[]> => {
   };
   
   
-  
+export const getWorks = async (id: MasterType['id']):Promise<MasterWorkType[]> => {
+  const {data} = await apiService<MasterWorkType[]>(`/api/master/works/${id}`)
+  return data
+}
