@@ -16,8 +16,7 @@ import ApplicationPage from './components/pages/ApplicationPage';
 import CategoryPage from './components/pages/CategoryPage';
 import OnlineRecordPage from './components/pages/OnlineRecordPage';
 
-
-// прописать проверки на гостя, тк нет привата на регистрацию 
+// прописать проверки на гостя, тк нет привата на регистрацию
 
 function App(): JSX.Element {
   const theme = createTheme({

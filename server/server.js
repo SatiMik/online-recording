@@ -22,6 +22,7 @@ app.use(cors({ credentials: true, origin: true }));
 app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static('public'));
 app.use(
   session({
     name: 'sid',
@@ -39,11 +40,12 @@ app.use(
 app.use('/api/user', userRouter);
 app.use('/api/application', applicationRouter);
 app.use('/api/master', masterRouter);
+app.use('/sales', multerRouter);
 
 app.use('/api/service', serviceRouter);
 app.use('/api/categories', categoryRouter);
 app.use('/api/revue', revueRouter);
 
-app.use('/sale', multerRouter);
+
 
 app.listen(PORT, () => console.log(`Started on port ${PORT}`));

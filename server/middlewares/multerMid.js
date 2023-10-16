@@ -11,13 +11,13 @@ const storage = multer.diskStorage({
     // Генерируем уникальное имя файла
     cb(
       null,
-      `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`
+      `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`,
     );
   },
 });
 
 const upload = multer({
-  storage, // Подключаем созданное хранилище
+  storage: multer.memoryStorage(),
 
   // Устанавливаем ограничение на размер загружаемых файлов (10 МБ)
   limits: { fileSize: 10 * 1024 * 1024 },
