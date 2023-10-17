@@ -15,13 +15,17 @@ export default function MasterList(): JSX.Element {
   useEffect(() => {
     void dispatch(getMastersThunk())
   }, []);
- 
-const user = useAppSelector(store=>store.user)
+
+  const user = useAppSelector(store => store.user)
   return (
     <Box mt={5}>
       <Container>
         <h2>Наши мастера:</h2>
-        {masters?.map((master) => <MasterCard key={master.id} master={master}  user={user}/>)}
+        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+          {masters?.map((master) => (
+            <MasterCard key={master.id} master={master} user={user} style={{ flexBasis: '33.33%', padding: '10px' }} />
+          ))}
+        </div>
       </Container>
     </Box>
   );

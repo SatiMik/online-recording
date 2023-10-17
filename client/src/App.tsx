@@ -26,6 +26,8 @@ import OnlineMastersPage from './components/pages/online-record/OnlineMastersPag
 import OnlineServiceCategoryPage from './components/ui/online-record/onlineCategory/OnlineServiceCategoryPage';
 import UserRecordsPage from './components/pages/UserRecordsPage';
 import OnlineServicesPage from './components/pages/online-record/OnlineServicesPage';
+import NavBar from './components/ui/Navbar';
+// import NavBar from './components/ui/Navbar';
 
 // прописать проверки на гостя, тк нет привата на регистрацию
 
@@ -33,6 +35,7 @@ function App(): JSX.Element {
   const theme = createTheme({
     palette: {
       primary: { main: '#566F5F' },
+      secondary: { main: '#DFDBDC' },
     },
   });
 
@@ -48,7 +51,7 @@ function App(): JSX.Element {
     <ThemeProvider theme={theme}>
       <Loader isLoading={user.status === 'loading'}>
         <>
-          <Navbar />
+          <NavBar />
           <Box mt={5}>
             <Container>
               <Routes>
@@ -88,7 +91,7 @@ function App(): JSX.Element {
           </Box>
         </>
       </Loader>
-      <FooterNew />
+      {/* <FooterNew /> */}
     </ThemeProvider>
   );
 }

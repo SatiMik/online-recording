@@ -21,6 +21,7 @@ export default function ServiceList(): JSX.Element {
   return (
     <Box mt={5}>
       <Container>
+        
         {services?.map((service) => <ServiceCard key={service.id} service={service} />)}
       </Container>
     </Box>
