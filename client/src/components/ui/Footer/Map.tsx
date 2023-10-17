@@ -1,17 +1,26 @@
 import React, { useEffect, useRef } from 'react';
 
 function Map(): JSX.Element {
-  const ymapRef = useRef(null);
+  const ymapRef = useRef<ymaps.Map | null>(null);
+  const placemarkRef = useRef<ymaps.Placemark | null>(null);
 
   const loadMap = () => {
-    // запуск карты
     if (window.ymaps) {
       window.ymaps.ready(() => {
-        ymapRef.current = new window.ymaps.Map('map', {
-          center: [55.751574, 37.573856],
-          zoom: 10,
+        ymapRef.current = new (window.ymaps.Map as any)('map', {
+          center: [55.743526, 37.629797],
+          zoom: 17,
+          controls: []
         });
-        const myMap = ymapRef.current;
+
+        // Создаем метку
+        placemarkRef.current = new (window.ymaps.Placemark as any)([55.743526, 37.629797], {
+          hintContent: 'Эльбрус гламур',
+          balloonContent: 'Это метка с заданными координатами',
+        });
+
+        // Добавляем метку на карту
+        ymapRef.current.geoObjects.add(placemarkRef.current);
       });
     }
   };
