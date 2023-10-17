@@ -1,5 +1,6 @@
 import React from 'react'
-import OnlineServiceCategoryList from './OnlineServiceCategoryPage'
+
+import OnlineServiceCategoryPage from './OnlineServiceCategoryPage'
 // import ServiceList from '../services/ServiceList'
 // import CategoryPage from '../../pages/CategoryPage'
 
@@ -8,7 +9,7 @@ export default function OnlineServicePage(): JSX.Element {
         <>
 
             <h1>Выберите категорию услуги</h1>
-            <OnlineServiceCategoryList />
+            <OnlineServiceCategoryPage />
             {/* <CategoryPage /> */}
         </>
     )

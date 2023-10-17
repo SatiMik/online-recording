@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 import {
   Box,
+  Button,
   Card,
   CardActions,
   CardContent,
@@ -12,6 +13,9 @@ import {
 import React, { memo, useState } from 'react';
 import type { UserRecordType } from '../../../types/userRecordTypes';
 import type { UserLoadingType } from '../../../types/userTypes';
+import { useAppDispatch } from '../../../redux/hooks';
+import { deleteUserRecordThunk } from '../../../redux/slices/userRecords/UserRecordsThunks';
+import UserRecordModal from './UserRecordModal';
 
 type BookCardPropsType = {
   userRecord: UserRecordType;
@@ -19,7 +23,8 @@ type BookCardPropsType = {
 };
 
 function UserRecordCard({ userRecord, user }: BookCardPropsType): JSX.Element {
-  console.log(userRecord);
+  const dispatch = useAppDispatch();
+  const [open, setOpen] = useState(false);
 
   return (
     <Box mt={8}>
@@ -38,6 +43,10 @@ function UserRecordCard({ userRecord, user }: BookCardPropsType): JSX.Element {
             <Typography variant="body2" color="text.secondary">
               Услуга: {userRecord.Service.name}
             </Typography>
+            <Button onClick={() => setOpen(true)} size="small">
+              Отменить запись
+            </Button>
+            {open&&<UserRecordModal open={open} setOpen={setOpen} userRecord={userRecord} user={user}/>}
           </CardContent>
         </Card>
       </Container>

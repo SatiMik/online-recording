@@ -8,7 +8,6 @@ import MailIcon from '@mui/icons-material/Mail';
 import { Link, IconButton, Badge } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import { logoutHandlerThunk } from '../../redux/slices/user/UserThunks';
 import ModalButton from './application/ModalButton';
 import AuthModal from './auth/AuthModal';
 import LogoutModal from './auth/LogoutModal';
@@ -23,6 +22,7 @@ export default function NavBar(): JSX.Element {
   const [isLogout, setIsLogout] = useState(false);
   const dispatch = useAppDispatch();
   const applications = useSelector((state) => state.application);
+  const applicationNotAccepted = applications.filter((application) => !application.status);
 
   const handleOpen = (): void => {
     setOpen(true);
@@ -45,7 +45,7 @@ export default function NavBar(): JSX.Element {
             name: (
               <>
                 <IconButton>
-                  <Badge badgeContent={applications.length} color="secondary">
+                  <Badge badgeContent={applicationNotAccepted.length} color="secondary">
                     <MailIcon style={{ color: 'white' }} />
                   </Badge>
                 </IconButton>{' '}

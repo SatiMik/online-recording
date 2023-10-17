@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
 import { Box, Container } from '@mui/material';
-import MasterCard from './MasterCard';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import { getMastersThunk } from '../../../redux/slices/master/MasterThunks';
+import OnlineMasterCard from './OnlineMasterCard';
 
-export default function MastersPage(): JSX.Element {
+export default function OnlineMastersPage(): JSX.Element {
     const masters = useAppSelector((store) => store.masters);
 
     const dispatch = useAppDispatch();
@@ -15,7 +15,7 @@ export default function MastersPage(): JSX.Element {
         <Box mt={5}>
             <Container >
                 <h2>Наши мастера:</h2>
-                {masters?.map((master) => <MasterCard key={master.id} master={master} />)}
+                {masters?.map((master) => <OnlineMasterCard key={master.id} master={master} />)}
             </Container>
         </Box>
 

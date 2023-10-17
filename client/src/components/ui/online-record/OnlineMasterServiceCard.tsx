@@ -5,7 +5,7 @@ type MasterServiceCardProps = {
     service: any,
 }
 
-export default function MasterServiceCard({ service }: MasterServiceCardProps): JSX.Element {
+export default function OnlineMasterServiceCard({ service }: MasterServiceCardProps): JSX.Element {
     console.log(service);
 
     return (

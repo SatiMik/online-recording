@@ -1,3 +1,5 @@
+import type { MasterType } from './masterTypes';
+
 export type ServiceType = {
   id: number;
   name: string;
@@ -6,5 +8,12 @@ export type ServiceType = {
   categoryId: number;
 };
 
+export type ServicesMastersType = {
+  id: number;
+  masterId: number;
+  serviceId: number;
+  Service: ServiceType;
+  Master: MasterType;
+};
 
 export type ServiceFormType = Omit<ServiceType, 'id'>;

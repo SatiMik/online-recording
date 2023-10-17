@@ -8,7 +8,7 @@ import RevueCard from './RevueCard';
 import type { RevueType } from '../../../types/revueTypes';
 
 export default function RevueAcceptedList(): JSX.Element {
-  const [option, setOption] = React.useState(1);
+  const [option, setOption] = React.useState(0);
   const revues = useAppSelector((store) => store.revues);
   const [sortedRevues, setSortedRevues] = useState<RevueType[]>(revues);
 
@@ -37,10 +37,11 @@ export default function RevueAcceptedList(): JSX.Element {
         break;
     }
   };
+
   return (
     <Box mt={5}>
       <Container>
-        <Box sx={{ minWidth: 120 }}>
+        <Box sx={{ minWidth: 120, marginBottom: '16px' }}>
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Показать</InputLabel>
             <Select
@@ -52,14 +53,14 @@ export default function RevueAcceptedList(): JSX.Element {
             >
               <MenuItem value={1}>Сначала положительные</MenuItem>
               <MenuItem value={2}>Сначала отрицательные</MenuItem>
-              <MenuItem value={3}>Сначала новые</MenuItem>
-              <MenuItem value={4}>Сначала старые</MenuItem>
             </Select>
           </FormControl>
         </Box>
-        {sortedRevues?.map((revue) =>
-          revue.status ? <RevueCard key={revue.id} revue={revue} user={user} /> : null,
-        )}
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          {sortedRevues?.map((revue) =>
+            revue.status ? <RevueCard key={revue.id} revue={revue} user={user} /> : null
+          )}
+        </Box>
       </Container>
     </Box>
   );

@@ -1,8 +1,6 @@
 const router = require('express').Router();
 const { Op } = require('sequelize');
-const {
-  Master, MasterService, Service, Category,
-} = require('../db/models');
+const { Master, MasterService, Service } = require('../db/models');
 
 router.get('/masters', async (req, res) => {
   try {
@@ -17,12 +15,10 @@ router.get('/masters', async (req, res) => {
 router.get('/masters/:masterId/services', async (req, res) => {
   try {
     const { masterId } = req.params;
-    // console.log(masterId, '-------------------- id');
     const services = await MasterService.findAll({ where: { masterId } });
-    const serviceList = await Service.findAll(
-      { where: { id: { [Op.in]: services.map((s) => s.serviceId) } } },
-    );
-    console.log(services, '-------------------- services');
+    const serviceList = await Service.findAll({
+      where: { id: { [Op.in]: services.map((s) => s.serviceId) } },
+    });
     return res.json(serviceList);
   } catch (error) {
     console.log(error, 'ошибка в получении услуги мастера по id');
@@ -33,19 +29,10 @@ router.get('/masters/:masterId/services', async (req, res) => {
 router.get('/services/:categoryId', async (req, res) => {
   try {
     const { categoryId } = req.params;
-    console.log(categoryId, '-------------------- id');
-    const categories = await Category.findAll();
-    const serviceList = await Service.findAll({
-      where: {
-        categoryId,
-      },
-    },
-    //   { where: { id: { [Op.in]: categories.map((s) => s.service) } }
-    // },
-    );
-    return res.json(serviceList);
+    const result = await Service.findAll({ where: { categoryId } });
+    return req.sendStatus(200).json(result);
   } catch (error) {
-    console.log(error, 'ошибка в получении категорий ++++++++++++++++++++++++++');
+    console.log(error);
     return res.sendStatus(500);
   }
 });

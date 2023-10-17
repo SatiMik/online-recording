@@ -9,7 +9,7 @@ type MasterCardProps = {
     master: MasterType
 }
 
-export default function MasterCard({ master }: MasterCardProps): JSX.Element {
+export default function OnlineMasterCard({ master }: MasterCardProps): JSX.Element {
     const { id: masterId } = master;
 
     return (
