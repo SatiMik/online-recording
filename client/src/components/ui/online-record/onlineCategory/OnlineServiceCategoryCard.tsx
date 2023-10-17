@@ -1,7 +1,7 @@
 import React from 'react'
 import { Card, CardHeader, CardContent, Typography, Button } from '@mui/material';
 import { Link as RouterLink, NavLink } from 'react-router-dom';
-import type { CategoryType } from '../../../types/categoryTypes';
+import type { CategoryType } from '../../../../types/categoryTypes';
 
 type CategoryProps = {
     category: CategoryType

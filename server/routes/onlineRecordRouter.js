@@ -1,11 +1,20 @@
 const router = require('express').Router();
-const { Op } = require('sequelize');
-const { Master, MasterService, Service } = require('../db/models');
+// const { Op } = require('sequelize');
+const {
+  Master, MasterService, Service, Category,
+  //  Record,
+} = require('../db/models');
 
 router.get('/masters', async (req, res) => {
   try {
+    const { masterId } = req.params;
     const masters = await Master.findAll();
-    return res.json(masters);
+    const services = await MasterService.findAll({
+      where: { masterId },
+      include: { model: Service },
+    });
+    console.log(services, '-------------------- services');
+    return res.json(masters, services);
   } catch (error) {
     console.log(error, 'ошибка в получении мастеров');
     return res.sendStatus(500);

@@ -5,8 +5,11 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { getSaleThunk } from '../../redux/slices/sale/SaleThunks';
 
 export default function SalePage(): JSX.Element {
+
   const sale = useAppSelector((store) => store.sale);
+
   const dispatch = useAppDispatch();
+  
   useEffect(() => {
     void dispatch(getSaleThunk());
   }, []);
