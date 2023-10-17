@@ -22,7 +22,7 @@ export default function NavBar(): JSX.Element {
   const [authType, setAuthType] = useState(0);
   const [isLogout,setIsLogout] = useState(false);
   const dispatch = useAppDispatch();
-  const applications = useSelector((state) => state.application);
+  const applications = useAppSelector((state) => state.application);
 
 
     const handleOpen = (): void => {
