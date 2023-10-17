@@ -11,6 +11,7 @@ import SalePage from './components/pages/SalePage';
 import RevuePage from './components/pages/RevuePage';
 import ServicePage from './components/pages/ServicePage';
 import MasterPage from './components/pages/MasterPage';
+import AdminPage from './components/pages/AdminPage';
 import Loader from './hocs/Loader';
 import ApplicationPage from './components/pages/ApplicationPage';
 import OnlineMasterServicesPage from './components/ui/online-record/услуги со временем/OnlineMasterServicesPage';
@@ -63,6 +64,7 @@ function App(): JSX.Element {
                 <Route path="/master" element={<MasterPage />} />
                 <Route path="/online-record" element={<OnlineRecordPage />} />
                 <Route path="/online-record/masters" element={<OnlineMastersPage />} />
+                <Route path="/admin" element={<AdminPage />} />
                 {/* <Route
                   path="/online-record/masters/:masterId/services"
                   element={<OnlineMasterServicesPage />}
