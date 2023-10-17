@@ -13,12 +13,13 @@ import ServicePage from './components/pages/ServicePage';
 import MasterPage from './components/pages/MasterPage';
 import Loader from './hocs/Loader';
 import ApplicationPage from './components/pages/ApplicationPage';
-import MastersPage from './components/ui/online-record/MastersPage';
-import MasterServicesPage from './components/ui/online-record/MasterServicesPage';
+import OnlineMastersPage from './components/ui/online-record/masterRecord/OnlineMastersPage';
+import OnlineMasterServicesPage from './components/ui/online-record/OnlineMasterServicesPage';
 import CategoryPage from './components/pages/CategoryPage';
 import OnlineRecordPage from './components/ui/online-record/OnlineRecordPage';
 import Footer from './components/ui/Footer/Futer';
-import OnlineServicePage from './components/ui/online-record/OnlineServicePage';
+import OnlineServicePage from './components/ui/online-record/serviceRecord/OnlineServicePage';
+import OnlineServiceCategoryPage from './components/ui/online-record/onlineCategory/OnlineServiceCategoryPage';
 
 // прописать проверки на гостя, тк нет привата на регистрацию
 
@@ -52,10 +53,10 @@ function App(): JSX.Element {
                 <Route path="/services/:serviceId" element={<ServicePage />} />
                 <Route path="/master" element={<MasterPage />} />
                 <Route path="/online-record" element={<OnlineRecordPage />} />
-                <Route path="/online-record/masters" element={<MastersPage />} />
-                <Route path="/online-record/masters/:masterId/services" element={<MasterServicesPage />} />
+                <Route path="/online-record/masters" element={<OnlineMastersPage />} />
+                <Route path="/online-record/masters/:masterId/services" element={<OnlineMasterServicesPage />} />
                 <Route path="/online-record/services" element={<OnlineServicePage />} />
-                <Route path="/online-record/services/:categoryId" element={<ServicePage />} />
+                <Route path="/online-record/services/:categoryId" element={<OnlineServiceCategoryPage />} />
 
                 <Route element={<PrivateRoute isAllowed={user.status === 'logged'} />}>
                   <Route path="/userRevue" element={<UserRevuePage />} />

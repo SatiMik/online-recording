@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
 import { Box, Container } from '@mui/material';
-import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
-import { getCategoryThunk } from '../../../redux/slices/categories/CategoryThunks';
+import { useAppDispatch, useAppSelector } from '../../../../redux/hooks';
+import { getCategoryThunk } from '../../../../redux/slices/categories/CategoryThunks';
 import OnlineServiceCategoryCard from './OnlineServiceCategoryCard';
 
-export default function OnlineServiceCategoryList(): JSX.Element {
+export default function OnlineServiceCategoryPage(): JSX.Element {
     const dispatch = useAppDispatch();
     useEffect(() => {
         void dispatch(getCategoryThunk());

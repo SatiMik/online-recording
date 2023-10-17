@@ -1,17 +1,27 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
-import React from 'react'
+import React, { useState } from 'react'
 import { Grid, Card, CardContent, CardMedia, Typography, Button, Box } from '@mui/material';
 import { Link, Link as RouterLink } from 'react-router-dom';
 
-import type { MasterType } from '../../../types/masterTypes';
+import type { MasterType } from '../../../../types/masterTypes';
+import OnlineModalRecord from './modalMaster/OnlineModalRecord';
+import { useAppSelector } from '../../../../redux/hooks';
 
 type MasterCardProps = {
     master: MasterType
 }
 
-export default function MasterCard({ master }: MasterCardProps): JSX.Element {
+export default function OnlineMasterCard({ master }: MasterCardProps): JSX.Element {
     const { id: masterId } = master;
+    // console.log("---", "Master = ", master)
 
+    const [open, setOpen] = useState(false);
+
+    const handleOpen = (): void => {
+        setOpen(true)
+    }
+    // const services = useAppSelector((store) => store.masterService);
+    
     return (
         <Grid container spacing={2} sx={{}}>
             {Array.from({ length: 1 }).map((_, idx) => (
@@ -25,9 +35,12 @@ export default function MasterCard({ master }: MasterCardProps): JSX.Element {
                             <Typography variant="body2" color="text.secondary">
                                 {master.desc}
                             </Typography>
-                            <RouterLink key='Услуги мастера' to={`/online-record/masters/${masterId}/services`} style={{ textAlign: 'center' }}>
-                                <Button variant="contained">Перейти</Button>
-                            </RouterLink>
+                            <Box>
+                                <Button variant="contained" onClick={handleOpen}>Перейти</Button>
+                            </Box>
+                            {/* <RouterLink key='Услуги мастера' to={`/online-record/masters/${masterId}/services`} style={{ textAlign: 'center' }}> */}
+                            {/* </RouterLink> */}
+                            <OnlineModalRecord open={open} setOpen={setOpen} master={master} />
                         </CardContent>
                     </Card>
                 </Grid>
