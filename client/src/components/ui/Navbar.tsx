@@ -20,52 +20,65 @@ export default function NavBar(): JSX.Element {
   const [open, setOpen] = useState(false);
   const [auth, setAuth] = useState(false);
   const [authType, setAuthType] = useState(0);
-  const [isLogout,setIsLogout] = useState(false);
+  const [isLogout, setIsLogout] = useState(false);
   const dispatch = useAppDispatch();
   const applications = useSelector((state) => state.application);
 
-
-    const handleOpen = (): void => {
-        setOpen(true);
-    }
-    // req.session.user, handler на user. axios запрос который будет брать данные юзера из сессии
-    const links =
-        user.status === 'guest'
-            ? [
-                { to: '/', name: 'Главная' },
-                { to: '/service', name: 'Услуги' },
-                { to: '/master', name: 'Мастера' },
-                { to: '/sale', name: 'Акции' },
-                { to: '/revue', name: 'Отзывы' },
-                { to: '/signup', name: 'Зарегистрироваться' },
-                { to: '/login', name: 'Войти' },
-
-            ]
-            : [
-                { to: '/application', name: <><IconButton><Badge badgeContent={applications.length} color="secondary"><MailIcon style={{ color: 'white' }} /></Badge></IconButton> </> },
-                { to: '/', name: 'Главная' },
-                { to: '/service', name: 'Услуги' },
-                { to: '/master', name: 'Мастера' },
-                { to: '/sale', name: 'Акции' },
-                { to: '/revue', name: 'Отзывы' },
-                { to: '/userRecords', name: 'Мои записи' },
-                {
-                    to: '/online-record', name:
-                        <>  <Button
-                            disabled
-                            sx={{
-                                padding: '8px 16px',
-                                backgroundColor: 'white',
-                                color: '#6a329f',
-                                borderRadius: '4px',
-                                cursor: 'pointer',
-                            }}
-                        >
-                            Онлайн запись
-                        </Button></>
-                },
-            ];
-
+  const handleOpen = (): void => {
+    setOpen(true);
+  };
+  // req.session.user, handler на user. axios запрос который будет брать данные юзера из сессии
+  const links =
+    user.status === 'guest'
+      ? [
+          { to: '/', name: 'Главная' },
+          { to: '/service', name: 'Услуги' },
+          { to: '/master', name: 'Мастера' },
+          { to: '/sale', name: 'Акции' },
+          { to: '/revue', name: 'Отзывы' },
+          { to: '/signup', name: 'Зарегистрироваться' },
+          { to: '/login', name: 'Войти' },
+        ]
+      : [
+          {
+            to: '/application',
+            name: (
+              <>
+                <IconButton>
+                  <Badge badgeContent={applications.length} color="secondary">
+                    <MailIcon style={{ color: 'white' }} />
+                  </Badge>
+                </IconButton>{' '}
+              </>
+            ),
+          },
+          { to: '/', name: 'Главная' },
+          { to: '/service', name: 'Услуги' },
+          { to: '/master', name: 'Мастера' },
+          { to: '/sale', name: 'Акции' },
+          { to: '/revue', name: 'Отзывы' },
+          { to: '/user-records', name: 'Мои записи' },
+          {
+            to: '/online-record',
+            name: (
+              <>
+                {' '}
+                <Button
+                  disabled
+                  sx={{
+                    padding: '8px 16px',
+                    backgroundColor: 'white',
+                    color: '#6a329f',
+                    borderRadius: '4px',
+                    cursor: 'pointer',
+                  }}
+                >
+                  Онлайн запись
+                </Button>
+              </>
+            ),
+          },
+        ];
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -80,11 +93,7 @@ export default function NavBar(): JSX.Element {
           </Box>
           <Box>
             {user.status === 'logged' ? (
-              <Button
-                variant="text"
-                sx={linkStyle}
-                onClick={() => setIsLogout(true)}
-              >
+              <Button variant="text" sx={linkStyle} onClick={() => setIsLogout(true)}>
                 Выход
               </Button>
             ) : (
@@ -113,7 +122,6 @@ export default function NavBar(): JSX.Element {
             )}
           </Box>
 
-
           <Box
             onClick={handleOpen}
             sx={{
@@ -128,7 +136,7 @@ export default function NavBar(): JSX.Element {
           </Box>
           <ModalButton open={open} setOpen={setOpen} />
           <AuthModal auth={auth} setAuth={setAuth} authType={authType} setAuthType={setAuthType} />
-          <LogoutModal  isLogout={isLogout} setIsLogout={setIsLogout}/>
+          <LogoutModal isLogout={isLogout} setIsLogout={setIsLogout} />
         </Toolbar>
       </AppBar>
     </Box>

@@ -6,7 +6,7 @@ import MainPage from './components/pages/MainPage';
 import PrivateRoute from './hocs/PrivateRoute';
 import { useAppDispatch, useAppSelector } from './redux/hooks';
 import { checkUserThunk } from './redux/slices/user/UserThunks';
-import UserRevuePage from './components/pages/UserRevuePage';
+import UserRevuePage from './components/pages/UserRecordsPage';
 import SalePage from './components/pages/SalePage';
 import RevuePage from './components/pages/RevuePage';
 import ServicePage from './components/pages/ServicePage';
@@ -18,6 +18,7 @@ import MasterServicesPage from './components/ui/online-record/MasterServicesPage
 import CategoryPage from './components/pages/CategoryPage';
 import OnlineRecordPage from './components/pages/OnlineRecordPage';
 import Footer from './components/ui/Footer/Futer';
+import UserRecordsPage from './components/pages/UserRecordsPage';
 
 // прописать проверки на гостя, тк нет привата на регистрацию
 
@@ -57,7 +58,7 @@ function App(): JSX.Element {
                 <Route path="/online-record/masters/:masterId/services" element={<MasterServicesPage />} />
 
                 <Route element={<PrivateRoute isAllowed={user.status === 'logged'} />}>
-                  <Route path="/userRevue" element={<UserRevuePage />} />
+                  <Route path="/user-records" element={<UserRecordsPage />} />
                 </Route>
 
                 <Route
