@@ -68,7 +68,7 @@ export default function NavBar(): JSX.Element {
 
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ flexGrow: 1, backgroundColor: '#566F5F' }}>
       <AppBar position="static">
         <Toolbar sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
           <Box>

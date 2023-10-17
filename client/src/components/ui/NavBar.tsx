@@ -137,63 +137,63 @@ export default function MiniDrawer(): JSX.Element {
         </DrawerHeader>
         <Divider />
         <List>
-          
-          {const links = 
-          user.status === 'guest'
-            ? [
-                { to: '/', name: 'Главная' },
-                { to: '/service', name: 'Услуги' },
-                { to: '/master', name: 'Мастера' },
-                { to: '/sale', name: 'Акции' },
-                { to: '/revue', name: 'Отзывы' },
-                { to: '/signup', name: 'Зарегистрироваться' },
-                { to: '/login', name: 'Войти' },
 
-            ]
-            : [
-                { to: '/application', name: <><IconButton><Badge badgeContent={applications.length} color="secondary"><MailIcon style={{ color: 'white' }} /></Badge></IconButton> </> },
-                { to: '/', name: 'Главная' },
-                { to: '/service', name: 'Услуги' },
-                { to: '/master', name: 'Мастера' },
-                { to: '/sale', name: 'Акции' },
-                { to: '/revue', name: 'Отзывы' },
-                { to: '/userRecords', name: 'Мои записи' },
-                {
-                    to: '/online-record', name:
-                        <>  <Button
-                            disabled
-                            sx={{
-                                padding: '8px 16px',
-                                backgroundColor: 'white',
-                                color: '#6a329f',
-                                borderRadius: '4px',
-                                cursor: 'pointer',
-                            }}
-                        >
-                            Онлайн запись
-                        </Button></>
+          {const links =
+          user.status === 'guest'
+          ? [
+          {to: '/', name: 'Главная' },
+          {to: '/service', name: 'Услуги' },
+          {to: '/master', name: 'Мастера' },
+          {to: '/sale', name: 'Акции' },
+          {to: '/revue', name: 'Отзывы' },
+          {to: '/signup', name: 'Зарегистрироваться' },
+          {to: '/login', name: 'Войти' },
+
+          ]
+          : [
+          {to: '/application', name: <><IconButton><Badge badgeContent={applications.length} color="secondary"><MailIcon style={{ color: 'white' }} /></Badge></IconButton> </> },
+          {to: '/', name: 'Главная' },
+          {to: '/service', name: 'Услуги' },
+          {to: '/master', name: 'Мастера' },
+          {to: '/sale', name: 'Акции' },
+          {to: '/revue', name: 'Отзывы' },
+          {to: '/userRecords', name: 'Мои записи' },
+          {
+            to: '/online-record', name:
+          <>  <Button
+            disabled
+            sx={{
+              padding: '8px 16px',
+              backgroundColor: 'white',
+              color: '#6a329f',
+              borderRadius: '4px',
+              cursor: 'pointer',
+            }}
+          >
+            Онлайн запись
+          </Button></>
                 },
             ].map((link, index) => (
-            <ListItem key={link.to} disablePadding sx={{ display: 'block' }}>
-              <ListItemButton
+          <ListItem key={link.to} disablePadding sx={{ display: 'block' }}>
+            <ListItemButton
+              sx={{
+                minHeight: 48,
+                justifyContent: open ? 'initial' : 'center',
+                px: 2.5,
+              }}
+            >
+              <ListItemIcon
                 sx={{
-                  minHeight: 48,
-                  justifyContent: open ? 'initial' : 'center',
-                  px: 2.5,
+                  minWidth: 0,
+                  mr: open ? 3 : 'auto',
+                  justifyContent: 'center',
                 }}
               >
-                <ListItemIcon
-                  sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : 'auto',
-                    justifyContent: 'center',
-                  }}
-                >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={to} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
+                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              </ListItemIcon>
+              <ListItemText primary={to} sx={{ opacity: open ? 1 : 0 }} />
+            </ListItemButton>
+          </ListItem>
           ))}
         </List>
         <Divider />

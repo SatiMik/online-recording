@@ -18,7 +18,7 @@ import OnlineMastersPage from './components/ui/online-record/masterRecord/Online
 import OnlineMasterServicesPage from './components/ui/online-record/OnlineMasterServicesPage';
 import CategoryPage from './components/pages/CategoryPage';
 import OnlineRecordPage from './components/ui/online-record/OnlineRecordPage';
-import Footer from './components/ui/Footer/Futer';
+import FooterNew from './components/footer/Footer';
 import OnlineServicePage from './components/ui/online-record/serviceRecord/OnlineServicePage';
 import OnlineServiceCategoryPage from './components/ui/online-record/onlineCategory/OnlineServiceCategoryPage';
 
@@ -27,7 +27,7 @@ import OnlineServiceCategoryPage from './components/ui/online-record/onlineCateg
 function App(): JSX.Element {
   const theme = createTheme({
     palette: {
-      primary: { main: '#6a329f' },
+      primary: { main: '#566F5F' },
     },
   });
 
@@ -74,7 +74,7 @@ function App(): JSX.Element {
           </Box>
         </>
       </Loader>
-      <Footer />
+      <FooterNew />
     </ThemeProvider>
   );
 }
