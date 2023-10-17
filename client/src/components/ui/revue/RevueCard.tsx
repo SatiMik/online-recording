@@ -29,7 +29,6 @@ function RevueCard({ revue, user }: RevueCardPropsType): JSX.Element {
   const [open, setOpen] = useState<boolean>(false);
   const dispatch = useAppDispatch();
 
-
   return (
     <Box mt={8}>
       <Container>
@@ -37,7 +36,10 @@ function RevueCard({ revue, user }: RevueCardPropsType): JSX.Element {
           <>
             <CardContent>
               <Typography variant="body2" color="text.secondary">
-              {revue.User?.name}
+                {revue.User?.name}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                {new Date(revue.date).toLocaleDateString()}
               </Typography>
               <Box
                 sx={{
@@ -48,7 +50,7 @@ function RevueCard({ revue, user }: RevueCardPropsType): JSX.Element {
                 <Rating name="read-only" value={revue.rating} readOnly />
               </Box>
               <Typography gutterBottom variant="h5" component="div">
-               {revue.text}
+                {revue.text}
               </Typography>
             </CardContent>
             <CardActions>

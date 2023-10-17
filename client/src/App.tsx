@@ -17,8 +17,9 @@ import ApplicationPage from './components/pages/ApplicationPage';
 import MastersPage from './components/ui/online-record/MastersPage';
 import MasterServicesPage from './components/ui/online-record/MasterServicesPage';
 import CategoryPage from './components/pages/CategoryPage';
-import OnlineRecordPage from './components/pages/OnlineRecordPage';
+import OnlineRecordPage from './components/ui/online-record/OnlineRecordPage';
 import Footer from './components/ui/Footer/Futer';
+import OnlineServicePage from './components/ui/online-record/OnlineServicePage';
 
 // прописать проверки на гостя, тк нет привата на регистрацию
 
@@ -50,15 +51,14 @@ function App(): JSX.Element {
                 <Route path="/sale" element={<SalePage />} />
                 <Route path="/service" element={<CategoryPage />} />
                 <Route path="/services/:serviceId" element={<ServicePage />} />
-                <Route path="/online-record" element={<OnlineRecordPage />} />
-
                 <Route path="/master" element={<MasterPage />} />
                 <Route path="/online-record" element={<OnlineRecordPage />} />
                 <Route path="/online-record/masters" element={<MastersPage />} />
-                <Route
-                  path="/online-record/masters/:masterId/services"
-                  element={<MasterServicesPage />}
-                />
+
+                <Route path="/online-record/masters/:masterId/services" element={<MasterServicesPage />} />
+                <Route path="/online-record/services" element={<OnlineServicePage />} />
+                <Route path="/online-record/services/:categoryId" element={<ServicePage />} />
+
 
                 <Route element={<PrivateRoute isAllowed={user.status === 'logged'} />}>
                   <Route path="/userRevue" element={<UserRevuePage />} />

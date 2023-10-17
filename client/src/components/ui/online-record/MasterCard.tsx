@@ -25,7 +25,7 @@ export default function MasterCard({ master }: MasterCardProps): JSX.Element {
                             <Typography variant="body2" color="text.secondary">
                                 {master.desc}
                             </Typography>
-                            <RouterLink key='Услуги мастера' to={`/online-record/masters/${masterId}/services`} sx={{ textAlign: 'center' }}>
+                            <RouterLink key='Услуги мастера' to={`/online-record/masters/${masterId}/services`} style={{ textAlign: 'center' }}>
                                 <Button variant="contained">Перейти</Button>
                             </RouterLink>
                         </CardContent>

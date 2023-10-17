@@ -15,7 +15,7 @@ export default function OnlineRecordPage(): JSX.Element {
                 <Card key={link.name} sx={{ width: 345, boxShadow: 10, marginRight: '40px' }}>
                     <CardHeader title={link.name} sx={{ textAlign: 'center', marginTop: '20px' }} />
                     <CardContent sx={{ display: 'flex', justifyContent: 'center' }}>
-                        <Link key={link.name} component={NavLink} to={link.to} sx={{ textAlign: 'center'}}>
+                        <Link key={link.name} component={NavLink} to={link.to} sx={{ textAlign: 'center' }}>
                             <Button variant="contained">Перейти</Button>
                         </Link>
                     </CardContent>

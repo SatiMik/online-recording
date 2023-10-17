@@ -21,6 +21,7 @@ module.exports = {
           model: 'Masters',
           key: 'id',
         },
+        onDelete: 'CASCADE',
       },
       createdAt: {
         allowNull: false,
