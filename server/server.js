@@ -10,6 +10,7 @@ const onlineRecordRouter = require('./routes/onlineRecordRouter');
 const serviceRouter = require('./routes/serviceRouter');
 const categoryRouter = require('./routes/categoryRouter');
 const revueRouter = require('./routes/revueRouter');
+const userRecordsRouter = require('./routes/userRecordsRouter');
 
 const multerRouter = require('./routes/multerRouter');
 
@@ -46,7 +47,6 @@ app.use('/sales', multerRouter);
 app.use('/api/service', serviceRouter);
 app.use('/api/categories', categoryRouter);
 app.use('/api/revue', revueRouter);
-
-
+app.use('/api/user-records', userRecordsRouter);
 
 app.listen(PORT, () => console.log(`Started on port ${PORT}`));

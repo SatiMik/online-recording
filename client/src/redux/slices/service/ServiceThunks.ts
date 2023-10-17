@@ -3,6 +3,7 @@ import type { ServiceFormType, ServiceType } from '../../../types/serviceTypes';
 import {
   deleteService,
   editService,
+  getService,
   getServices,
   submitService,
 } from '../../../services/serviceServices';
@@ -26,3 +27,5 @@ export const editServiceThunk = createAsyncThunk<
   ServiceType,
   { id: ServiceType['id']; formData: ServiceFormType }
 >('/services/editServiceThunk', async ({ id, formData }) => editService(id, formData));
+
+
