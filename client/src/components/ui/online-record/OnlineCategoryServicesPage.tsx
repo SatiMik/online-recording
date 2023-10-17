@@ -1,27 +1,29 @@
 import React, { useEffect } from 'react';
-
 import { Box, Container } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import { getServiceThunk } from '../../../redux/slices/service/ServiceThunks';
-import ServiceCard from './ServiceCard';
+import OnlineCategoryServicesCard from './OnlineCategoryServicesCard';
 
-export default function ServiceList(): JSX.Element {
+export default function OnlineCategoryServicesPage(): JSX.Element {
   const dispatch = useAppDispatch();
-  const {categoryId} = useParams();
+  const services = useAppSelector((store) => store.services);
+  const { categoryId } = useParams();
 
-  
   useEffect(() => {
     void dispatch(getServiceThunk(Number(categoryId)));
   }, []);
 
-  const services = useAppSelector((store) => store.services);
+  console.log(services);
   
-
+ 
   return (
-    <Box mt={5}>
+    <Box>
       <Container>
-        {services?.map((service) => <ServiceCard key={service.id} service={service} />)}
+        <h2>Название категории</h2>
+        {services?.map((service) => (
+          <OnlineCategoryServicesCard key={service.id} service={service} />
+        ))}
       </Container>
     </Box>
   );

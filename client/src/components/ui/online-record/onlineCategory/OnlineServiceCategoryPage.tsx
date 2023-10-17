@@ -11,7 +11,7 @@ export default function OnlineServiceCategoryPage(): JSX.Element {
     }, []);
 
     const categories = useAppSelector((store) => store.categories);
-    console.log(categories);
+
 
     return (
         <Box>

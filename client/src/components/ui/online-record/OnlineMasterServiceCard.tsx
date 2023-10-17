@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react'
 import { Box, Button, Card, CardContent, FormControlLabel, Radio, RadioGroup, TextField, Typography } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
@@ -33,13 +34,13 @@ export default function OnlineMasterServiceCard({ service, master }: MasterServi
         setInputRecord((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     };
 
+
     return (
         <Box sx={{ display: 'flex' }}>
 
-            <Card sx={{ width: 600, boxShadow: 10, marginBottom: '20px' }}>
+            <Card sx={{ width: 400, boxShadow: 10, marginBottom: '20px' }}>
                 <CardContent sx={{ display: 'flex', }}>
                     <Box>
-                        {/* serviceId */}
 
                         <Typography variant="body1" >
                             {service.name}
