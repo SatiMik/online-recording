@@ -1,6 +1,7 @@
 import { Box, Container, Icon, ThemeProvider, createTheme } from '@mui/material';
 import React, { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
+// import Navbar from './components/ui/Navbar';
 import Navbar from './components/ui/Navbar';
 import MainPage from './components/pages/MainPage';
 import PrivateRoute from './hocs/PrivateRoute';
@@ -12,12 +13,11 @@ import ServicePage from './components/pages/ServicePage';
 import MasterPage from './components/pages/MasterPage';
 import Loader from './hocs/Loader';
 import ApplicationPage from './components/pages/ApplicationPage';
-import MastersPage from './components/ui/online-record/MastersPage';
-import MasterServicesPage from './components/ui/online-record/MasterServicesPage';
+import OnlineMastersPage from './components/ui/online-record/masterRecord/OnlineMastersPage';
+import OnlineMasterServicesPage from './components/ui/online-record/OnlineMasterServicesPage';
 import CategoryPage from './components/pages/CategoryPage';
 import OnlineRecordPage from './components/ui/online-record/OnlineRecordPage';
 import Footer from './components/ui/Footer/Futer';
-import UserRecordsPage from './components/pages/UserRecordsPage';
 import OnlineServicePage from './components/ui/online-record/OnlineServicePage';
 
 // прописать проверки на гостя, тк нет привата на регистрацию
@@ -53,12 +53,10 @@ function App(): JSX.Element {
                 <Route path="/master" element={<MasterPage />} />
                 <Route path="/online-record" element={<OnlineRecordPage />} />
                 <Route path="/online-record/masters" element={<MastersPage />} />
-                <Route
-                  path="/online-record/masters/:masterId/services"
-                  element={<MasterServicesPage />}
-                />
+                <Route path="/online-record/masters/:masterId/services" element={<MasterServicesPage />} />
                 <Route path="/online-record/services" element={<OnlineServicePage />} />
-                <Route path="/online-record/services/:categoryId" element={<ServicePage />} />
+                <Route path="/online-record/services/:categoryId" element={<OnlineServiceCategoryPage />} />
+
 
                 <Route element={<PrivateRoute isAllowed={user.status === 'logged'} />}>
                   <Route path="/user-records" element={<UserRecordsPage />} />

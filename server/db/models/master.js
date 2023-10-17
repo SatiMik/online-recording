@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'masterId',
       });
       this.hasMany(models.Example, { foreignKey: 'masterId' });
+      this.hasMany(models.Schedule, { foreignKey: 'masterId' });
     }
   }
   Master.init(
@@ -21,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       sequelize,
       modelName: 'Master',
-    }
+    },
   );
   return Master;
 };

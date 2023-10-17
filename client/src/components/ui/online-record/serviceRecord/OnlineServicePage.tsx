@@ -1,5 +1,5 @@
 import React from 'react'
-import OnlineServiceCategoryList from './OnlineServiceCategoryPage'
+import OnlineServiceCategoryList from '../onlineCategory/OnlineServiceCategoryPage'
 // import ServiceList from '../services/ServiceList'
 // import CategoryPage from '../../pages/CategoryPage'
 
