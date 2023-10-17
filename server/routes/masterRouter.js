@@ -4,10 +4,8 @@ const { Master, Example } = require('../db/models');
 router
   .route('/')
   .get(async (req, res) => {
-    console.log('-------------');
     try {
       const masters = await Master.findAll();
-      console.log('-------------');
 
       return res.json(masters);
     } catch (error) {
@@ -35,13 +33,16 @@ router
   .delete(async (req, res) => {
     try {
       const { masterId } = req.params;
+      console.log(masterId, '-------------------- id');
       const result = await Master.destroy({ where: { id: masterId } });
+      console.log(result);
       if (result > 0) {
         res.status(200).json({ message: 'success' });
         return;
       }
       throw new Error();
     } catch ({ message }) {
+      console.log(message);
       res.status(400).json({ message });
     }
   })
