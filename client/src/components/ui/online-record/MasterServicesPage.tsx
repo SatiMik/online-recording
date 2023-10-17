@@ -10,8 +10,6 @@ import { getMasterServicesThunk } from '../../../redux/slices/masrterService/Mas
 export default function MasterServicesPage(): JSX.Element {
     const services = useAppSelector((store) => store.masterService);
     const masterId = useParams()
-    // console.log(services);
-
 
     const dispatch = useAppDispatch();
     useEffect(() => {
