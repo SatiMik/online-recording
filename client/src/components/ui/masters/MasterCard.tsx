@@ -65,7 +65,7 @@ function MasterCard({ master, user }: BookCardPropsType): JSX.Element {
                 </Button>
               </>
             )}
-            <Link key="Открыть" component={NavLink} to="/online-record" sx={linkStyle}>
+            <Link key="Открыть" component={NavLink} to={`/online-record/masters/${master.id}/services`} sx={linkStyle}>
               Записаться
             </Link>
           </CardActions>

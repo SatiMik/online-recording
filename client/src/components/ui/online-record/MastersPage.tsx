@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { Box, Container } from '@mui/material';
-import MasterCard from './MasterCard'
+import MasterCard from './MasterCard';
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import { getMastersThunk } from '../../../redux/slices/master/MasterThunks';
 
