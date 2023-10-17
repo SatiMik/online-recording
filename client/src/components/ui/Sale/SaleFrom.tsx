@@ -30,7 +30,7 @@ export default function SaleForm(): JSX.Element {
   return (
     <form onSubmit={submitHandler}>
       <input name="description" placeholder="Название акции" onChange={changeHandler} />
-      <input type="file" name="file" onChange={changeHandler} />
+      <input type="file" name="file" />
       <input type="submit" value="Загрузить файл" />
     </form>
   );

@@ -1,6 +1,7 @@
 import { Box, Container, Icon, ThemeProvider, createTheme } from '@mui/material';
 import React, { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
+// import Navbar from './components/ui/Navbar';
 import Navbar from './components/ui/Navbar';
 import MainPage from './components/pages/MainPage';
 import PrivateRoute from './hocs/PrivateRoute';
@@ -53,9 +54,11 @@ function App(): JSX.Element {
                 <Route path="/master" element={<MasterPage />} />
                 <Route path="/online-record" element={<OnlineRecordPage />} />
                 <Route path="/online-record/masters" element={<MastersPage />} />
+
                 <Route path="/online-record/masters/:masterId/services" element={<MasterServicesPage />} />
                 <Route path="/online-record/services" element={<OnlineServicePage />} />
                 <Route path="/online-record/services/:categoryId" element={<ServicePage />} />
+
 
                 <Route element={<PrivateRoute isAllowed={user.status === 'logged'} />}>
                   <Route path="/userRevue" element={<UserRevuePage />} />
@@ -65,12 +68,10 @@ function App(): JSX.Element {
                   element={<PrivateRoute isAllowed={user.status === 'logged' && user?.isAdmin} />}
                 >
                   <Route path="/application" element={<ApplicationPage />} />
-
                 </Route>
               </Routes>
             </Container>
           </Box>
-
         </>
       </Loader>
       <Footer />

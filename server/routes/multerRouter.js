@@ -63,7 +63,7 @@ multerRouter.route('/').get(async (req, res) => {
 multerRouter.patch('/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    console.log(req.body);
+    console.log(req.body)
     await Sale.update({ ...req.body }, { where: { id } });
     const updatedSale = await Sale.findOne({ where: { id } });
     return res.json(updatedSale);
