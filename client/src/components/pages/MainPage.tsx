@@ -4,6 +4,7 @@ import { Container } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { getMastersThunk } from '../../redux/slices/master/MasterThunks';
 import MasterCard from '../ui/masters/MasterCard';
+import ImageCarousel from './ImageCarousel';
 
 export default function MainPage(): JSX.Element {
   const masters = useAppSelector((store) => store.masters);
@@ -16,6 +17,7 @@ export default function MainPage(): JSX.Element {
   const user = useAppSelector((store) => store.user);
   return (
     <Container>
+      <ImageCarousel />
       <Box mt={5}>
         <h2>Лучшие мастера:</h2>
         {masters?.map((master) => <MasterCard key={master.id} master={master} user={user} />)}

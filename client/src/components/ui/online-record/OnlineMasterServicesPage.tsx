@@ -16,7 +16,7 @@ export default function OnlineMasterServicesPage(): JSX.Element {
     console.log(master, '-------------------- master');
 
     const dispatch = useAppDispatch();
-    
+
     useEffect(() => {
         void dispatch(getMasterServicesThunk(masterId))
         // eslint-disable-next-line react-hooks/exhaustive-deps
