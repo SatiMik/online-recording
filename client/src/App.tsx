@@ -14,16 +14,9 @@ import MasterPage from './components/pages/MasterPage';
 import Loader from './hocs/Loader';
 import ApplicationPage from './components/pages/ApplicationPage';
 import OnlineMastersPage from './components/ui/online-record/masterRecord/OnlineMastersPage';
-import OnlineMasterServicesPage from './components/ui/online-record/OnlineMasterServicesPage';
 import CategoryPage from './components/pages/CategoryPage';
 import OnlineRecordPage from './components/ui/online-record/OnlineRecordPage';
 import Footer from './components/ui/Footer/Futer';
-import OnlineServicePage from './components/ui/online-record/OnlineServicePage';
-import OnlineServiceCategoryPage from './components/ui/online-record/OnlineServiceCategoryPage';
-import OnlineMasterServicesPage from './components/ui/online-record/OnlineMasterServicesPage';
-import OnlineMastersPage from './components/ui/online-record/OnlineMastersPage';
-import OnlineCategoryServicesPage from './components/ui/online-record/OnlineCategoryServicesPage';
-import OnlineChooseMasterPage from './components/ui/online-record/OnlineChooseMasterPage';
 
 // прописать проверки на гостя, тк нет привата на регистрацию
 
@@ -58,14 +51,7 @@ function App(): JSX.Element {
                 <Route path="/master" element={<MasterPage />} />
                 <Route path="/online-record" element={<OnlineRecordPage />} />
                 <Route path="/online-record/masters" element={<OnlineMastersPage/>} />
-                <Route
-                  path="/online-record/masters/:masterId/services"
-                  element={<OnlineMasterServicesPage  />}
-                />
                 <Route path="/online-record/services" element={<OnlineServicePage />} />
-                <Route path="/online-record/services/:categoryId" element={<OnlineServiceCategoryPage />} />
-                <Route path="/online-record/services/category/:categoryId" element={<OnlineCategoryServicesPage />} />
-                <Route path="/online-record/services/masters/:serviceId" element={<OnlineChooseMasterPage/>} />
 
 
 
