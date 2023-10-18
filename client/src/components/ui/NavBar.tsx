@@ -151,7 +151,6 @@ export default function MiniDrawer(): JSX.Element {
 
             ]
             : [
-                { to: '/application', name: <><IconButton><Badge badgeContent={applications.length} color="secondary"><MailIcon style={{ color: 'white' }} /></Badge></IconButton> </> },
                 { to: '/', name: 'Главная' },
                 { to: '/service', name: 'Услуги' },
                 { to: '/master', name: 'Мастера' },

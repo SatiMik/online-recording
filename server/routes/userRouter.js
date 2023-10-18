@@ -1,8 +1,14 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const { User } = require('../db/models');
+// const { Code } = require('../db/models')
 
 const router = express.Router();
+
+const codeGenerate = () => {
+  const randomNumber = parseInt(Array.from({ length: 4 }, () => Math.floor(Math.random() * 10)).join(''), 11);
+  return randomNumber;
+};
 
 router.post('/signup', async (req, res) => {
   const { name, phone, password } = req.body;
@@ -13,6 +19,7 @@ router.post('/signup', async (req, res) => {
         defaults: {
           name,
           password: await bcrypt.hash(password, 10),
+          code: codeGenerate(),
         },
       });
       if (!created) return res.sendStatus(401);

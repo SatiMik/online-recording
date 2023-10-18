@@ -8,7 +8,8 @@ import UserRecordCard from './UserRecordCard';
 export default function UserRecordList(): JSX.Element {
   const userRecords = useAppSelector((store) => store.userRecords);
 
-  const dispatch = useAppDispatch();
+  console.log(userRecords);
+
   useEffect(() => {
     void dispatch(getUserRecordsThunk());
   }, []);
@@ -18,9 +19,13 @@ export default function UserRecordList(): JSX.Element {
     <Box mt={5}>
       <Container>
         <h2>Ваши записи:</h2>
-        {userRecords?.map((userRecord) => (
-          <UserRecordCard key={userRecord.id} userRecord={userRecord} user={user} />
-        ))}
+        {!userRecords.length ? (
+          <h3>У вас еще нет ни одной записи</h3>
+        ) : (
+          userRecords?.map((userRecord) => (
+            <UserRecordCard key={userRecord.id} userRecord={userRecord} user={user} />
+          ))
+        )}
       </Container>
     </Box>
   );

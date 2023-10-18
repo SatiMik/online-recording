@@ -1,9 +1,25 @@
 const router = require('express').Router();
 // const { Op } = require('sequelize');
-const {
-  Master, MasterService, Service, Category,
-  //  Record,
-} = require('../db/models');
+const { Master, MasterService, Service, Record } = require('../db/models');
+
+router.post('/', async (req, res) => {
+  try {
+    const userId = req.session.user.id;
+    console.log(req.body);
+    const { masterId, serviceId, date, time } = req.body;
+    const result = await Record.create({
+      masterId,
+      serviceId,
+      userId,
+      date,
+      time,
+    });
+    return res.sendStatus(200);
+  } catch (error) {
+    console.log(error);
+    return res.sendStatus(500);
+  }
+});
 
 router.get('/masters', async (req, res) => {
   try {
@@ -13,7 +29,7 @@ router.get('/masters', async (req, res) => {
       where: { masterId },
       include: { model: Service },
     });
-    console.log(services, '-------------------- services');
+
     return res.json(masters, services);
   } catch (error) {
     console.log(error, 'ошибка в получении мастеров');

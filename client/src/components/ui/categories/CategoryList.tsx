@@ -12,6 +12,8 @@ export default function CategoryList(): JSX.Element {
   }, []);
   const categories = useAppSelector((store) => store.categories);
 
+  console.log(categories);
+  
   const user = useAppSelector((store) => store.user);
   return (
     <Box mt={5}>

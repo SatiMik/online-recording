@@ -7,7 +7,8 @@ import RevueAcceptedList from '../ui/revue/RevueAcceptedList';
 
 export default function RevuePage(): JSX.Element {
   const user = useAppSelector((store) => store.user);
-
+  console.log(user);
+  
   return (
     <>
       {user.status === 'logged' && user.isAdmin && <RevueNotAcceptedList />}

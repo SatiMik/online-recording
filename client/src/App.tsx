@@ -13,9 +13,11 @@ import ServicePage from './components/pages/ServicePage';
 import MasterPage from './components/pages/MasterPage';
 import Loader from './hocs/Loader';
 import ApplicationPage from './components/pages/ApplicationPage';
-import OnlineMastersPage from './components/ui/online-record/masterRecord/OnlineMastersPage';
 import CategoryPage from './components/pages/CategoryPage';
-import OnlineRecordPage from './components/ui/online-record/OnlineRecordPage';
+import OnlineRecordPage from './components/pages/online-record/OnlineRecordPage';
+import OnlineMastersPage from './components/pages/online-record/OnlineMastersPage';
+import OnlineServicesPage from './components/pages/online-record/OnlineServicesPage';
+import UserRecordsPage from './components/pages/UserRecordsPage';
 import Footer from './components/ui/Footer/Futer';
 
 // прописать проверки на гостя, тк нет привата на регистрацию
@@ -50,10 +52,9 @@ function App(): JSX.Element {
                 <Route path="/services/:categoryId" element={<ServicePage />} />
                 <Route path="/master" element={<MasterPage />} />
                 <Route path="/online-record" element={<OnlineRecordPage />} />
-                <Route path="/online-record/masters" element={<OnlineMastersPage/>} />
-                <Route path="/online-record/services" element={<OnlineServicePage />} />
+                <Route path="/online-record/masters" element={<OnlineMastersPage />} />
 
-
+                <Route path="/online-record/services" element={<OnlineServicesPage />} />
 
                 <Route element={<PrivateRoute isAllowed={user.status === 'logged'} />}>
                   <Route path="/user-records" element={<UserRecordsPage />} />
