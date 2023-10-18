@@ -14,16 +14,22 @@ module.exports = {
       phone: {
         type: Sequelize.STRING,
       },
+      password: {
+        type: Sequelize.STRING,
+      },
       isAdmin: {
         type: Sequelize.BOOLEAN,
       },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
+        defaultValue: Sequelize.fn('now'),
       },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
+        defaultValue: Sequelize.fn('now'),
+
       },
     });
   },
