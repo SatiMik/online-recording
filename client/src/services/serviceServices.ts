@@ -1,5 +1,5 @@
 import type { CategoryType } from '../types/categoryTypes';
-import type { ServiceFormType, ServiceType } from '../types/serviceTypes';
+import type { ServiceFormType, ServiceType, ServicesMastersType } from '../types/serviceTypes';
 import apiService from './config';
 
 export const getServices = async (id: CategoryType['id']): Promise<ServiceType[]> => {
@@ -26,9 +26,7 @@ export const editService = async (
   return data;
 };
 
-// export const getCategories = async (): Promise<CategoryType[]> => {
-//   const { data } = await apiService<CategoryType[]>('/api/service/categories/category');
-// //  console.log(data);
-
-//   return data;
-// };
+export const getService = async (id: ServiceType['id']): Promise<ServicesMastersType> => {
+  const { data } = await apiService<ServicesMastersType>(`/api/service/${id}`);
+  return data;
+};

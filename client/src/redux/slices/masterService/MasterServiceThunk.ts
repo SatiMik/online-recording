@@ -5,13 +5,13 @@ import {
     getMasterServices, submitMasterServices
 } from '../../../services/masterServiceServices';
 
-export const getMasterServicesThunk = createAsyncThunk<MasterServiceType[]>('masters/:masterId/getMasterServicesThunk', async (masterId) =>
-    getMasterServices(masterId),
+export const getMasterServicesThunk = createAsyncThunk<MasterServiceType[]>('masters/getMasterServicesThunk', async (masterId) =>
+    getMasterServices(),
 );
 
 
 export const addMasterServicesThunk = createAsyncThunk<MasterServiceType, MasterServiceFormType>(
-    'masters/:masterId/addMasterServicesThunk',
+    'masters/addMasterServicesThunk',
     async (inputs) => submitMasterServices(inputs),
 );
 

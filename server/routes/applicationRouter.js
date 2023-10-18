@@ -17,11 +17,12 @@ router
   });
 router.post('/', async (req, res) => {
   try {
-    const { phone, clientName } = req.body;
+    const { phone, clientName, status } = req.body;
     console.log(req.body, 'ОТПРАВИЛИ ЗАЯВКУ ------------');
     const applications = await Application.create({
       phone,
       clientName,
+      status,
     });
     res.json(applications);
   } catch (err) {
@@ -31,7 +32,8 @@ router.post('/', async (req, res) => {
 });
 
 router
-  .delete('/:id', async (req, res) => {
+  .route('/:id')
+  .delete(async (req, res) => {
     try {
       const application = await Application.destroy({
         where: {
@@ -42,6 +44,27 @@ router
     } catch (err) {
       console.error(err, 'ошибка в удалении, ----------------');
       res.sendStatus(500);
+    }
+  })
+  .patch(async (req, res) => {
+    try {
+      const { id } = req.params;
+      const application = await Application.findOne({
+        where: {
+          id,
+        },
+      });
+      application.status = !application.status;
+      await application.save();
+      const result = await Application.findOne({
+        where: {
+          id,
+        },
+      });
+      return res.json(result);
+    } catch (error) {
+      console.log(error);
+      return res.sendStatus(500);
     }
   });
 module.exports = router;

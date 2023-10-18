@@ -5,6 +5,7 @@ router
   .route('/')
   .get(async (req, res) => {
     try {
+      console.log('ЗАШЕЛ ---');
       const masters = await Master.findAll();
 
       return res.json(masters);

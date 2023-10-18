@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { deleteApplication, getApplications, submitApplication } from '../../../services/applicationServices';
+import { deleteApplication, editStatusApplication, getApplications, submitApplication } from '../../../services/applicationServices';
 import type { ApplicationFormType, ApplicationType } from '../../../types/applicationTypes';
 
 export const getApplicationsThunk = createAsyncThunk<ApplicationType[]>('application/getApplicationsThunk', async () =>
@@ -20,3 +20,8 @@ export const deleteApplicationThunk = createAsyncThunk<ApplicationType['id'], { 
 //     'manga/deleteMangaThunk',
 //     async ({ id }) => deleteManga(id),
 // );
+
+export const changeStatusApplicationThunk = createAsyncThunk<
+  ApplicationType,
+  { id: ApplicationType['id']; status: ApplicationFormType['status'] }
+>('application/changeStatusApplicationThunk', async ({ id, status }) => editStatusApplication(id, status));

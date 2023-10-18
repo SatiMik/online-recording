@@ -1,44 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import type { SelectChangeEvent } from '@mui/material';
-import {
-  Autocomplete,
-  Box,
-  Container,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  TextField,
-  createFilterOptions,
-} from '@mui/material';
+import { Box, Container, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
-import {
-  getRevuesThunk,
-  getSortedByABSDateRevuesThunk,
-  getSortedByABSRatingRevuesThunk,
-  getSortedByDESCDateRevuesThunk,
-  getSortedByDESCRatingRevuesThunk,
-} from '../../../redux/slices/revue/RevueThunks';
+import { getRevuesThunk } from '../../../redux/slices/revue/RevueThunks';
 import RevueCard from './RevueCard';
 import type { RevueType } from '../../../types/revueTypes';
 
-const options = [
-  { title: 'Сначала положительные' },
-  { title: 'Сначала отрицательные' },
-  { title: 'Сначала новые' },
-  { title: 'Сначала старые' },
-];
-
-type FilterOptionType = {
-  title: string;
-};
-const filterOptions = createFilterOptions({
-  matchFrom: 'start',
-  stringify: (option: FilterOptionType) => option.title,
-});
 export default function RevueAcceptedList(): JSX.Element {
-  const [option, setOption] = React.useState(1);
+  const [option, setOption] = React.useState(0);
   const revues = useAppSelector((store) => store.revues);
   const [sortedRevues, setSortedRevues] = useState<RevueType[]>(revues);
 
@@ -67,10 +37,11 @@ export default function RevueAcceptedList(): JSX.Element {
         break;
     }
   };
+
   return (
     <Box mt={5}>
       <Container>
-        <Box sx={{ minWidth: 120 }}>
+        <Box sx={{ minWidth: 120, marginBottom: '16px' }}>
           <FormControl fullWidth>
             <InputLabel id="demo-simple-select-label">Показать</InputLabel>
             <Select
@@ -85,9 +56,11 @@ export default function RevueAcceptedList(): JSX.Element {
             </Select>
           </FormControl>
         </Box>
-        {sortedRevues?.map((revue) =>
-          revue.status ? <RevueCard key={revue.id} revue={revue} user={user} /> : null,
-        )}
+        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          {sortedRevues?.map((revue) =>
+            revue.status ? <RevueCard key={revue.id} revue={revue} user={user} /> : null
+          )}
+        </Box>
       </Container>
     </Box>
   );

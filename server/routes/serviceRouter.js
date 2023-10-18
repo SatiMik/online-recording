@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Service } = require('../db/models');
+const { Service, MasterService, Master } = require('../db/models');
 
 router.route('/').post(async (req, res) => {
   try {
@@ -20,6 +20,18 @@ router.route('/').post(async (req, res) => {
 
 router
   .route('/:serviceId')
+  .get(async (req, res) => {
+    try {
+      const { serviceId } = req.params;
+      const service = await MasterService.findAll({
+        where: { serviceId },
+        include: [{ model: Service }, { model: Master }],
+      });
+      return res.json(service);
+    } catch ({ message }) {
+      res.status(400).json({ message });
+    }
+  })
   .delete(async (req, res) => {
     try {
       const { serviceId } = req.params;
@@ -60,12 +72,12 @@ router
     }
   });
 
-router.get('/services/:serviceId', async (req, res) => {
+router.get('/services/:categoryId', async (req, res) => {
   try {
-    const { serviceId } = req.params;
+    const { categoryId } = req.params;
 
     const services = await Service.findAll({
-      where: { categoryId: serviceId },
+      where: { categoryId },
     });
 
     return res.json(services);
