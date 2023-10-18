@@ -24,6 +24,23 @@ export default function NavBar(): JSX.Element {
   const applications = useSelector((state) => state.application);
   const applicationNotAccepted = applications.filter((application) => !application.status);
 
+    // const links =
+    //     user.status === 'logged'
+    //         ? [
+
+    //             { to: '/userRevue', name: 'User Revue Page' },
+
+    //         ]
+    //         : [
+    //             { to: '/', name: 'Main Page' },
+    //             { to: '/service', name: 'Service Page' },
+    //             { to: '/sale', name: 'Sale Page' },
+    //             { to: '/revue', name: 'Revue Page' },
+    //             { to: '/master', name: 'Master Page' },
+    //             { to: '/signup', name: 'Sign Up' },
+    //             { to: '/login', name: 'Login' },
+    //             { to: '/admin', name: 'Admin Page' },
+    //         ];
   const handleOpen = (): void => {
     setOpen(true);
   };
@@ -38,6 +55,7 @@ export default function NavBar(): JSX.Element {
           { to: '/revue', name: 'Отзывы' },
           { to: '/signup', name: 'Зарегистрироваться' },
           { to: '/login', name: 'Войти' },
+          { to: '/admin', name: 'Admin Page' },
         ]
       : [
           {

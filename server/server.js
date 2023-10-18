@@ -4,6 +4,9 @@ const morgan = require('morgan');
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
 const userRouter = require('./routes/userRouter');
+const recordsRouter = require('./routes/recordsAdminRouter');
+const mastersRouter = require('./routes/mastersAdminRouter');
+const servicesRouter = require('./routes/servicesAdminRouter');
 const applicationRouter = require('./routes/applicationRouter');
 const masterRouter = require('./routes/masterRouter');
 const onlineRecordRouter = require('./routes/onlineRecordRouter');
@@ -36,10 +39,13 @@ app.use(
       maxAge: 1000 * 60 * 60 * 12,
       httpOnly: true,
     },
-  })
+  }),
 );
 
 app.use('/api/user', userRouter);
+app.use('/api/records', recordsRouter);
+app.use('/api/masters', mastersRouter);
+app.use('/api/services', servicesRouter);
 app.use('/api/application', applicationRouter);
 app.use('/api/master', masterRouter);
 app.use('/api/online-record', onlineRecordRouter);
