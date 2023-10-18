@@ -29,6 +29,7 @@ export default function NavBar(): JSX.Element {
                 { to: '/master', name: 'Master Page' },
                 { to: '/signup', name: 'Sign Up' },
                 { to: '/login', name: 'Login' },
+                { to: '/admin', name: 'Admin Page' },
             ];
 
     return (

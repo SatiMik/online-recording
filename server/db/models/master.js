@@ -1,6 +1,4 @@
-const {
-  Model,
-} = require('sequelize');
+const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
   class Master extends Model {
@@ -13,18 +11,25 @@ module.exports = (sequelize, DataTypes) => {
       this.hasMany(models.MasterService, {
         foreignKey: 'masterId',
       });
+      this.belongsToMany(models.Service, {
+        foreignKey: 'masterId',
+        through: models.MasterService,
+      });
       this.hasMany(models.Record, {
         foreignKey: 'masterId',
       });
     }
   }
-  Master.init({
-    name: DataTypes.STRING,
-    desc: DataTypes.STRING,
-    img: DataTypes.STRING,
-  }, {
-    sequelize,
-    modelName: 'Master',
-  });
+  Master.init(
+    {
+      name: DataTypes.STRING,
+      desc: DataTypes.STRING,
+      img: DataTypes.STRING,
+    },
+    {
+      sequelize,
+      modelName: 'Master',
+    },
+  );
   return Master;
 };

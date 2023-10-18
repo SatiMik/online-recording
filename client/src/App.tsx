@@ -12,6 +12,7 @@ import SalePage from './components/pages/SalePage';
 import RevuePage from './components/pages/RevuePage';
 import ServicePage from './components/pages/ServicePage';
 import MasterPage from './components/pages/MasterPage';
+import AdminPage from './components/pages/AdminPage';
 
 function App(): JSX.Element {
   const theme = createTheme({
@@ -35,17 +36,16 @@ function App(): JSX.Element {
         <Box mt={5}>
           <Container>
             <Routes>
-
               <Route path="/" element={<MainPage />} />
               <Route path="/revue" element={<RevuePage />} />
               <Route path="/sale" element={<SalePage />} />
               <Route path="/service" element={<ServicePage />} />
               <Route path="/master" element={<MasterPage />} />
+              <Route path="/admin" element={<AdminPage />} />
 
               <Route element={<PrivateRoute isAllowed={user.status === 'logged'} />}>
                 <Route path="/userRevue" element={<UserRevuePage />} />
               </Route>
-
 
               <Route
                 path="/:auth"
@@ -55,7 +55,6 @@ function App(): JSX.Element {
                   </PrivateRoute>
                 }
               />
-
             </Routes>
           </Container>
         </Box>

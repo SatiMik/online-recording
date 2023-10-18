@@ -4,6 +4,9 @@ const morgan = require('morgan');
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
 const userRouter = require('./routes/userRouter');
+const recordsRouter = require('./routes/recordsAdminRouter');
+const mastersRouter = require('./routes/mastersAdminRouter');
+const servicesRouter = require('./routes/servicesAdminRouter');
 require('dotenv').config();
 
 const app = express();
@@ -29,5 +32,8 @@ app.use(
 );
 
 app.use('/api/user', userRouter);
+app.use('/api/records', recordsRouter);
+app.use('/api/masters', mastersRouter);
+app.use('/api/services', servicesRouter);
 
 app.listen(PORT, () => console.log(`Started on port ${PORT}`));

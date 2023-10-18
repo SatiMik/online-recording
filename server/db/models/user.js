@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   User.init({
     name: DataTypes.STRING,
-    phone: DataTypes.INTEGER,
+    phone: DataTypes.STRING,
     isAdmin: DataTypes.BOOLEAN,
   }, {
     sequelize,
