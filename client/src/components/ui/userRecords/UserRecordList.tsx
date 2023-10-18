@@ -8,7 +8,7 @@ import UserRecordCard from './UserRecordCard';
 export default function UserRecordList(): JSX.Element {
   const userRecords = useAppSelector((store) => store.userRecords);
 
-  console.log(userRecords);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     void dispatch(getUserRecordsThunk());
