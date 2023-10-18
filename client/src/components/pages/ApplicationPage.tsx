@@ -18,8 +18,8 @@ export default function ApplicationPage(): JSX.Element {
   const applications = useSelector((store) => store.application);
   const [notAccepted, setNotAccepted] = useState(true);
   const [accepted, setAccepted] = useState(false);
-
   return (
+
     <Box>
       <Toolbar sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
         <Box>
@@ -46,6 +46,7 @@ export default function ApplicationPage(): JSX.Element {
           {accepted && <AcceptedApplicationList />}
         </Box>
       </Toolbar>
+
     </Box>
   );
 }

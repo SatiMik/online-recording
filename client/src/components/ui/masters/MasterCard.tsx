@@ -38,8 +38,8 @@ function MasterCard({ master, user }: BookCardPropsType): JSX.Element {
   return (
     <Box mt={8}>
       <Container>
-        <Card sx={{ maxWidth: 345 }}>
-          <CardMedia sx={{ height: 140 }} image={master.img} title="green iguana" />
+        <Card sx={{ width: 345 }}>
+          <CardMedia sx={{ height: 160 }} image={master.img} title="green iguana" />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
               {master.name}
@@ -47,7 +47,7 @@ function MasterCard({ master, user }: BookCardPropsType): JSX.Element {
             <Typography variant="body2" color="text.secondary">
               {master.desc}
             </Typography>
-            <Button onClick={() => setWorks(true)} size="small">
+            <Button onClick={() => setWorks(true)} size="small" sx={{ mt: 2 }}>
               Посмотреть работы
             </Button>
           </CardContent>
@@ -66,7 +66,9 @@ function MasterCard({ master, user }: BookCardPropsType): JSX.Element {
               </>
             )}
             <Link key="Открыть" component={NavLink} to={`/online-record/masters/${master.id}/services`} sx={linkStyle}>
-              Записаться
+              <Button  variant="contained">
+                Записаться
+              </Button>
             </Link>
           </CardActions>
           {open && <MasterModal open={open} master={master} setOpen={setOpen} />}

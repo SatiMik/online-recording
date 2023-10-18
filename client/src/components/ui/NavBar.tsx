@@ -164,7 +164,7 @@ export default function MiniDrawer(): JSX.Element {
               sx={{
                 padding: '8px 16px',
                 backgroundColor: 'white',
-                color: '#6a329f',
+                color: '#566F5F',
                 borderRadius: '4px',
                 cursor: 'pointer',
               }}
