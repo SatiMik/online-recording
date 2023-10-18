@@ -14,29 +14,19 @@ import MasterPage from './components/pages/MasterPage';
 import AdminPage from './components/pages/AdminPage';
 import Loader from './hocs/Loader';
 import ApplicationPage from './components/pages/ApplicationPage';
-import OnlineMasterServicesPage from './components/ui/online-record/услуги со временем/OnlineMasterServicesPage';
 import CategoryPage from './components/pages/CategoryPage';
-// import OnlineRecordPage from './components/ui/online-record/OnlineRecordPage';
-import FooterNew from './components/footer/Footer';
-// import OnlineServicePage from './components/ui/online-record/serviceRecord/OnlineServicePage';
 import OnlineRecordPage from './components/pages/online-record/OnlineRecordPage';
-import Footer from './components/ui/Footer/Futer';
-// import OnlineCategoryServicesPage from './components/ui/online-record/serviceRecord/categories/OnlineCategoryServicesPage';
 import OnlineMastersPage from './components/pages/online-record/OnlineMastersPage';
-// import OnlineServicePage from './components/pages/online-record/OnlineServicesPage';
-import OnlineServiceCategoryPage from './components/ui/online-record/onlineCategory/OnlineServiceCategoryPage';
 import UserRecordsPage from './components/pages/UserRecordsPage';
 import OnlineServicesPage from './components/pages/online-record/OnlineServicesPage';
 import NavBar from './components/ui/Navbar';
-// import NavBar from './components/ui/Navbar';
-
-// прописать проверки на гостя, тк нет привата на регистрацию
 
 function App(): JSX.Element {
   const theme = createTheme({
     palette: {
       primary: { main: '#566F5F' },
       secondary: { main: '#DFDBDC' },
+      newColor: { main: '#AF8678' },
     },
   });
 
@@ -65,21 +55,10 @@ function App(): JSX.Element {
                 <Route path="/online-record" element={<OnlineRecordPage />} />
                 <Route path="/online-record/masters" element={<OnlineMastersPage />} />
                 <Route path="/admin" element={<AdminPage />} />
-                {/* <Route
-                  path="/online-record/masters/:masterId/services"
-                  element={<OnlineMasterServicesPage />}
-                /> */}
+               
                 <Route path="/online-record/services" element={<OnlineServicesPage />} />
-                {/* <Route
-                  path="/online-record/services/:categoryId"
-                  element={<OnlineServiceCategoryPage />}
-                />
-                <Route
-                  path="/online-record/services/category/:categoryId"
-                  element={<OnlineCategoryServicesPage />}
-                /> */}
 
-                <Route element={<PrivateRoute isAllowed={user.status === 'logged'} />}>
+                <Route element={<PrivateRoute isAllowed={user.status === 'logged' && !user.isAdmin} />}>
                   <Route path="/userRecords" element={<UserRecordsPage />} />
                 </Route>
 
