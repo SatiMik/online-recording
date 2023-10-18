@@ -147,6 +147,59 @@ export default function MiniDrawer(): JSX.Element {
           },
         ];
 
+
+  const links =
+    user.status === 'guest'
+      ? [
+        { to: '/', name: 'Главная' },
+        { to: '/service', name: 'Услуги' },
+        { to: '/master', name: 'Мастера' },
+        { to: '/sale', name: 'Акции' },
+        { to: '/revue', name: 'Отзывы' },
+        // { to: '/userRecords', name: 'Мои записи' },
+        {
+          to: '/online-record', name:
+            <>  <Button
+              disabled
+              sx={{
+                padding: '8px 16px',
+                backgroundColor: 'white',
+                color: '#6a329f',
+                borderRadius: '4px',
+                cursor: 'pointer',
+              }}
+            >
+              Онлайн запись
+            </Button></>
+        },
+
+      ]
+      : [
+        { to: '/', name: 'Главная' },
+        { to: '/application', name: <><IconButton><Badge badgeContent={applications.length} color="secondary"><MailIcon style={{ color: 'white' }} /></Badge></IconButton> </> },
+        { to: '/service', name: 'Услуги' },
+        { to: '/master', name: 'Мастера' },
+        { to: '/sale', name: 'Акции' },
+        { to: '/revue', name: 'Отзывы' },
+        { to: '/userRecords', name: 'Мои записи' },
+        {
+          to: '/online-record', name:
+            <>  <Button
+              disabled
+              sx={{
+                padding: '8px 16px',
+                backgroundColor: 'white',
+                color: '#6a329f',
+                borderRadius: '4px',
+                cursor: 'pointer',
+              }}
+            >
+              Онлайн запись
+            </Button></>
+        },
+      ]
+
+
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
@@ -198,8 +251,9 @@ export default function MiniDrawer(): JSX.Element {
                 <ListItemText primary={to} sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
             </ListItem>
-          ))}
-        </List>
+          ))
+          }
+        </List >
         <Divider />
         <List>
           {['All mail', 'Trash', 'Spam'].map((text, index) => (
@@ -225,10 +279,10 @@ export default function MiniDrawer(): JSX.Element {
             </ListItem>
           ))}
         </List>
-      </Drawer>
+      </Drawer >
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
       </Box>
-    </Box>
+    </Box >
   );
 }

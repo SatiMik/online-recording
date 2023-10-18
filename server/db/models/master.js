@@ -6,6 +6,10 @@ module.exports = (sequelize, DataTypes) => {
       this.hasMany(models.MasterService, {
         foreignKey: 'masterId',
       });
+      this.belongsToMany(models.Service, {
+        foreignKey: 'masterId',
+        through: models.MasterService,
+      });
       this.hasMany(models.Record, {
         foreignKey: 'masterId',
       });

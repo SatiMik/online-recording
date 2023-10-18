@@ -1,7 +1,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.sequelize.query('ALTER DATABASE recording SET timezone TO "GMT";');
+    // await queryInterface.sequelize.query('ALTER DATABASE finalOne SET timezone TO "GMT";');
     await queryInterface.createTable('Schedules', {
       id: {
         allowNull: false,

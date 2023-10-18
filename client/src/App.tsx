@@ -11,15 +11,19 @@ import SalePage from './components/pages/SalePage';
 import RevuePage from './components/pages/RevuePage';
 import ServicePage from './components/pages/ServicePage';
 import MasterPage from './components/pages/MasterPage';
+import AdminPage from './components/pages/AdminPage';
 import Loader from './hocs/Loader';
 import ApplicationPage from './components/pages/ApplicationPage';
 import OnlineMasterServicesPage from './components/ui/online-record/услуги со временем/OnlineMasterServicesPage';
 import CategoryPage from './components/pages/CategoryPage';
+// import OnlineRecordPage from './components/ui/online-record/OnlineRecordPage';
+import FooterNew from './components/footer/Footer';
+// import OnlineServicePage from './components/ui/online-record/serviceRecord/OnlineServicePage';
 import OnlineRecordPage from './components/pages/online-record/OnlineRecordPage';
 import Footer from './components/ui/Footer/Futer';
-import OnlineCategoryServicesPage from './components/ui/online-record/serviceRecord/categories/OnlineCategoryServicesPage';
+// import OnlineCategoryServicesPage from './components/ui/online-record/serviceRecord/categories/OnlineCategoryServicesPage';
 import OnlineMastersPage from './components/pages/online-record/OnlineMastersPage';
-import OnlineServicePage from './components/pages/online-record/OnlineServicesPage';
+// import OnlineServicePage from './components/pages/online-record/OnlineServicesPage';
 import OnlineServiceCategoryPage from './components/ui/online-record/onlineCategory/OnlineServiceCategoryPage';
 import UserRecordsPage from './components/pages/UserRecordsPage';
 import OnlineServicesPage from './components/pages/online-record/OnlineServicesPage';
@@ -29,7 +33,7 @@ import OnlineServicesPage from './components/pages/online-record/OnlineServicesP
 function App(): JSX.Element {
   const theme = createTheme({
     palette: {
-      primary: { main: '#6a329f' },
+      primary: { main: '#566F5F' },
     },
   });
 
@@ -57,6 +61,7 @@ function App(): JSX.Element {
                 <Route path="/master" element={<MasterPage />} />
                 <Route path="/online-record" element={<OnlineRecordPage />} />
                 <Route path="/online-record/masters" element={<OnlineMastersPage />} />
+                <Route path="/admin" element={<AdminPage />} />
                 {/* <Route
                   path="/online-record/masters/:masterId/services"
                   element={<OnlineMasterServicesPage />}
@@ -72,7 +77,7 @@ function App(): JSX.Element {
                 /> */}
 
                 <Route element={<PrivateRoute isAllowed={user.status === 'logged'} />}>
-                  <Route path="/user-records" element={<UserRecordsPage />} />
+                  <Route path="/userRecords" element={<UserRecordsPage />} />
                 </Route>
 
                 <Route
@@ -85,7 +90,7 @@ function App(): JSX.Element {
           </Box>
         </>
       </Loader>
-      <Footer />
+      <FooterNew />
     </ThemeProvider>
   );
 }
