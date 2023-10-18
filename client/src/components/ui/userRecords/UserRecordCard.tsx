@@ -26,22 +26,24 @@ function UserRecordCard({ userRecord, user }: BookCardPropsType): JSX.Element {
   const dispatch = useAppDispatch();
   const [open, setOpen] = useState(false);
 
+
   return (
+    
     <Box mt={8}>
       <Container>
         <Card sx={{ maxWidth: 345 }}>
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
-              Дата: {userRecord.date} октября
+              Дата: {userRecord?.date} октября
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              Время: {userRecord.time}:00
+              Время: {userRecord?.time}:00
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              Мастер: {userRecord.Master.name}
+              Мастер: {userRecord?.Master.name}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              Услуга: {userRecord.Service.name}
+              Услуга: {userRecord?.Service.name}
             </Typography>
             <Button onClick={() => setOpen(true)} size="small">
               Отменить запись

@@ -13,17 +13,16 @@ import ServicePage from './components/pages/ServicePage';
 import MasterPage from './components/pages/MasterPage';
 import Loader from './hocs/Loader';
 import ApplicationPage from './components/pages/ApplicationPage';
-import OnlineMastersPage from './components/ui/online-record/masterRecord/OnlineMastersPage';
-import OnlineMasterServicesPage from './components/ui/online-record/OnlineMasterServicesPage';
+import OnlineMasterServicesPage from './components/ui/online-record/услуги со временем/OnlineMasterServicesPage';
 import CategoryPage from './components/pages/CategoryPage';
-import OnlineRecordPage from './components/ui/online-record/OnlineRecordPage';
+import OnlineRecordPage from './components/pages/online-record/OnlineRecordPage';
 import Footer from './components/ui/Footer/Futer';
-import OnlineServicePage from './components/ui/online-record/OnlineServicePage';
-import OnlineServiceCategoryPage from './components/ui/online-record/OnlineServiceCategoryPage';
-import OnlineMasterServicesPage from './components/ui/online-record/OnlineMasterServicesPage';
-import OnlineMastersPage from './components/ui/online-record/OnlineMastersPage';
-import OnlineCategoryServicesPage from './components/ui/online-record/OnlineCategoryServicesPage';
-import OnlineChooseMasterPage from './components/ui/online-record/OnlineChooseMasterPage';
+import OnlineCategoryServicesPage from './components/ui/online-record/serviceRecord/categories/OnlineCategoryServicesPage';
+import OnlineMastersPage from './components/pages/online-record/OnlineMastersPage';
+import OnlineServicePage from './components/pages/online-record/OnlineServicesPage';
+import OnlineServiceCategoryPage from './components/ui/online-record/onlineCategory/OnlineServiceCategoryPage';
+import UserRecordsPage from './components/pages/UserRecordsPage';
+import OnlineServicesPage from './components/pages/online-record/OnlineServicesPage';
 
 // прописать проверки на гостя, тк нет привата на регистрацию
 
@@ -57,17 +56,20 @@ function App(): JSX.Element {
                 <Route path="/services/:categoryId" element={<ServicePage />} />
                 <Route path="/master" element={<MasterPage />} />
                 <Route path="/online-record" element={<OnlineRecordPage />} />
-                <Route path="/online-record/masters" element={<OnlineMastersPage/>} />
-                <Route
+                <Route path="/online-record/masters" element={<OnlineMastersPage />} />
+                {/* <Route
                   path="/online-record/masters/:masterId/services"
-                  element={<OnlineMasterServicesPage  />}
+                  element={<OnlineMasterServicesPage />}
+                /> */}
+                <Route path="/online-record/services" element={<OnlineServicesPage />} />
+                {/* <Route
+                  path="/online-record/services/:categoryId"
+                  element={<OnlineServiceCategoryPage />}
                 />
-                <Route path="/online-record/services" element={<OnlineServicePage />} />
-                <Route path="/online-record/services/:categoryId" element={<OnlineServiceCategoryPage />} />
-                <Route path="/online-record/services/category/:categoryId" element={<OnlineCategoryServicesPage />} />
-                <Route path="/online-record/services/masters/:serviceId" element={<OnlineChooseMasterPage/>} />
-
-
+                <Route
+                  path="/online-record/services/category/:categoryId"
+                  element={<OnlineCategoryServicesPage />}
+                /> */}
 
                 <Route element={<PrivateRoute isAllowed={user.status === 'logged'} />}>
                   <Route path="/user-records" element={<UserRecordsPage />} />

@@ -75,6 +75,7 @@ export default function ModalButton({ open, setOpen }: ModalButtonProps): JSX.El
                   addApplicationThunk({
                     phone: userInputs.phone,
                     clientName: userInputs.clientName,
+                    status: false,
                   }),
                 );
                 handleClose();
@@ -130,6 +131,7 @@ export default function ModalButton({ open, setOpen }: ModalButtonProps): JSX.El
                     addApplicationThunk({
                       phone: userInputs.phone,
                       clientName: userInputs.clientName,
+                      status: false,
                     }),
                   )
                 }

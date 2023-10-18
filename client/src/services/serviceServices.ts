@@ -30,3 +30,4 @@ export const getService = async (id: ServiceType['id']): Promise<ServicesMasters
   const { data } = await apiService<ServicesMastersType>(`/api/service/${id}`);
   return data;
 };
+

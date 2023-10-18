@@ -1,18 +1,17 @@
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import React, { useState } from 'react';
-import { Grid, Card, CardContent, CardMedia, Typography, Button, Box } from '@mui/material';
+import { Grid, Card, CardContent, Typography, Button, Box } from '@mui/material';
+import type { ServiceType } from '../../../../types/serviceTypes';
+import OnlineModalRecordService from './modalService/OnlineModalRecordService';
 
-import type { MasterType } from '../../../../types/masterTypes';
 
-import OnlineModalRecordMaster from './modalMaster/OnlineModalRecordMaster';
-
-type MasterCardProps = {
-  master: MasterType;
+type ServiceCardProps = {
+  service: ServiceType;
 };
 
-export default function OnlineMasterCard({ master }: MasterCardProps): JSX.Element {
+export default function OnlineServiceCard({ service }: ServiceCardProps): JSX.Element {
   const [open, setOpen] = useState(false);
-
   const handleOpen = (): void => {
     setOpen(true);
   };
@@ -35,20 +34,22 @@ export default function OnlineMasterCard({ master }: MasterCardProps): JSX.Eleme
           }}
         >
           <Card sx={{ width: 345 }}>
-            <CardMedia component="img" height="240" image={master.img} alt="Image" />
             <CardContent>
               <Typography variant="h5" component="div">
-                {master.name}
+                {service.name}
               </Typography>
               <Typography variant="body2" color="text.secondary">
-                {master.desc}
+                {service.price}
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                {service.time}
               </Typography>
               <Box>
                 <Button variant="contained" onClick={handleOpen}>
-                 Записаться
+                Записаться
                 </Button>
               </Box>
-              <OnlineModalRecordMaster open={open} setOpen={setOpen} master={master} />
+              <OnlineModalRecordService open={open} setOpen={setOpen} service={service} />
             </CardContent>
           </Card>
         </Grid>

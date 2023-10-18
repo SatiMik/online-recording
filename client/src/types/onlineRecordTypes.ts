@@ -1,5 +1,6 @@
 export type OnlineRecordType = {
   id: number;
+  date: number;
   time: number;
   serviceId: number;
   masterId: number;

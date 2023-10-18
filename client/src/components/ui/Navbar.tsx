@@ -21,12 +21,8 @@ export default function NavBar(): JSX.Element {
   const [authType, setAuthType] = useState(0);
   const [isLogout, setIsLogout] = useState(false);
   const dispatch = useAppDispatch();
-<<<<<<< HEAD
   const applications = useSelector((state) => state.application);
   const applicationNotAccepted = applications.filter((application) => !application.status);
-=======
-  const applications = useAppSelector((state) => state.application);
->>>>>>> dev
 
   const handleOpen = (): void => {
     setOpen(true);

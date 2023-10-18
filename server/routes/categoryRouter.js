@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Category } = require('../db/models');
+const { Category, Service } = require('../db/models');
 
 router.route('/').post(async (req, res) => {
   try {
@@ -58,7 +58,8 @@ router
 
 router.get('/', async (req, res) => {
   try {
-    const categories = await Category.findAll();
+    const categories = await Category.findAll({ include: Service });
+    console.log('-----------',categories);
     return res.json(categories);
   } catch (error) {
     console.log(error);
