@@ -1,12 +1,13 @@
 const router = require('express').Router();
-const { Master, Example } = require('../db/models');
+const {
+  Master, Example, MasterService, Service,
+} = require('../db/models');
 
 router
   .route('/')
   .get(async (req, res) => {
     try {
       const masters = await Master.findAll();
-
       return res.json(masters);
     } catch (error) {
       console.log(error);
@@ -33,7 +34,7 @@ router
   .delete(async (req, res) => {
     try {
       const { masterId } = req.params;
-      console.log(masterId, '-------------------- id');
+
       const result = await Master.destroy({ where: { id: masterId } });
       console.log(result);
       if (result > 0) {
@@ -64,11 +65,14 @@ router
   .get(async (req, res) => {
     try {
       const { masterId } = req.params;
-      const result = await Master.findOne({ where: { id: masterId } });
-      res.status(200).json(result);
-    } catch (error) {
-      console.log(error);
-      return res.sendStatus(500);
+      const service = await MasterService.findAll({
+        where: { masterId },
+        include: [{ model: Service }, { model: Master }],
+      });
+      console.log(service);
+      return res.json(service);
+    } catch ({ message }) {
+      res.status(400).json({ message });
     }
   });
 

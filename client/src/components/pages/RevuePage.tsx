@@ -12,7 +12,7 @@ export default function RevuePage(): JSX.Element {
     <>
       {user.status === 'logged' && user.isAdmin && <RevueNotAcceptedList />}
       {user.status === 'logged' && <RevueForm />}
-      
+
       <RevueAcceptedList />
     </>
   );

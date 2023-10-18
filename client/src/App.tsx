@@ -1,31 +1,32 @@
 import { Box, Container, Icon, ThemeProvider, createTheme } from '@mui/material';
 import React, { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
+// import Navbar from './components/ui/Navbar';
 import Navbar from './components/ui/Navbar';
 import MainPage from './components/pages/MainPage';
 import PrivateRoute from './hocs/PrivateRoute';
 import { useAppDispatch, useAppSelector } from './redux/hooks';
 import { checkUserThunk } from './redux/slices/user/UserThunks';
-import UserRevuePage from './components/pages/UserRevuePage';
 import SalePage from './components/pages/SalePage';
 import RevuePage from './components/pages/RevuePage';
 import ServicePage from './components/pages/ServicePage';
 import MasterPage from './components/pages/MasterPage';
+import AdminPage from './components/pages/AdminPage';
 import Loader from './hocs/Loader';
 import ApplicationPage from './components/pages/ApplicationPage';
-import MastersPage from './components/ui/online-record/MastersPage';
-import MasterServicesPage from './components/ui/online-record/MasterServicesPage';
 import CategoryPage from './components/pages/CategoryPage';
-import OnlineRecordPage from './components/ui/online-record/OnlineRecordPage';
-import Footer from './components/ui/Footer/Futer';
-import OnlineServicePage from './components/ui/online-record/OnlineServicePage';
-
-// прописать проверки на гостя, тк нет привата на регистрацию
+import OnlineRecordPage from './components/pages/online-record/OnlineRecordPage';
+import OnlineMastersPage from './components/pages/online-record/OnlineMastersPage';
+import UserRecordsPage from './components/pages/UserRecordsPage';
+import OnlineServicesPage from './components/pages/online-record/OnlineServicesPage';
+import NavBar from './components/ui/Navbar';
 
 function App(): JSX.Element {
   const theme = createTheme({
     palette: {
-      primary: { main: '#6a329f' },
+      primary: { main: '#566F5F' },
+      secondary: { main: '#DFDBDC' },
+      newColor: { main: '#AF8678' },
     },
   });
 
@@ -41,7 +42,7 @@ function App(): JSX.Element {
     <ThemeProvider theme={theme}>
       <Loader isLoading={user.status === 'loading'}>
         <>
-          <Navbar />
+          <NavBar />
           <Box mt={5}>
             <Container>
               <Routes>
@@ -49,31 +50,29 @@ function App(): JSX.Element {
                 <Route path="/revue" element={<RevuePage />} />
                 <Route path="/sale" element={<SalePage />} />
                 <Route path="/service" element={<CategoryPage />} />
-                <Route path="/services/:serviceId" element={<ServicePage />} />
+                <Route path="/services/:categoryId" element={<ServicePage />} />
                 <Route path="/master" element={<MasterPage />} />
                 <Route path="/online-record" element={<OnlineRecordPage />} />
-                <Route path="/online-record/masters" element={<MastersPage />} />
-                <Route path="/online-record/masters/:masterId/services" element={<MasterServicesPage />} />
-                <Route path="/online-record/services" element={<OnlineServicePage />} />
-                <Route path="/online-record/services/:categoryId" element={<ServicePage />} />
+                <Route path="/online-record/masters" element={<OnlineMastersPage />} />
+                <Route path="/admin" element={<AdminPage />} />
+               
+                <Route path="/online-record/services" element={<OnlineServicesPage />} />
 
-                <Route element={<PrivateRoute isAllowed={user.status === 'logged'} />}>
-                  <Route path="/userRevue" element={<UserRevuePage />} />
+                <Route element={<PrivateRoute isAllowed={user.status === 'logged' && !user.isAdmin} />}>
+                  <Route path="/userRecords" element={<UserRecordsPage />} />
                 </Route>
 
                 <Route
                   element={<PrivateRoute isAllowed={user.status === 'logged' && user?.isAdmin} />}
                 >
                   <Route path="/application" element={<ApplicationPage />} />
-
                 </Route>
               </Routes>
             </Container>
           </Box>
-
         </>
       </Loader>
-      <Footer />
+      {/* <FooterNew /> */}
     </ThemeProvider>
   );
 }

@@ -41,11 +41,3 @@ export const getSortedByDESCDateRevuesThunk = createAsyncThunk<RevueType[]>(
   'revue/getSortedByDESCDateRevuesThunk',
   async () => getRevues(),
 );
-export const getSortedByABSRatingRevuesThunk = createAsyncThunk<RevueType[]>(
-  'revue/getSortedByABSRatingRevuesThunk',
-  async () => getRevues(),
-);
-export const getSortedByDESCRatingRevuesThunk = createAsyncThunk<RevueType[]>(
-  'revue/getSortedByDESCRatingRevuesThunk',
-  async () => getRevues(),
-);

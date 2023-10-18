@@ -8,11 +8,11 @@ import ServiceCard from './ServiceCard';
 
 export default function ServiceList(): JSX.Element {
   const dispatch = useAppDispatch();
-  const {serviceId} = useParams();
+  const {categoryId} = useParams();
 
   
   useEffect(() => {
-    void dispatch(getServiceThunk(Number(serviceId)));
+    void dispatch(getServiceThunk(Number(categoryId)));
   }, []);
 
   const services = useAppSelector((store) => store.services);
@@ -21,6 +21,7 @@ export default function ServiceList(): JSX.Element {
   return (
     <Box mt={5}>
       <Container>
+        
         {services?.map((service) => <ServiceCard key={service.id} service={service} />)}
       </Container>
     </Box>

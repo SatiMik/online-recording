@@ -5,6 +5,7 @@ import {
   addServiceThunk,
   deleteServiceThunk,
   editServiceThunk,
+  getOneServiceThunk,
   getServiceThunk,
 } from './ServiceThunks';
 
@@ -32,7 +33,9 @@ export const ServiceSlice = createSlice({
       state[index] = action.payload;
     });
     builder.addCase(editServiceThunk.rejected, (state, action) => state);
+
   },
+  
 });
 
 export default ServiceSlice.reducer;

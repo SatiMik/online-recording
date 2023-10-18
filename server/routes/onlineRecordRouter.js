@@ -1,13 +1,36 @@
 const router = require('express').Router();
-const { Op } = require('sequelize');
-const {
-  Master, MasterService, Service, Category,
-} = require('../db/models');
+// const { Op } = require('sequelize');
+const { Master, MasterService, Service, Record } = require('../db/models');
+
+router.post('/', async (req, res) => {
+  try {
+    const userId = req.session.user.id;
+    console.log(req.body);
+    const { masterId, serviceId, date, time } = req.body;
+    const result = await Record.create({
+      masterId,
+      serviceId,
+      userId,
+      date,
+      time,
+    });
+    return res.sendStatus(200);
+  } catch (error) {
+    console.log(error);
+    return res.sendStatus(500);
+  }
+});
 
 router.get('/masters', async (req, res) => {
   try {
+    const { masterId } = req.params;
     const masters = await Master.findAll();
-    return res.json(masters);
+    const services = await MasterService.findAll({
+      where: { masterId },
+      include: { model: Service },
+    });
+
+    return res.json(masters, services);
   } catch (error) {
     console.log(error, 'ошибка в получении мастеров');
     return res.sendStatus(500);
@@ -17,12 +40,10 @@ router.get('/masters', async (req, res) => {
 router.get('/masters/:masterId/services', async (req, res) => {
   try {
     const { masterId } = req.params;
-    // console.log(masterId, '-------------------- id');
     const services = await MasterService.findAll({ where: { masterId } });
-    const serviceList = await Service.findAll(
-      { where: { id: { [Op.in]: services.map((s) => s.serviceId) } } },
-    );
-    console.log(services, '-------------------- services');
+    const serviceList = await Service.findAll({
+      where: { id: { [Op.in]: services.map((s) => s.serviceId) } },
+    });
     return res.json(serviceList);
   } catch (error) {
     console.log(error, 'ошибка в получении услуги мастера по id');
@@ -33,19 +54,10 @@ router.get('/masters/:masterId/services', async (req, res) => {
 router.get('/services/:categoryId', async (req, res) => {
   try {
     const { categoryId } = req.params;
-    console.log(categoryId, '-------------------- id');
-    const categories = await Category.findAll();
-    const serviceList = await Service.findAll({
-      where: {
-        categoryId,
-      },
-    },
-    //   { where: { id: { [Op.in]: categories.map((s) => s.service) } }
-    // },
-    );
-    return res.json(serviceList);
+    const result = await Service.findAll({ where: { categoryId } });
+    return req.sendStatus(200).json(result);
   } catch (error) {
-    console.log(error, 'ошибка в получении категорий ++++++++++++++++++++++++++');
+    console.log(error);
     return res.sendStatus(500);
   }
 });

@@ -36,15 +36,18 @@ function CategoryCard({ category, user }: CategoryCardPropsType): JSX.Element {
   return (
     <Box mt={8}>
       <Container>
-        <Card sx={{ maxWidth: 345 }}>
+        <Card sx={{ width: 345 }}>
           {/* <CardMedia sx={{ height: 140 }} image={category.img} title="green iguana" /> */}
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
               {category.name}
             </Typography>
 
-            <Link key="Открыть" component={NavLink} to={`/services/${category.id}`} sx={linkStyle}>
+            {/* <Link key="Открыть" component={NavLink} to={`/services/${category.id}`} sx={linkStyle}>
               Открыть
+            </Link> */}
+            <Link key="Открыть" component={NavLink} to={`/services/${category.id}`} sx={{ textAlign: 'center' }}>
+              <Button variant="contained">Перейти</Button>
             </Link>
           </CardContent>
           <CardActions>

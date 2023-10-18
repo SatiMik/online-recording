@@ -1,6 +1,4 @@
-const {
-  Model,
-} = require('sequelize');
+const { Model } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
   class Application extends Model {
@@ -13,12 +11,16 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  Application.init({
-    phone: DataTypes.STRING,
-    clientName: DataTypes.STRING,
-  }, {
-    sequelize,
-    modelName: 'Application',
-  });
+  Application.init(
+    {
+      phone: DataTypes.STRING,
+      clientName: DataTypes.STRING,
+      status: DataTypes.BOOLEAN,
+    },
+    {
+      sequelize,
+      modelName: 'Application',
+    }
+  );
   return Application;
 };
