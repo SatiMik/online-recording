@@ -28,21 +28,25 @@ export default function RevueForm(): JSX.Element {
   };
 
   return (
-    <Box display="flex" flexDirection="column" alignItems="center" style={{ width: '100%', justifyContent: 'center' }}>
+    <Box
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+      style={{ width: '100%', justifyContent: 'center' }}
+    >
       <TextField
         name="text"
         variant="standard"
         placeholder="Ваш отзыв"
         value={inputs.text}
         onChange={changeHandler}
-     
       />
       <Box
         sx={{
           '& > legend': { mt: 2 },
         }}
       >
-        <Typography  component="legend">Оставьте оценку</Typography>
+        <Typography component="legend">Оставьте оценку</Typography>
         <Rating
           style={{ color: '#4a875d' }}
           name="rating"
@@ -55,6 +59,7 @@ export default function RevueForm(): JSX.Element {
         type="submit"
         variant="outlined"
         size="large"
+        style={{ backgroundColor: 'white' }}
         onClick={() => {
           void dispatch(addRevueThunk(inputs));
           setInputs({
