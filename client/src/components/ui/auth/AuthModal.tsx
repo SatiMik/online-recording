@@ -43,7 +43,12 @@ export default function AuthModal({
     isAdmin: false,
   });
 
+  // const [close, setClose] = useState(true);
 
+  //   const handleClose = (): void => {
+  //     setClose(false);
+  //   };
+  // }
   const changeHandler: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     setInput((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
@@ -66,6 +71,9 @@ export default function AuthModal({
       open={auth}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
+      onClick={() => {
+        setAuth(false);
+      }}
     >
       <Box
         sx={style}
