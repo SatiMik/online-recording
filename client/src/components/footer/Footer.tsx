@@ -30,19 +30,6 @@ export default function FooterNew(): JSX.Element {
       >
         <CardContent>
           <Grid container spacing={2} sx={{ display: 'flex', flexDirection: 'column' }}>
-            <Grid item xs={12} md={6}>
-              <Grid container spacing={2}>
-                <Grid item xs={4}>
-                  <Link href="#" underline="none">
-                    {/* <img src={fot1} alt="" width="200px" height="200px" style={{ width: '100%', borderRadius: '8px' }} /> */}
-                    {/* <div className="gallery__fade">
-                                            <Instagram />
-                                        </div> */}
-                  </Link>
-                </Grid>
-                {/* Add more images here */}
-              </Grid>
-            </Grid>
             <Grid
               item
               xs={12}
