@@ -151,7 +151,7 @@ export default function NavBar(): JSX.Element {
               </Link>
             ))}
 
-            {user.status !== 'loading' || (user.status === 'logged' && !user.isAdmin) ? (
+            {(user.status === 'logged' && !user.isAdmin) || user.status === 'guest' ? (
               <Link component={NavLink} to="/online-record" sx={linkStyle}>
                 <Button
                   variant="outlined"
@@ -206,7 +206,7 @@ export default function NavBar(): JSX.Element {
               </>
             )}
           </Box>
-          {user.status !== 'loading' || (user.status === 'logged' && !user.isAdmin) ? (
+          {(user.status === 'logged' && !user.isAdmin) || user.status === 'guest' ? (
             <Box
               onClick={handleOpen}
               sx={{

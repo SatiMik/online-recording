@@ -135,7 +135,7 @@ export default function OnlineModalRecordMaster({
           </FormControl>
           {freeTimes.map((freeTime, i) => (
             <Button
-              style={{ backgroundColor: chosen === i + 1 ? 'violet' : 'white' }}
+              style={{ backgroundColor: chosen === i + 1 ? '#4a875d' : 'white' }}
               key={freeTime}
               size="small"
               onClick={() => {
