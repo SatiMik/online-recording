@@ -3,11 +3,7 @@ import type { SelectChangeEvent } from '@mui/material';
 import { Box, Container, FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
-import {
-  getRevuesThunk,
-  getSortedByABSDateRevuesThunk,
-  getSortedByDESCDateRevuesThunk,
-} from '../../../redux/slices/revue/RevueThunks';
+import { getRevuesThunk } from '../../../redux/slices/revue/RevueThunks';
 import RevueCard from './RevueCard';
 import { sortHigh, sortLow } from '../../../redux/slices/revue/RevueSlice';
 
@@ -26,7 +22,6 @@ export default function RevueAcceptedList(): JSX.Element {
     setOption((prev) => event.target.value);
     switch (event.target.value) {
       case '1':
-        // void dispatch(getSortedByABSDateRevuesThunk());
         dispatch(sortHigh());
 
         break;
@@ -54,17 +49,28 @@ export default function RevueAcceptedList(): JSX.Element {
               onChange={handleChange}
               defaultValue="0"
             >
-              <MenuItem value="0">Выберите значение</MenuItem>
+              <MenuItem value="0">Фильтр</MenuItem>
               <MenuItem value="1">Сначала положительные</MenuItem>
 
               <MenuItem value="2">Сначала отрицательные</MenuItem>
             </Select>
           </FormControl>
         </Box>
-        <Box sx={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-          {revues?.map((revue) =>
-            revue.status ? <RevueCard key={revue.id} revue={revue} user={user} /> : null,
-          )}
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            flexWrap: 'wrap',
+            gap: '16px',
+            marginBottom: '16px',
+            boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
+          }}
+        >
+          {revues?.map((revue) => (
+            <Box key={revue.id} sx={{ width: '100%' }}>
+              <RevueCard revue={revue} user={user} />
+            </Box>
+          ))}
         </Box>
       </Container>
     </Box>

@@ -15,7 +15,6 @@ import {
   Link,
   Fab,
   Grid,
-
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -45,18 +44,23 @@ function MasterCard({ master, user }: BookCardPropsType): JSX.Element {
   return (
     <Box mt={8}>
       <Container>
-        <Card sx={{ width: 405 }}>
-          <CardMedia sx={{ height: 200 }} image={master.img} title="green iguana" />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-              {master.name}
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              {master.desc}
-            </Typography>
-            <Button onClick={() => setWorks(true)} size="small" sx={{ mt: 2 }}>
-              Посмотреть работы
-            </Button>
+        <Card sx={{ width: 300 }}>
+          <CardMedia sx={{ height: 400 }} image={master.img} title="green iguana" />
+          <CardContent sx={{ height: 90 }}>
+            <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+              <Box>
+                <Typography gutterBottom variant="h5" component="div">
+                  {master.name}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  {master.desc}
+                </Typography>
+              </Box>
+
+              <Button onClick={() => setWorks(true)} size="small" sx={{ mt: 2 }}>
+                Посмотреть работы
+              </Button>
+            </Box>
           </CardContent>
           <CardActions>
             {user.status === 'logged' && user?.isAdmin && (
@@ -65,11 +69,14 @@ function MasterCard({ master, user }: BookCardPropsType): JSX.Element {
                   onClick={() => void dispatch(deleteMasterThunk({ id: master.id }))}
                   size="medium"
                 >
-                  <Grid item xs={8} >
-                    <DeleteIcon sx={{ height: 40, width: 200, marginLeft: -10, marginRight: -10 }} color="newColor" />
+                  <Grid item xs={8}>
+                    <DeleteIcon
+                      sx={{ height: 40, width: 200, marginLeft: -10, marginRight: -10 }}
+                      color="newColor"
+                    />
                   </Grid>
                 </Button>
-                <Button onClick={() => setOpen(true)} size="small" >
+                <Button onClick={() => setOpen(true)} size="small">
                   <Fab color="newColor" aria-label="edit" sx={{ height: 45, width: 45 }}>
                     <EditIcon />
                   </Fab>
@@ -77,8 +84,9 @@ function MasterCard({ master, user }: BookCardPropsType): JSX.Element {
               </>
             )}
             <CardActions sx={{ justifyContent: 'space-between' }}>
-
-              <Button onClick={() => setOpenOnline(true)} variant="contained">Записаться</Button>
+              <Button onClick={() => setOpenOnline(true)} variant="contained">
+                Записаться
+              </Button>
             </CardActions>
           </CardActions>
           {open && <MasterModal open={open} master={master} setOpen={setOpen} />}

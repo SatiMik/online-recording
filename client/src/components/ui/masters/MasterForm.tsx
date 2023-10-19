@@ -1,4 +1,4 @@
-import { Box, Button, TextField } from '@mui/material';
+import { Box, Button, TextField, Grid } from '@mui/material';
 import React, { useState } from 'react';
 import { useAppDispatch } from '../../../redux/hooks';
 import type { MasterFormType } from '../../../types/masterTypes';
@@ -18,37 +18,44 @@ export default function MasterForm(): JSX.Element {
   };
 
   return (
-    <Box display="flex" flexDirection="column" alignItems="center">
-      <TextField
-        name="name"
-        variant="outlined"
-        placeholder="Имя"
-        value={inputs.name}
-        onChange={changeHandler}
-      />
-      <TextField
-        name="desc"
-        variant="outlined"
-        placeholder="Описание"
-        value={inputs.desc}
-        onChange={changeHandler}
-      />
-      <TextField
-        name="img"
-        variant="outlined"
-        placeholder="Изображение"
-        value={inputs.img}
-        onChange={changeHandler}
-      />
-
-      <Button
-        type="submit"
-        variant="outlined"
-        size="large"
-        onClick={() => void dispatch(addMasterThunk(inputs))}
-      >
-        Send
-      </Button>
-    </Box>
+    <Grid container flexDirection="column" rowGap={3} alignItems="center" backgroundColor="white">
+      <Grid item xs={5}>
+        <TextField
+          name="name"
+          variant="outlined"
+          placeholder="Имя"
+          value={inputs.name}
+          onChange={changeHandler}
+        />
+      </Grid>
+      <Grid item xs={5}>
+        <TextField
+          name="name"
+          variant="outlined"
+          placeholder="Имя"
+          value={inputs.name}
+          onChange={changeHandler}
+        />
+      </Grid>
+      <Grid item xs={5}>
+        <TextField
+          name="img"
+          variant="outlined"
+          placeholder="Изображение"
+          value={inputs.img}
+          onChange={changeHandler}
+        />
+      </Grid>
+      <Grid item xs={5}>
+        <Button
+          type="submit"
+          variant="outlined"
+          size="large"
+          onClick={() => void dispatch(addMasterThunk(inputs))}
+        >
+          Send
+        </Button>
+      </Grid>
+    </Grid>
   );
 }

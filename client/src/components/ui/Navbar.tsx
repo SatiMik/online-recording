@@ -30,37 +30,36 @@ export default function NavBar(): JSX.Element {
   const links =
     user.status === 'guest'
       ? [
-        { to: '/', name: 'Главная' },
-        { to: '/service', name: 'Услуги' },
-        { to: '/master', name: 'Мастера' },
-        { to: '/sale', name: 'Акции' },
-        { to: '/revue', name: 'Отзывы' },
-
-      ]
+          { to: '/', name: 'Главная' },
+          { to: '/service', name: 'Услуги' },
+          { to: '/master', name: 'Мастера' },
+          { to: '/sale', name: 'Акции' },
+          { to: '/revue', name: 'Отзывы' },
+        ]
       : [
-        { to: '/', name: 'Главная' },
-        { to: '/service', name: 'Услуги' },
-        { to: '/master', name: 'Мастера' },
-        { to: '/sale', name: 'Акции' },
-        { to: '/revue', name: 'Отзывы' },
-
-      ];
+          { to: '/service', name: 'Услуги' },
+          { to: '/master', name: 'Мастера' },
+          { to: '/sale', name: 'Акции' },
+          { to: '/revue', name: 'Отзывы' },
+        ];
 
   return (
     <Box sx={{ flexGrow: 1, backgroundColor: '#566F5F' }}>
       <AppBar position="static">
         <Toolbar sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-          {
-            user.status === 'logged' && user?.isAdmin ? (
-              <Link component={NavLink} to="/application" sx={linkStyle}>
-                <IconButton>
-                  <Badge badgeContent={applicationNotAccepted.length} sx={{ color: 'white' }} color="secondary">
-                    <MailIcon style={{ color: 'white' }} />
-                  </Badge>
-                </IconButton>
-              </Link>
-            ) : null
-          }
+          {user.status === 'logged' && user?.isAdmin ? (
+            <Link component={NavLink} to="/application" sx={linkStyle}>
+              <IconButton>
+                <Badge
+                  badgeContent={applicationNotAccepted.length}
+                  sx={{ color: 'white' }}
+                  color="secondary"
+                >
+                  <MailIcon style={{ color: 'white' }} />
+                </Badge>
+              </IconButton>
+            </Link>
+          ) : null}
           {user.status === 'logged' && !user.isAdmin ? (
             <Link
               key="Мои записи"
@@ -77,14 +76,12 @@ export default function NavBar(): JSX.Element {
                   // color: '#566F5F',
                   borderRadius: '4px',
                   fontSize: '1.21em', // Добавьте это свойство для увеличения размера текста
-
                 },
               }}
             >
               Мои записи
             </Link>
-          ) : null
-          }
+          ) : null}
           {user.status === 'logged' && user?.isAdmin ? (
             <Link
               key="Расписание записей"
@@ -101,15 +98,35 @@ export default function NavBar(): JSX.Element {
                   // color: '#566F5F',
                   borderRadius: '4px',
                   // fontSize: '1.21em', // Добавьте это свойство для увеличения размера текста
-
                 },
               }}
             >
               Расписание записей
             </Link>
-          ) : null
+          ) : null}
 
-          }
+          {user.status === 'logged' && !user?.isAdmin && (
+            <Link
+              key="Главная"
+              component={NavLink}
+              to="/"
+              sx={{
+                ...linkStyle,
+                padding: '6px 12px',
+                // transition: '0.3s',
+                // margin: '6px 14px',
+                '&:hover': {
+                  // transform: 'scale(1.05)',
+                  // backgroundColor: 'white',
+                  // color: '#566F5F',
+                  borderRadius: '4px',
+                  // fontSize: '1.21em', // Добавьте это свойство для увеличения размера текста
+                },
+              }}
+            >
+              Главная
+            </Link>
+          )}
           <Box>
             {links.map((link) => (
               <Link
@@ -127,7 +144,6 @@ export default function NavBar(): JSX.Element {
                     // color: '#566F5F',
                     borderRadius: '4px',
                     // fontSize: '1.21em', // Добавьте это свойство для увеличения размера текста
-
                   },
                 }}
               >
@@ -135,7 +151,7 @@ export default function NavBar(): JSX.Element {
               </Link>
             ))}
 
-            {user.status === 'logged' && !user?.isAdmin ? (
+            {user.status !== 'loading' || (user.status === 'logged' && !user.isAdmin) ? (
               <Link component={NavLink} to="/online-record" sx={linkStyle}>
                 <Button
                   variant="outlined"
@@ -157,10 +173,8 @@ export default function NavBar(): JSX.Element {
                 >
                   Записаться онлайн
                 </Button>
-
               </Link>
-            ) : null
-            }
+            ) : null}
           </Box>
           <Box>
             {user.status === 'logged' ? (
@@ -192,30 +206,31 @@ export default function NavBar(): JSX.Element {
               </>
             )}
           </Box>
-          <Box
-            onClick={handleOpen}
-            sx={{
-              padding: '6px 14px',
-              backgroundColor: 'white',
-              color: '#566F5F',
-              borderRadius: '4px',
-              cursor: 'pointer',
-              fontWeight: 600,
-              fontSize: '16px',
-              borderColor: 'white',
-              // transition: '0.2s',
-              // '&:hover': {
-              //   transform: 'scale(1.05)',
-              //   backgroundColor: 'white',
-              //   color: '#566F5F',
-              //   fontBold: true,
-              //   boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.2)', // Замените на нужное вам значение тени
-              // },
-            }}
-          >
-            Оставить заявку
-          </Box>
-
+          {user.status !== 'loading' || (user.status === 'logged' && !user.isAdmin) ? (
+            <Box
+              onClick={handleOpen}
+              sx={{
+                padding: '6px 14px',
+                backgroundColor: 'white',
+                color: '#566F5F',
+                borderRadius: '4px',
+                cursor: 'pointer',
+                fontWeight: 600,
+                fontSize: '16px',
+                borderColor: 'white',
+                // transition: '0.2s',
+                // '&:hover': {
+                //   transform: 'scale(1.05)',
+                //   backgroundColor: 'white',
+                //   color: '#566F5F',
+                //   fontBold: true,
+                //   boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.2)', // Замените на нужное вам значение тени
+                // },
+              }}
+            >
+              Оставить заявку
+            </Box>
+          ) : null}
 
           <ModalButton open={open} setOpen={setOpen} />
           <AuthModal auth={auth} setAuth={setAuth} authType={authType} setAuthType={setAuthType} />
