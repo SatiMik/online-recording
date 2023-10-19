@@ -68,8 +68,6 @@ export default function NavBar(): JSX.Element {
               sx={{
                 ...linkStyle,
                 padding: '6px 12px',
-
-
               }}
             >
               Мои записи
@@ -140,24 +138,6 @@ export default function NavBar(): JSX.Element {
             ))}
 
             {(user.status === 'logged' && !user.isAdmin) || user.status === 'guest' ? (
-              <Link component={NavLink} to="/online-record" sx={linkStyle}>
-                <Button
-                  variant="outlined"
-                  sx={{
-                    borderColor: 'white',
-                    color: 'white',
-                    backgroundColor: '#566F5F',
-                    padding: '6px 14px',
-                    borderRadius: '4px',
-                  }}
-                >
-                  Записаться онлайн
-                </Button>
-
-              </Link>
-            ) : null
-            }
-            {user.status === 'guest' ? (
               <Link component={NavLink} to="/online-record" sx={linkStyle}>
                 <Button
                   variant="outlined"

@@ -17,8 +17,10 @@ export default function AdminPage(): JSX.Element {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const [modalData, setModalData] = useState({ status: false, record: {} });
-  const handleOpen = (record: RecordFromBackType): void => setModalData({ status: true, record });
-  const handleClose = (): void => setModalData({ status: false, record: {} });
+  const handleOpen = (record: RecordFromBackType): void => {
+    setModalData({ status: true, record });
+  };
+  const handleClose = (): void => {setModalData({ status: false, record: {} })};
   return (
     <>
       <Container style={{ display: 'flex', flexDirection: 'row' }}>
@@ -29,7 +31,7 @@ export default function AdminPage(): JSX.Element {
           <MasterItem key={master.id} master={master} handleOpen={handleOpen} />
         ))}
       </Container>
-      <RecordModal modalData={modalData} handleClose={handleClose} />
+      {modalData.status && <RecordModal modalData={modalData} handleClose={handleClose} />}
     </>
   );
 }

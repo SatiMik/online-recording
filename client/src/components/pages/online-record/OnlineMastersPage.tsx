@@ -1,11 +1,9 @@
 import React, { useEffect } from 'react';
 import { Box, Container } from '@mui/material';
 
-
 import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import { getMastersThunk } from '../../../redux/slices/master/MasterThunks';
 import OnlineMasterCard from '../../ui/online-record/masterRecord/OnlineMasterCard';
-
 
 export default function OnlineMastersPage(): JSX.Element {
   const masters = useAppSelector((store) => store.masters);

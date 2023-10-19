@@ -1,45 +1,21 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Records', {
+    await queryInterface.createTable('Windows', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER,
       },
-      date: {
-        type: Sequelize.DATE,
+      startTime: {
+        type: Sequelize.STRING,
       },
-      time: {
+      status: {
         type: Sequelize.INTEGER,
-      },
-      serviceId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'Services',
-          key: 'id',
-        },
-        onDelete: 'CASCADE',
-
       },
       masterId: {
         type: Sequelize.INTEGER,
-        references: {
-          model: 'Masters',
-          key: 'id',
-        },
-        onDelete: 'CASCADE',
-
-      },
-      userId: {
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'Users',
-          key: 'id',
-        },
-        onDelete: 'CASCADE',
-
       },
       createdAt: {
         allowNull: false,
@@ -54,6 +30,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Records');
+    await queryInterface.dropTable('Windows');
   },
 };

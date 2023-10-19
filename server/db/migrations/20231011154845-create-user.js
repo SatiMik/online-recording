@@ -20,6 +20,15 @@ module.exports = {
       isAdmin: {
         type: Sequelize.BOOLEAN,
       },
+      chatId: {
+        type: Sequelize.INTEGER,
+      },
+      valid: {
+        type: Sequelize.BOOLEAN,
+      },
+      code: {
+        type: Sequelize.INTEGER,
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
@@ -29,7 +38,6 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.fn('now'),
-
       },
     });
   },

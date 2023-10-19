@@ -29,23 +29,24 @@ function UserRecordCard({ userRecord, user }: BookCardPropsType): JSX.Element {
 
   return (
     
-    <Box mt={8}>
+    <Box  style={{ width: '100%' }}>
       <Container>
-        <Card sx={{ maxWidth: 345 }}>
+        <Card sx={{ maxWidth: '80%' }}>
           <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-              Дата: {userRecord?.date} октября
+            <Typography gutterBottom variant="h6" component="div"  color="#566F5F"style={{fontWeight: 'bold'}}>
+              {`${userRecord?.date} октября`} 
             </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Время: {userRecord?.time}:00
+            <Typography gutterBottom variant="h6" component="div"  color="#566F5F"style={{fontWeight: 'bold', marginTop: '-10px'}}>
+              {`${userRecord?.time}:00`} 
             </Typography>
-            <Typography variant="body2" color="text.secondary">
+            
+            <Typography variant="body2" color="text.secondary" >
               Мастер: {userRecord?.Master.name}
             </Typography>
             <Typography variant="body2" color="text.secondary">
               Услуга: {userRecord?.Service.name}
             </Typography>
-            <Button onClick={() => setOpen(true)} size="small">
+            <Button style={{ marginTop: '20px' , backgroundColor: '#566F5F', color: 'white'}} onClick={() => setOpen(true)} size="small">
               Отменить запись
             </Button>
             {open&&<UserRecordModal open={open} setOpen={setOpen} userRecord={userRecord} user={user}/>}

@@ -8,7 +8,7 @@ import { getSaleThunk } from '../../redux/slices/sale/SaleThunks';
 export default function SalePage(): JSX.Element {
 
   const sale = useAppSelector((store) => store.sale);
-
+  const user = useAppSelector((store) => store.user);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -21,7 +21,6 @@ export default function SalePage(): JSX.Element {
         <Grid container spacing={2}>
           {sale.map((el) => (
             <Grid item xs={6} key={el.id}>
-              {/* Ваш код для отображения элемента */}
               <SaleItem sale={el} />
             </Grid>
           ))}

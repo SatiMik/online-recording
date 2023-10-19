@@ -1,4 +1,4 @@
-import { Box, Button, TextField } from '@mui/material';
+import { Box, Button, Grid, TextField, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { useAppDispatch } from '../../../redux/hooks';
 
@@ -18,25 +18,37 @@ export default function CategoryForm(): JSX.Element {
 
   return (
     <Box display="flex" flexDirection="column" alignItems="center">
-      <TextField
-        name="name"
-        variant="outlined"
-        placeholder="Название категории"
-        value={inputs.name}
-        onChange={changeHandler}
-      />
-
-      <Button
-        type="submit"
-        variant="outlined"
-        size="large"
-        onClick={() => {
-          void dispatch(addCategoryThunk(inputs));
-          setInputs({ name: '' });
-        }}
+      <Typography
+        variant="h4"
+        component="div"
+        style={{ textAlign: 'center', marginBottom: '20px' }}
       >
         Добавить категорию
-      </Button>
+      </Typography>
+      <Grid container flexDirection="column" rowGap={3} alignItems="center" backgroundColor="white">
+        <Grid item xs={5}>
+          <TextField
+            name="name"
+            variant="outlined"
+            placeholder="Название категории"
+            value={inputs.name}
+            onChange={changeHandler}
+          />
+        </Grid>
+        <Grid item xs={5}>
+          <Button
+            type="submit"
+            variant="outlined"
+            size="large"
+            onClick={() => {
+              void dispatch(addCategoryThunk(inputs));
+              setInputs({ name: '' });
+            }}
+          >
+            Добавить категорию
+          </Button>
+        </Grid>
+      </Grid>
     </Box>
   );
 }
