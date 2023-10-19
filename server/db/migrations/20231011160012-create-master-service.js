@@ -14,6 +14,8 @@ module.exports = {
           model: 'Services',
           key: 'id',
         },
+        onDelete: 'CASCADE',
+
       },
       masterId: {
         type: Sequelize.INTEGER,

@@ -9,7 +9,6 @@ export const getRevues = async (): Promise<RevueType[]> => {
 };
 
 
-
   export const submitRevue = async (formData: RevueFormType): Promise<RevueType> => {
     const { data } = await apiService.post<RevueType>('/api/revue', formData);
     return data;

@@ -11,19 +11,25 @@ import SalePage from './components/pages/SalePage';
 import RevuePage from './components/pages/RevuePage';
 import ServicePage from './components/pages/ServicePage';
 import MasterPage from './components/pages/MasterPage';
+import AdminPage from './components/pages/AdminPage';
 import Loader from './hocs/Loader';
 import ApplicationPage from './components/pages/ApplicationPage';
-import OnlineMastersPage from './components/ui/online-record/masterRecord/OnlineMastersPage';
 import CategoryPage from './components/pages/CategoryPage';
-import OnlineRecordPage from './components/ui/online-record/OnlineRecordPage';
-import Footer from './components/ui/Footer/Futer';
-
-// прописать проверки на гостя, тк нет привата на регистрацию
+import OnlineRecordPage from './components/pages/online-record/OnlineRecordPage';
+import OnlineMastersPage from './components/pages/online-record/OnlineMastersPage';
+import UserRecordsPage from './components/pages/UserRecordsPage';
+import OnlineServicesPage from './components/pages/online-record/OnlineServicesPage';
+import NavBar from './components/ui/Navbar';
 
 function App(): JSX.Element {
   const theme = createTheme({
+    typography: {
+      fontFamily: 'Raleway',
+    },
     palette: {
-      primary: { main: '#6a329f' },
+      primary: { main: '#566F5F' },
+      secondary: { main: '#DFDBDC' },
+      newColor: { main: '#AF8678' },
     },
   });
 
@@ -39,7 +45,7 @@ function App(): JSX.Element {
     <ThemeProvider theme={theme}>
       <Loader isLoading={user.status === 'loading'}>
         <>
-          <Navbar />
+          <NavBar />
           <Box mt={5}>
             <Container>
               <Routes>
@@ -50,13 +56,15 @@ function App(): JSX.Element {
                 <Route path="/services/:categoryId" element={<ServicePage />} />
                 <Route path="/master" element={<MasterPage />} />
                 <Route path="/online-record" element={<OnlineRecordPage />} />
-                <Route path="/online-record/masters" element={<OnlineMastersPage/>} />
-                <Route path="/online-record/services" element={<OnlineServicePage />} />
+                <Route path="/online-record/masters" element={<OnlineMastersPage />} />
+                <Route path="/admin" element={<AdminPage />} />
 
+                <Route path="/online-record/services" element={<OnlineServicesPage />} />
 
-
-                <Route element={<PrivateRoute isAllowed={user.status === 'logged'} />}>
-                  <Route path="/user-records" element={<UserRecordsPage />} />
+                <Route
+                  element={<PrivateRoute isAllowed={user.status === 'logged' && !user.isAdmin} />}
+                >
+                  <Route path="/userRecords" element={<UserRecordsPage />} />
                 </Route>
 
                 <Route
@@ -69,7 +77,7 @@ function App(): JSX.Element {
           </Box>
         </>
       </Loader>
-      <Footer />
+      {/* <FooterNew /> */}
     </ThemeProvider>
   );
 }

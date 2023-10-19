@@ -7,7 +7,7 @@ import { getSaleThunk } from '../../redux/slices/sale/SaleThunks';
 export default function SalePage(): JSX.Element {
 
   const sale = useAppSelector((store) => store.sale);
-
+  const user = useAppSelector((store) => store.user);
   const dispatch = useAppDispatch();
   
   useEffect(() => {
@@ -15,7 +15,7 @@ export default function SalePage(): JSX.Element {
   }, []);
   return (
     <>
-      <SaleFrom />
+    {user.status === 'logged' && user.isAdmin && <SaleFrom />}
       {sale.map((el) => (
         <SaleItem sale={el} key={el.id} />
       ))}

@@ -20,6 +20,8 @@ module.exports = {
           model: 'Users',
           key: 'id',
         },
+        onDelete: 'CASCADE',
+
       },
       rating: {
         type: Sequelize.INTEGER,
