@@ -19,13 +19,16 @@ export default function RevueNotAcceptedList(): JSX.Element {
       sx={{
         minHeight: 200,
         marginBottom: '16px',
-        boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
-        border: '1px solid #F5F5F5',
+        backgroundColor: '#566F5F'
+  
+ 
       }}
     >
       <Container>
         <Typography
-          style={{ margin: '20px', fontWeight: 'bold', fontSize: '20px', color: '#566F5F' }}
+          style={{ margin: '20px', fontWeight: 'bold', fontSize: '20px', color: 'white' , padding: '20px' }}
+          variant="h5"
+          align="center"
         >
           Отзывы на рассмотрении:
         </Typography>

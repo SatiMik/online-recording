@@ -49,8 +49,8 @@ export default function RevuePage(): JSX.Element {
       <RevueAcceptedList />
       {user.status === 'logged' && (
         <>
-          <Typography variant="h5" style={{ color: '#566F5F', fontWeight: 'bold', textAlign: 'center', marginBottom: '60px', marginTop: '60px' }}>Оставьте свой отзыв</Typography>
-          <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+          <Typography variant="h5" style={{ color: 'black', fontWeight: 'bold', textAlign: 'center', marginBottom: '60px', marginTop: '60px' }}>Оставьте свой отзыв</Typography>
+          <Box sx={{ display: 'flex', flexDirection: 'row', backgroundColor: '#566F5F'}}>
           <CardMedia
         component="img"
         sx={{ width: '700px', height: '500px' }}
