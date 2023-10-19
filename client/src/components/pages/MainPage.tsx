@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import Box from '@mui/material/Box';
-import { Container } from '@mui/material';
+import { Container, Grid } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { getMastersThunk } from '../../redux/slices/master/MasterThunks';
 import MasterCard from '../ui/masters/MasterCard';
@@ -20,14 +20,14 @@ export default function MainPage(): JSX.Element {
       <ImageCarousel />
       <Box mt={5}>
         <h2>Лучшие мастера:</h2>
-        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+        <Grid container spacing={2}>
           {masters?.map((master) => (
-            <div key={master.id} style={{  padding: '10px' }}>
+            <Grid item xs={6} key={master.id}>
               <MasterCard master={master} user={user} />
-            </div>
+            </Grid>
           ))}
-        </div>      
-        </Box>
+        </Grid>
+      </Box>
     </Container>
   );
 }

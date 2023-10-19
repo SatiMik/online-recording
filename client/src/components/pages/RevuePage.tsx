@@ -10,38 +10,46 @@ export default function RevuePage(): JSX.Element {
 
   return (
     <>
-      <CardMedia
-        component="img"
-        sx={{ width: '100%', height: '500px', opacity: 0.4 }}
-        image="https://mykaleidoscope.ru/uploads/posts/2022-08/1660606535_17-mykaleidoscope-ru-p-mokhito-salon-krasoti-dizain-krasivo-foto-18.jpg"
-        alt="Live from space album cover"
-      />
-      <Typography
-        variant="h2"
-        style={{
-          color: '#566F5F',
-          position: 'absolute',
-          top: '45%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          fontWeight: 'bold',
-        }}
-      >
-        ОТЗЫВЫ
-      </Typography>
-      <Typography
-        variant="h5"
-        style={{
-          color: 'black',
-          position: 'absolute',
-          top: '55%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          textAlign: 'center',
-        }}
-      >
-        Предлагаем вам ознакомиться с реальными отзывами наших клиентов
-      </Typography>
+      <Box>
+
+        <CardMedia
+          component="img"
+          sx={{ width: '100%', height: '500px', opacity: 0.4 }}
+          image="https://mykaleidoscope.ru/uploads/posts/2022-08/1660606535_17-mykaleidoscope-ru-p-mokhito-salon-krasoti-dizain-krasivo-foto-18.jpg"
+          alt="Live from space album cover"
+        />
+        <Box sx={{ marginTop: '-20%', marginBottom: '20%' }}>
+
+          <Typography
+            variant="h2"
+            style={{
+              color: '#566F5F',
+              position: 'relative',
+              marginLeft: '25%',
+
+              top: '45%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              fontWeight: 'bold',
+            }}
+          >
+            ОТЗЫВЫ
+          </Typography>
+          <Typography
+            variant="h5"
+            style={{
+              color: 'black',
+              position: 'relative',
+              top: '55%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              textAlign: 'center',
+            }}
+          >
+            Предлагаем вам ознакомиться с реальными отзывами наших клиентов
+          </Typography>
+        </Box>
+      </Box>
       {user.status === 'logged' && user.isAdmin && <RevueNotAcceptedList />}
 
       <RevueAcceptedList />

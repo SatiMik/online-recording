@@ -25,7 +25,7 @@ export default function SaleItem({ sale }: SaleItemProps): JSX.Element {
       )}
       <img
         src={`${import.meta.env.VITE_BASE_URL}/img/${sale.img}`}
-        style={{ width: '300px', height: '200px' }}
+        style={{ width: '500px', height: '720px', boxShadow: 'rgba(0, 8, 4, 0.35) 2px 15px 25px' }}
       />
       <button onClick={() => void dispatch(deleteSaleThunk(sale.id))}>Удалить</button>
       {isEditing ? (
