@@ -66,11 +66,14 @@ export default function RevueAcceptedList(): JSX.Element {
             boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.1)',
           }}
         >
-          {revues?.map((revue) => (
-            <Box key={revue.id} sx={{ width: '100%' }}>
-              <RevueCard revue={revue} user={user} />
-            </Box>
-          ))}
+          {revues?.map(
+            (revue) =>
+              revue.status && (
+                <Box key={revue.id} sx={{ width: '100%' }}>
+                  <RevueCard revue={revue} user={user} />
+                </Box>
+              ),
+          )}
         </Box>
       </Container>
     </Box>
