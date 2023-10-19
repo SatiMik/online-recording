@@ -23,10 +23,13 @@ router
   .get(async (req, res) => {
     try {
       const { serviceId } = req.params;
+      console.log(serviceId);
       const service = await MasterService.findAll({
         where: { serviceId },
         include: [{ model: Service }, { model: Master }],
       });
+      console.log('зашел', service);
+      
       return res.json(service);
     } catch ({ message }) {
       res.status(400).json({ message });

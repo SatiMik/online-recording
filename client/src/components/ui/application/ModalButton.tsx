@@ -40,7 +40,7 @@ export default function ModalButton({ open, setOpen }: ModalButtonProps): JSX.El
         <Dialog open={open} onClose={handleClose} aria-labelledby="alert-dialog-title-logout">
           <DialogContent>
             <DialogContentText sx={{ textAlign: 'center' }}>Подтвердите данные</DialogContentText>
-            <Box sx={{ width: '300px' }}>
+            <Box sx={{ width: '300px', alignContent: 'center' }}>
               <TextField
                 autoFocus
                 margin="dense"
@@ -87,15 +87,14 @@ export default function ModalButton({ open, setOpen }: ModalButtonProps): JSX.El
         </Dialog>
       )}
       {user.status === 'guest' && (
-        <Dialog open={open} onClose={handleClose} aria-labelledby="alert-dialog-title-logout">
+        <Dialog open={open} onClose={handleClose} aria-labelledby="alert-dialog-title-logout" >
           <Dialog open={open} onClose={handleClose}>
             <DialogTitle sx={{ textAlign: 'center' }}>
-              Заявка на звонок от администратора
-            </DialogTitle>
+              Заполните данные для обратной связи            </DialogTitle>
             <DialogContent>
-              <DialogContentText sx={{ textAlign: 'center' }}>
-                Заполните данные для обратной связи
-              </DialogContentText>
+              {/* <DialogContentText sx={{ textAlign: 'center' }}> */}
+              {/* Заполните данные для обратной связи
+              </DialogContentText> */}
               <Box sx={{ width: '300px' }}>
                 <TextField
                   autoFocus
@@ -135,13 +134,15 @@ export default function ModalButton({ open, setOpen }: ModalButtonProps): JSX.El
                     }),
                   )
                 }
+              // добавить условие на закрытие модалки после отправки 
               >
                 Отправить
               </Button>
             </DialogActions>
           </Dialog>
         </Dialog>
-      )}
-    </Box>
+      )
+      }
+    </Box >
   );
 }

@@ -75,13 +75,7 @@ export default function AuthModal({
         component="form"
         onSubmit={submitHandler}
       >
-        <Button
-          onClick={() => {
-            setAuth(false);
-          }}
-        >
-          Закрыть
-        </Button>
+
         {authType === 1 && (
           <TextField
             variant="outlined"
@@ -108,9 +102,19 @@ export default function AuthModal({
           value={input.password}
           onChange={changeHandler}
         />
-        <Button type="submit" variant="outlined" size="large">
-          {authType === 1 ? 'Регистрация' : 'Вход'}
-        </Button>
+        <Box sx={{ margin: '20px 10px' }}>
+
+          <Button type="submit" variant="outlined" size="large"
+            onClick={() => {
+              setAuth(false);
+            }}
+          >
+            Закрыть
+          </Button>
+          <Button type="submit" variant="outlined" size="large">
+            {authType === 1 ? 'Регистрация' : 'Вход'}
+          </Button>
+        </Box>
       </Box>
     </Modal>
   );

@@ -58,7 +58,10 @@ export default function OnlineModalRecordMaster({
 
   useEffect(() => {
     getMaster(Number(master.id))
-      .then((data) => setMasterServices(data))
+      .then((data) => {
+        console.log(data)
+        setMasterServices(data)
+      })
       .catch(console.log);
   }, []);
   const freeTimes = [10, 11, 12, 13, 14, 15];
@@ -113,7 +116,7 @@ export default function OnlineModalRecordMaster({
           </DemoContainer>
         </LocalizationProvider>
         <Typography variant="body2" color="text.secondary">
-          Выберите мастера:
+          Выберите услугу:
         </Typography>
         <Box sx={{ minWidth: 120 }}>
           <FormControl fullWidth>
@@ -132,7 +135,7 @@ export default function OnlineModalRecordMaster({
           </FormControl>
           {freeTimes.map((freeTime, i) => (
             <Button
-              style={{ backgroundColor: chosen === i + 1 ? 'violet' : 'white' }}
+              style={{ backgroundColor: chosen === i + 1 ? '#4a875d' : 'white' }}
               key={freeTime}
               size="small"
               onClick={() => {

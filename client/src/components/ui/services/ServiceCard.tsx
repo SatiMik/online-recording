@@ -18,6 +18,7 @@ import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import ServiceModal from './ServiceModal';
 import type { ServiceType } from '../../../types/serviceTypes';
 import { deleteServiceThunk } from '../../../redux/slices/service/ServiceThunks';
+import OnlineModalRecordService from '../online-record/serviceRecord/modalService/OnlineModalRecordService';
 
 type ServiceCardPropsType = {
   service: ServiceType;
@@ -28,7 +29,7 @@ function ServiceCard({ service }: ServiceCardPropsType): JSX.Element {
   const [open, setOpen] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   const user = useAppSelector((store) => store.user);
-
+  const [openServiceModal, setOpenServiceModal] = useState<boolean>(false);
   return (
     <Box mt={8}>
       <Container>
@@ -45,9 +46,10 @@ function ServiceCard({ service }: ServiceCardPropsType): JSX.Element {
             </Typography>
           </CardContent>
           <CardActions>
-            <Link key="record" component={NavLink} to="/online-record" sx={linkStyle}>
-              Записаться
-            </Link>
+            {(user.status === 'logged' && !user.isAdmin) || user.status === 'guest' ? (
+              <Button onClick={() => setOpenServiceModal(true)}>Записаться</Button>
+            ) : null}
+
             {user.status === 'logged' && user?.isAdmin && (
               <>
                 <Button
@@ -63,6 +65,13 @@ function ServiceCard({ service }: ServiceCardPropsType): JSX.Element {
             )}
           </CardActions>
           {open && <ServiceModal open={open} service={service} setOpen={setOpen} />}
+          {openServiceModal && (
+            <OnlineModalRecordService
+              open={openServiceModal}
+              setOpen={setOpenServiceModal}
+              service={service}
+            />
+          )}
         </Card>
       </Container>
     </Box>

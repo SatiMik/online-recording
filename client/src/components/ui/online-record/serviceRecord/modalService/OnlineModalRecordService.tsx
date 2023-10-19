@@ -2,9 +2,6 @@ import type { SelectChangeEvent } from '@mui/material';
 import {
   Box,
   Button,
-  Card,
-  CardContent,
-  Container,
   FormControl,
   InputLabel,
   MenuItem,
@@ -24,7 +21,6 @@ import type { ServiceType, ServicesMastersType } from '../../../../../types/serv
 import { getService } from '../../../../../services/serviceServices';
 import type { OnlineRecordFormType } from '../../../../../types/onlineRecordTypes';
 import { useAppSelector } from '../../../../../redux/hooks';
-import ModalRecordConfirmation from '../../ModalRecordConfirmation';
 import { addRecord } from '../../../../../services/onlineRecordService';
 
 type ModalRecordProps = {
@@ -65,8 +61,8 @@ export default function OnlineModalRecordService({
       .then((data) => setMasters(data))
       .catch(console.log);
   }, []);
-
-  const addRecordHandler = ():void => {
+  console.log(masters);
+  const addRecordHandler = (): void => {
     addRecord(input)
       .then(() => setOpen(false))
       .catch(console.log);

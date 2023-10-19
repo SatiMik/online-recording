@@ -27,12 +27,16 @@ export default function RevueForm(): JSX.Element {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-
   return (
-    <Box display="flex" flexDirection="column" alignItems="center">
+    <Box
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+      style={{ width: '100%', justifyContent: 'center' }}
+    >
       <TextField
         name="text"
-        variant="outlined"
+        variant="standard"
         placeholder="Ваш отзыв"
         value={inputs.text}
         onChange={changeHandler}
@@ -44,6 +48,7 @@ export default function RevueForm(): JSX.Element {
       >
         <Typography component="legend">Оставьте оценку</Typography>
         <Rating
+          style={{ color: '#4a875d' }}
           name="rating"
           variant="outlined"
           value={inputs.rating}
@@ -54,6 +59,7 @@ export default function RevueForm(): JSX.Element {
         type="submit"
         variant="outlined"
         size="large"
+        style={{ backgroundColor: 'white' }}
         onClick={() => {
           void dispatch(addRevueThunk(inputs));
           setInputs({
