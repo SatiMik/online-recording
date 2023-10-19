@@ -20,6 +20,8 @@ module.exports = {
           model: 'Services',
           key: 'id',
         },
+        onDelete: 'CASCADE',
+
       },
       masterId: {
         type: Sequelize.INTEGER,
@@ -27,6 +29,8 @@ module.exports = {
           model: 'Masters',
           key: 'id',
         },
+        onDelete: 'CASCADE',
+
       },
       userId: {
         type: Sequelize.INTEGER,
@@ -34,6 +38,8 @@ module.exports = {
           model: 'Users',
           key: 'id',
         },
+        onDelete: 'CASCADE',
+
       },
       createdAt: {
         allowNull: false,

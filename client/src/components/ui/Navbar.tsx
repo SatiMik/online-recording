@@ -12,7 +12,7 @@ import ModalButton from './application/ModalButton';
 import AuthModal from './auth/AuthModal';
 import LogoutModal from './auth/LogoutModal';
 
-const linkStyle = { color: 'white', mr: 2, fontFamily: 'Raleway, Arial' };
+const linkStyle = { color: 'white', mr: 2, fontFamily: 'Raleway, Arial', textDecoration: 'none' };
 
 export default function NavBar(): JSX.Element {
   const user = useAppSelector((store) => store.user);
@@ -27,7 +27,6 @@ export default function NavBar(): JSX.Element {
   const handleOpen = (): void => {
     setOpen(true);
   };
-  // req.session.user, handler на user. axios запрос который будет брать данные юзера из сессии
   const links =
     user.status === 'guest'
       ? [
@@ -36,60 +35,124 @@ export default function NavBar(): JSX.Element {
           { to: '/master', name: 'Мастера' },
           { to: '/sale', name: 'Акции' },
           { to: '/revue', name: 'Отзывы' },
-          { to: '/signup', name: 'Зарегистрироваться' },
-          { to: '/login', name: 'Войти' },
         ]
       : [
-          {
-            to: '/application',
-            name: (
-              <>
-                <IconButton>
-                  <Badge badgeContent={applicationNotAccepted.length} color="secondary">
-                    <MailIcon style={{ color: 'white' }} />
-                  </Badge>
-                </IconButton>{' '}
-              </>
-            ),
-          },
-          { to: '/', name: 'Главная' },
           { to: '/service', name: 'Услуги' },
           { to: '/master', name: 'Мастера' },
           { to: '/sale', name: 'Акции' },
           { to: '/revue', name: 'Отзывы' },
-          { to: '/user-records', name: 'Мои записи' },
-          {
-            to: '/online-record',
-            name: (
-              <>
-                {' '}
-                <Button
-                  disabled
-                  sx={{
-                    padding: '8px 16px',
-                    backgroundColor: 'white',
-                    color: '#6a329f',
-                    borderRadius: '4px',
-                    cursor: 'pointer',
-                  }}
-                >
-                  Онлайн запись
-                </Button>
-              </>
-            ),
-          },
         ];
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ flexGrow: 1, backgroundColor: '#566F5F' }}>
       <AppBar position="static">
         <Toolbar sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+          {user.status === 'logged' && user?.isAdmin ? (
+            <Link component={NavLink} to="/application" sx={linkStyle}>
+              <IconButton>
+                <Badge
+                  badgeContent={applicationNotAccepted.length}
+                  sx={{ color: 'white' }}
+                  color="secondary"
+                >
+                  <MailIcon style={{ color: 'white' }} />
+                </Badge>
+              </IconButton>
+            </Link>
+          ) : null}
+          {user.status === 'logged' && !user.isAdmin ? (
+            <Link
+              key="Мои записи"
+              component={NavLink}
+              to="/userRecords"
+              sx={{
+                ...linkStyle,
+                padding: '6px 12px',
+              }}
+            >
+              Мои записи
+            </Link>
+          ) : null}
+          {user.status === 'logged' && user?.isAdmin ? (
+            <Link
+              key="Расписание записей"
+              component={NavLink}
+              to="/admin"
+              sx={{
+                ...linkStyle,
+                padding: '6px 12px',
+                transition: '0.1s',
+                '&:hover': {
+                  borderRadius: '4px',
+                },
+              }}
+            >
+              Расписание записей
+            </Link>
+          ) : null}
+
+          {user.status === 'logged' && !user?.isAdmin && (
+            <Link
+              key="Главная"
+              component={NavLink}
+              to="/"
+              sx={{
+                ...linkStyle,
+                padding: '6px 12px',
+                // transition: '0.3s',
+                // margin: '6px 14px',
+                '&:hover': {
+                  // transform: 'scale(1.05)',
+                  // backgroundColor: 'white',
+                  // color: '#566F5F',
+                  borderRadius: '4px',
+                  // fontSize: '1.21em', // Добавьте это свойство для увеличения размера текста
+                },
+              }}
+            >
+              Главная
+            </Link>
+          )}
           <Box>
             {links.map((link) => (
-              <Link key={link.name} component={NavLink} to={link.to} sx={linkStyle}>
+              <Link
+                key={link.name}
+                component={NavLink}
+                to={link.to}
+                sx={{
+                  ...linkStyle,
+                  padding: '6px 12px',
+                  // transition: '0.3s',
+                  // margin: '6px 14px',
+                  '&:hover': {
+                    // transform: 'scale(1.05)',
+                    // backgroundColor: 'white',
+                    // color: '#566F5F',
+                    borderRadius: '4px',
+                    // fontSize: '1.21em', // Добавьте это свойство для увеличения размера текста
+                  },
+                }}
+              >
                 {link.name}
               </Link>
             ))}
+
+            {(user.status === 'logged' && !user.isAdmin) || user.status === 'guest' ? (
+              <Link component={NavLink} to="/online-record" sx={linkStyle}>
+                <Button
+                  variant="outlined"
+                  sx={{
+                    borderColor: 'white',
+                    color: 'white',
+                    backgroundColor: '#566F5F',
+                    padding: '6px 14px',
+                    borderRadius: '4px',
+                  }}
+                >
+                  Записаться онлайн
+                </Button>
+              </Link>
+            ) : null}
           </Box>
           <Box>
             {user.status === 'logged' ? (
@@ -121,19 +184,32 @@ export default function NavBar(): JSX.Element {
               </>
             )}
           </Box>
+          {(user.status === 'logged' && !user.isAdmin) || user.status === 'guest' ? (
+            <Box
+              onClick={handleOpen}
+              sx={{
+                padding: '6px 14px',
+                backgroundColor: 'white',
+                color: '#566F5F',
+                borderRadius: '4px',
+                cursor: 'pointer',
+                fontWeight: 600,
+                fontSize: '16px',
+                borderColor: 'white',
+                // transition: '0.2s',
+                // '&:hover': {
+                //   transform: 'scale(1.05)',
+                //   backgroundColor: 'white',
+                //   color: '#566F5F',
+                //   fontBold: true,
+                //   boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.2)', // Замените на нужное вам значение тени
+                // },
+              }}
+            >
+              Оставить заявку
+            </Box>
+          ) : null}
 
-          <Box
-            onClick={handleOpen}
-            sx={{
-              padding: '8px 16px',
-              backgroundColor: 'white',
-              color: '#6a329f',
-              borderRadius: '4px',
-              cursor: 'pointer',
-            }}
-          >
-            Оставить заявку
-          </Box>
           <ModalButton open={open} setOpen={setOpen} />
           <AuthModal auth={auth} setAuth={setAuth} authType={authType} setAuthType={setAuthType} />
           <LogoutModal isLogout={isLogout} setIsLogout={setIsLogout} />

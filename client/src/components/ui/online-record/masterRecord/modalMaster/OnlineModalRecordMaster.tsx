@@ -16,12 +16,13 @@ import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { useAppSelector } from '../../../../../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../../../../redux/hooks';
 import type { MasterType } from '../../../../../types/masterTypes';
 import type { ServicesMastersType } from '../../../../../types/serviceTypes';
 import { getMaster } from '../../../../../services/masterServices';
 import type { OnlineRecordFormType } from '../../../../../types/onlineRecordTypes';
 import { addRecord } from '../../../../../services/onlineRecordService';
+import { getRecordsThunk } from '../../../../../redux/slices/recordAdmin/RecordThunks';
 
 type ModalRecordProps = {
   open: boolean;
@@ -34,7 +35,16 @@ export default function OnlineModalRecordMaster({
   master,
 }: ModalRecordProps): JSX.Element {
   const [masterServices, setMasterServices] = useState<ServicesMastersType[]>([]);
-
+  console.log('-------------', masterServices);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    void dispatch(getRecordsThunk());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const records = useAppSelector((store) => store.recordsAdmin).filter(
+    (el) => el.master.id === master.id,
+  )[0];
+  console.log('RECORDS', records);
   const [option, setOption] = useState(0);
   const user = useAppSelector((store) => store.user);
   const [chosen, setChosen] = useState(0);
@@ -46,6 +56,7 @@ export default function OnlineModalRecordMaster({
     time: 1200,
     userId: (user.status === 'logged' && user.id) || 0,
   });
+  const [times, setTimes] = useState([]);
 
   const handleClose = (): void => {
     setOpen(false);
@@ -54,11 +65,18 @@ export default function OnlineModalRecordMaster({
   const handleChange = (event: SelectChangeEvent): void => {
     setOption(event.target?.value);
     setInput((prev) => ({ ...prev, serviceId: masterServices[option]?.Service?.id }));
+    const rightRecords = records.records.filter(
+      (el) => el.statusFree * 30 >= masterServices[option]?.Service?.time,
+    );
+    setTimes(rightRecords);
   };
 
   useEffect(() => {
     getMaster(Number(master.id))
-      .then((data) => setMasterServices(data))
+      .then((data) => {
+        console.log(data);
+        setMasterServices(data);
+      })
       .catch(console.log);
   }, []);
   const freeTimes = [10, 11, 12, 13, 14, 15];
@@ -67,6 +85,7 @@ export default function OnlineModalRecordMaster({
       .then(() => setOpen(false))
       .catch(console.log);
   };
+  console.log('TIMES', times);
   const style = {
     position: 'absolute' as const,
     top: '50%',
@@ -113,7 +132,7 @@ export default function OnlineModalRecordMaster({
           </DemoContainer>
         </LocalizationProvider>
         <Typography variant="body2" color="text.secondary">
-          Выберите мастера:
+          Выберите услугу:
         </Typography>
         <Box sx={{ minWidth: 120 }}>
           <FormControl fullWidth>
@@ -130,9 +149,9 @@ export default function OnlineModalRecordMaster({
               ))}
             </Select>
           </FormControl>
-          {freeTimes.map((freeTime, i) => (
+          {times.map((freeTime, i) => (
             <Button
-              style={{ backgroundColor: chosen === i + 1 ? 'violet' : 'white' }}
+              style={{ backgroundColor: chosen === i + 1 ? '#4a875d' : 'white' }}
               key={freeTime}
               size="small"
               onClick={() => {
@@ -140,7 +159,7 @@ export default function OnlineModalRecordMaster({
               }}
               size="small"
             >
-              {freeTime}:00
+              {freeTime.time}:00
             </Button>
           ))}
           <Button onClick={addRecordHandler}>Записаться</Button>

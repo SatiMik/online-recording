@@ -20,8 +20,14 @@ export default function MainPage(): JSX.Element {
       <ImageCarousel />
       <Box mt={5}>
         <h2>Лучшие мастера:</h2>
-        {masters?.map((master) => <MasterCard key={master.id} master={master} user={user} />)}
-      </Box>
+        <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+          {masters?.map((master) => (
+            <div key={master.id} style={{  padding: '10px' }}>
+              <MasterCard master={master} user={user} />
+            </div>
+          ))}
+        </div>      
+        </Box>
     </Container>
   );
 }

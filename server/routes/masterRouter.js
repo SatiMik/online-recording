@@ -1,5 +1,7 @@
 const router = require('express').Router();
-const { Master, Example, MasterService, Service } = require('../db/models');
+const {
+  Master, Example, MasterService, Service,
+} = require('../db/models');
 
 router
   .route('/')
@@ -67,6 +69,7 @@ router
         where: { masterId },
         include: [{ model: Service }, { model: Master }],
       });
+      console.log(service);
       return res.json(service);
     } catch ({ message }) {
       res.status(400).json({ message });

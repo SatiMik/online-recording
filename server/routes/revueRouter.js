@@ -7,6 +7,7 @@ router
   .route('/')
   .get(async (req, res) => {
     try {
+      console.log('');
       const revues = await Revue.findAll({ include: User });
 
       return res.json(revues);

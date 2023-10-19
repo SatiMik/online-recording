@@ -7,9 +7,7 @@ import {
   editRevueThunk,
   getRevuesThunk,
   getSortedByABSDateRevuesThunk,
-  getSortedByABSRatingRevuesThunk,
   getSortedByDESCDateRevuesThunk,
-  getSortedByDESCRatingRevuesThunk,
 } from './RevueThunks';
 
 type RevueState = RevueType[];
@@ -18,11 +16,22 @@ const initialState: RevueState = [];
 export const RevueSlice = createSlice({
   name: 'revues',
   initialState,
-  reducers: {},
+  reducers: {
+    sortLow: (state) => state.toSorted((a, b) => a.rating - b.rating),
+    sortHigh: (state) => state.toSorted((a, b) => b.rating - a.rating),
+  },
   extraReducers: (builder) => {
     builder.addCase(getRevuesThunk.fulfilled, (state, action) => action.payload);
     builder.addCase(getRevuesThunk.rejected, (state, action) => []);
+    builder.addCase(getSortedByABSDateRevuesThunk.fulfilled, (state, action) =>
+      action.payload.toSorted((a, b) => a.rating - b.rating),
+    );
+    builder.addCase(getSortedByABSDateRevuesThunk.rejected, (state, action) => []);
 
+    builder.addCase(getSortedByDESCDateRevuesThunk.fulfilled, (state, action) =>
+      action.payload.toSorted((a, b) => b.rating - a.rating),
+    );
+    builder.addCase(getSortedByDESCDateRevuesThunk.rejected, (state, action) => []);
     builder.addCase(deleteRevueThunk.fulfilled, (state, action) =>
       state.filter((el) => el.id !== action.payload),
     );
@@ -44,4 +53,5 @@ export const RevueSlice = createSlice({
   },
 });
 
+export const { sortHigh, sortLow } = RevueSlice.actions;
 export default RevueSlice.reducer;
