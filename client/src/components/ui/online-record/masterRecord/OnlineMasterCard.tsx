@@ -45,7 +45,7 @@ export default function OnlineMasterCard({ master }: MasterCardProps): JSX.Eleme
               </Typography>
               <Box>
                 <Button variant="contained" onClick={handleOpen}>
-                 Записаться
+                  Записаться
                 </Button>
               </Box>
               <OnlineModalRecordMaster open={open} setOpen={setOpen} master={master} />
