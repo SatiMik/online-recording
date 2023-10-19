@@ -20,8 +20,9 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import type { ServiceType, ServicesMastersType } from '../../../../../types/serviceTypes';
 import { getService } from '../../../../../services/serviceServices';
 import type { OnlineRecordFormType } from '../../../../../types/onlineRecordTypes';
-import { useAppSelector } from '../../../../../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../../../../redux/hooks';
 import { addRecord } from '../../../../../services/onlineRecordService';
+import { getRecordsThunk } from '../../../../../redux/slices/recordAdmin/RecordThunks';
 
 type ModalRecordProps = {
   open: boolean;
@@ -36,14 +37,16 @@ export default function OnlineModalRecordService({
   const [masters, setMasters] = useState<ServicesMastersType[]>([]);
   const [value, setValue] = useState<Dayjs | null>(dayjs('2023-10-17'));
   const [option, setOption] = useState(0);
-  const [chosen, setChosen] = useState(0);
+  const [chosen, setChosen] = useState(1);
+  const [times, setTimes] = useState([]);
+  const [isRecord, setIsRecord] = useState(false);
 
   const user = useAppSelector((store) => store.user);
   const [input, setInput] = useState<OnlineRecordFormType>({
     serviceId: service.id,
     masterId: masters[option]?.Master?.id,
-    date: 1200,
-    time: 1200,
+    date: value,
+    time: 0,
     userId: (user.status === 'logged' && user.id) || 0,
   });
 
@@ -51,9 +54,29 @@ export default function OnlineModalRecordService({
     setOpen(false);
   };
 
-  const handleChange = (event: SelectChangeEvent): void => {
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    void dispatch(getRecordsThunk());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const records = useAppSelector((store) => store.recordsAdmin).filter(
+    (el) => el.master.id === masters[option]?.Master?.id,
+  )[0];
+  const selectHandler = (event: SelectChangeEvent): void => {
     setOption(event.target?.value);
-    setInput((prev) => ({ ...prev, masterId: masters[option]?.Master?.id }));
+
+    const rightRecords = records?.records.filter(
+      (el) => el.statusFree * 30 >= masters[option]?.Service?.time,
+    );
+  console.log(rightRecords);
+  console.log(masters);
+  
+  
+    setTimes(rightRecords);
+
+    setChosen(1);
   };
 
   useEffect(() => {
@@ -61,14 +84,22 @@ export default function OnlineModalRecordService({
       .then((data) => setMasters(data))
       .catch(console.log);
   }, []);
-  console.log(masters);
-  const addRecordHandler = (): void => {
-    addRecord(input)
-      .then(() => setOpen(false))
-      .catch(console.log);
-  };
-  const freeTimes = [10, 11, 12, 13, 14, 15];
 
+  const addRecordHandler = (): void => {
+    setInput((prev) => ({
+      ...prev,
+      masterId: masters[option]?.Master?.id,
+      time: times[chosen - 1]?.time,
+    }));
+    setIsRecord((prev) => !prev);
+    
+  };
+  useEffect(() => {
+    if (input.time !== 0)
+      addRecord(input)
+        .then(() => setOpen(false))
+        .catch(console.log);
+  }, [isRecord]);
   const style = {
     position: 'absolute' as const,
     top: '50%',
@@ -111,15 +142,15 @@ export default function OnlineModalRecordService({
               id="demo-simple-select"
               value={option}
               label="Мастер"
-              onChange={handleChange}
+              onChange={selectHandler}
             >
-              {masters.map((master, i) => (
+              {masters?.map((master, i) => (
                 <MenuItem value={master?.Master?.id}>{master?.Master?.name}</MenuItem>
               ))}
             </Select>
           </FormControl>
         </Box>
-        {freeTimes.map((freeTime, i) => (
+        {times?.map((freeTime, i) => (
           <Button
             style={{ backgroundColor: chosen === i + 1 ? 'violet' : 'white' }}
             key={freeTime}
@@ -128,7 +159,9 @@ export default function OnlineModalRecordService({
               setChosen(i + 1);
             }}
           >
-            {freeTime}:00
+           {freeTime.time % 100
+                ? `${Math.floor(freeTime.time / 100)}:30`
+                : `${Math.floor(freeTime.time / 100)}:00`}
           </Button>
         ))}
         <Button onClick={addRecordHandler}>Записаться</Button>

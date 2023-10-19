@@ -7,6 +7,7 @@ import {
   MenuItem,
   Modal,
   Select,
+  TextField,
   Typography,
 } from '@mui/material';
 import React, { useEffect, useState } from 'react';
@@ -35,7 +36,6 @@ export default function OnlineModalRecordMaster({
   master,
 }: ModalRecordProps): JSX.Element {
   const [masterServices, setMasterServices] = useState<ServicesMastersType[]>([]);
-  console.log('-------------', masterServices);
   const dispatch = useAppDispatch();
   useEffect(() => {
     void dispatch(getRecordsThunk());
@@ -44,48 +44,59 @@ export default function OnlineModalRecordMaster({
   const records = useAppSelector((store) => store.recordsAdmin).filter(
     (el) => el.master.id === master.id,
   )[0];
-  console.log('RECORDS', records);
+
   const [option, setOption] = useState(0);
   const user = useAppSelector((store) => store.user);
-  const [chosen, setChosen] = useState(0);
+
+  const [chosen, setChosen] = useState(1);
   const [value, setValue] = useState<Dayjs | null>(dayjs('2023-10-17'));
+  const [times, setTimes] = useState([]);
   const [input, setInput] = useState<OnlineRecordFormType>({
     serviceId: masterServices[option]?.Service?.id,
     masterId: master.id,
-    date: 1200,
-    time: 1200,
+    date: value,
+    time: 0,
     userId: (user.status === 'logged' && user.id) || 0,
   });
-  const [times, setTimes] = useState([]);
-
+  const [isRecord, setIsRecord] = useState(false);
   const handleClose = (): void => {
     setOpen(false);
   };
 
-  const handleChange = (event: SelectChangeEvent): void => {
+  const selectHandler = (event: SelectChangeEvent): void => {
     setOption(event.target?.value);
-    setInput((prev) => ({ ...prev, serviceId: masterServices[option]?.Service?.id }));
-    const rightRecords = records.records.filter(
+
+    const rightRecords = records?.records.filter(
       (el) => el.statusFree * 30 >= masterServices[option]?.Service?.time,
     );
+
     setTimes(rightRecords);
+
+    setChosen(1);
   };
 
   useEffect(() => {
     getMaster(Number(master.id))
       .then((data) => {
-        console.log(data);
         setMasterServices(data);
       })
       .catch(console.log);
   }, []);
-  const freeTimes = [10, 11, 12, 13, 14, 15];
+
   const addRecordHandler = (): void => {
-    addRecord(input)
-      .then(() => setOpen(false))
-      .catch(console.log);
+    setInput((prev) => ({
+      ...prev,
+      serviceId: masterServices[option]?.Service?.id,
+      time: times[chosen - 1]?.time,
+    }));
+    setIsRecord((prev) => !prev);
   };
-  console.log('TIMES', times);
+  useEffect(() => {
+    if (input.time !== 0)
+      addRecord(input)
+        .then(() => setOpen(false))
+        .catch(console.log);
+  }, [isRecord]);
   const style = {
     position: 'absolute' as const,
     top: '50%',
@@ -142,14 +153,14 @@ export default function OnlineModalRecordMaster({
               id="demo-simple-select"
               value={option}
               label="Мастер"
-              onChange={handleChange}
+              onChange={selectHandler}
             >
               {masterServices.map((masterService, i) => (
                 <MenuItem value={i + 1}>{masterService?.Service?.name}</MenuItem>
               ))}
             </Select>
           </FormControl>
-          {times.map((freeTime, i) => (
+          {times?.map((freeTime, i) => (
             <Button
               style={{ backgroundColor: chosen === i + 1 ? '#4a875d' : 'white' }}
               key={freeTime}
@@ -159,7 +170,9 @@ export default function OnlineModalRecordMaster({
               }}
               size="small"
             >
-              {freeTime.time}:00
+              {freeTime.time % 100
+                ? `${Math.floor(freeTime.time / 100)}:30`
+                : `${Math.floor(freeTime.time / 100)}:00`}
             </Button>
           ))}
           <Button onClick={addRecordHandler}>Записаться</Button>

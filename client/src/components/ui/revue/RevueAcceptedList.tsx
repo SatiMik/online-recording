@@ -19,7 +19,7 @@ export default function RevueAcceptedList(): JSX.Element {
 
   const user = useAppSelector((store) => store.user);
   const handleChange = (event: SelectChangeEvent) => {
-    setOption((prev) => event.target.value);
+    setOption((prev) => event.target.value);e
     switch (event.target.value) {
       case '1':
         dispatch(sortHigh());
