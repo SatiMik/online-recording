@@ -5,6 +5,7 @@ import {
   loginHandlerThunk,
   logoutHandlerThunk,
   signUpHandlerThunk,
+  userCheckCodeThunk,
 } from './UserThunks';
 
 type UserState = UserLoadingType;
@@ -38,6 +39,11 @@ export const userSlice = createSlice({
       status: 'guest',
     }));
     builder.addCase(logoutHandlerThunk.fulfilled, (state) => ({ status: 'guest' }));
+    builder.addCase(userCheckCodeThunk.pending, (state) => ({ status: 'loading' }));
+    builder.addCase(userCheckCodeThunk.fulfilled, (state, action) => ({
+      ...action.payload,
+      status: 'logged',
+    }));
   },
 });
 

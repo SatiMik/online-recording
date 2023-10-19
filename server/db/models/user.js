@@ -22,11 +22,14 @@ module.exports = (sequelize, DataTypes) => {
       phone: DataTypes.STRING,
       password: DataTypes.STRING,
       isAdmin: DataTypes.BOOLEAN,
+      chatId: DataTypes.INTEGER,
+      valid: DataTypes.BOOLEAN,
+      code: DataTypes.INTEGER,
     },
     {
       sequelize,
       modelName: 'User',
-    },
+    }
   );
   return User;
 };
