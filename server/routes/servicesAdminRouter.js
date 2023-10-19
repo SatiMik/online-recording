@@ -5,15 +5,20 @@ const router = express.Router();
 
 router.route('/:id/:status').get(async (req, res) => {
   try {
-    const { id, status } = req.params;
+    const { status } = req.params;
+    const id = Math.abs(req.params.id);
     const master = await Master.findOne({
       where: { id },
       include: {
         model: Service,
       },
     });
-    const services = master.Services.filter((service) => service.time <= status * 30);
-    console.log(services);
+    let services;
+    if (status !== '0') {
+      services = master.Services.filter((service) => service.time <= status * 30);
+    } else {
+      services = master.Services;
+    }
     res.json(services);
   } catch (err) {
     console.error(err);

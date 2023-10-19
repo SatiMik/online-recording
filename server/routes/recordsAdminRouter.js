@@ -107,7 +107,7 @@ router
   })
   .post(async (req, res) => {
     try {
-      const [user, createdUser] = await User.findOrCreate({
+      const [user] = await User.findOrCreate({
         where: { phone: req.body.phone },
         defaults: {
           name: req.body.user,
