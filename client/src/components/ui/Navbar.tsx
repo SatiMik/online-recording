@@ -1,31 +1,111 @@
-import React, { useState } from 'react';
-import { Link as NavLink } from 'react-router-dom';
-import AppBar from '@mui/material/AppBar';
+import * as React from 'react';
+import type { Theme, CSSObject } from '@mui/material/styles';
+import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
+import MuiDrawer from '@mui/material/Drawer';
+import type { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
+import MuiAppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import Button from '@mui/material/Button';
+import List from '@mui/material/List';
+import CssBaseline from '@mui/material/CssBaseline';
+import Typography from '@mui/material/Typography';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
-import { Link, IconButton, Badge } from '@mui/material';
-import { useSelector } from 'react-redux';
-import { useAppDispatch, useAppSelector } from '../../redux/hooks';
-import ModalButton from './application/ModalButton';
-import AuthModal from './auth/AuthModal';
-import LogoutModal from './auth/LogoutModal';
+import { Badge, Button } from '@mui/material';
+import { useAppSelector } from '../../redux/hooks';
 
-const linkStyle = { color: 'white', mr: 2, fontFamily: 'Raleway, Arial', textDecoration: 'none' };
+const drawerWidth = 240;
 
-export default function NavBar(): JSX.Element {
+const openedMixin = (theme: Theme): CSSObject => ({
+  width: drawerWidth,
+  transition: theme.transitions.create('width', {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.enteringScreen,
+  }),
+  overflowX: 'hidden',
+});
+
+const closedMixin = (theme: Theme): CSSObject => ({
+  transition: theme.transitions.create('width', {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  overflowX: 'hidden',
+  width: `calc(${theme.spacing(7)} + 1px)`,
+  [theme.breakpoints.up('sm')]: {
+    width: `calc(${theme.spacing(8)} + 1px)`,
+  },
+});
+
+const DrawerHeader = styled('div')(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'flex-end',
+  padding: theme.spacing(0, 1),
+  // necessary for content to be below app bar
+  ...theme.mixins.toolbar,
+}));
+
+type AppBarProps = {
+  open?: boolean;
+} & MuiAppBarProps;
+
+const AppBar = styled(MuiAppBar, {
+  shouldForwardProp: (prop) => prop !== 'open',
+})<AppBarProps>(({ theme, open }) => ({
+  zIndex: theme.zIndex.drawer + 1,
+  transition: theme.transitions.create(['width', 'margin'], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  ...(open && {
+    marginLeft: drawerWidth,
+    width: `calc(100% - ${drawerWidth}px)`,
+    transition: theme.transitions.create(['width', 'margin'], {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.enteringScreen,
+    }),
+  }),
+}));
+
+const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
+  ({ theme, open }) => ({
+    width: drawerWidth,
+    flexShrink: 0,
+    whiteSpace: 'nowrap',
+    boxSizing: 'border-box',
+    ...(open && {
+      ...openedMixin(theme),
+      '& .MuiDrawer-paper': openedMixin(theme),
+    }),
+    ...(!open && {
+      ...closedMixin(theme),
+      '& .MuiDrawer-paper': closedMixin(theme),
+    }),
+  }),
+);
+
+export default function MiniDrawer(): JSX.Element {
+  const theme = useTheme();
+  const [open, setOpen] = React.useState(false);
+  const applications = useAppSelector((state) => state.application);
   const user = useAppSelector((store) => store.user);
-  const [open, setOpen] = useState(false);
-  const [auth, setAuth] = useState(false);
-  const [authType, setAuthType] = useState(0);
-  const [isLogout, setIsLogout] = useState(false);
-  const dispatch = useAppDispatch();
-  const applications = useSelector((state) => state.application);
-  const applicationNotAccepted = applications.filter((application) => !application.status);
 
-  const handleOpen = (): void => {
+  const handleDrawerOpen = (): void => {
     setOpen(true);
+  };
+
+  const handleDrawerClose = (): void => {
+    setOpen(false);
   };
   const links =
     user.status === 'guest'
@@ -35,134 +115,174 @@ export default function NavBar(): JSX.Element {
           { to: '/master', name: 'Мастера' },
           { to: '/sale', name: 'Акции' },
           { to: '/revue', name: 'Отзывы' },
+          { to: '/signup', name: 'Зарегистрироваться' },
+          { to: '/login', name: 'Войти' },
         ]
       : [
+          { to: '/', name: 'Главная' },
           { to: '/service', name: 'Услуги' },
           { to: '/master', name: 'Мастера' },
           { to: '/sale', name: 'Акции' },
           { to: '/revue', name: 'Отзывы' },
+          { to: '/userRecords', name: 'Мои записи' },
+          {
+            to: '/online-record',
+            name: (
+              <>
+                {' '}
+                <Button
+                  disabled
+                  sx={{
+                    padding: '8px 16px',
+                    backgroundColor: 'white',
+                    color: '#6a329f',
+                    borderRadius: '4px',
+                    cursor: 'pointer',
+                  }}
+                >
+                  Онлайн запись
+                </Button>
+              </>
+            ),
+          },
         ];
 
+
+  const links =
+    user.status === 'guest'
+      ? [
+        { to: '/', name: 'Главная' },
+        { to: '/service', name: 'Услуги' },
+        { to: '/master', name: 'Мастера' },
+        { to: '/sale', name: 'Акции' },
+        { to: '/revue', name: 'Отзывы' },
+        // { to: '/userRecords', name: 'Мои записи' },
+        {
+          to: '/online-record', name:
+            <>  <Button
+              disabled
+              sx={{
+                padding: '8px 16px',
+                backgroundColor: 'white',
+                color: '#566F5F',
+                borderRadius: '4px',
+                cursor: 'pointer',
+              }}
+            >
+              Онлайн запись
+            </Button></>
+        },
+
+      ]
+      : [
+        { to: '/', name: 'Главная' },
+        { to: '/application', name: <><IconButton><Badge badgeContent={applications.length} color="secondary"><MailIcon style={{ color: 'white' }} /></Badge></IconButton> </> },
+        { to: '/service', name: 'Услуги' },
+        { to: '/master', name: 'Мастера' },
+        { to: '/sale', name: 'Акции' },
+        { to: '/revue', name: 'Отзывы' },
+        { to: '/userRecords', name: 'Мои записи' },
+        {
+          to: '/online-record', name:
+            <>  <Button
+              disabled
+              sx={{
+                padding: '8px 16px',
+                backgroundColor: 'white',
+                color: '#6a329f',
+                borderRadius: '4px',
+                cursor: 'pointer',
+              }}
+            >
+              Онлайн запись
+            </Button></>
+        },
+      ]
+
+
   return (
-    <Box>
-      <AppBar className="header">
-        <div className="navnavbar">
-          <div className="cont container">
-            <h6>Салон Красоты</h6>
-            <div className="links">
-              <a href="/">
-                <div className="img">
-                  <i />
-                </div>
-              </a>
-              <a href="/">
-                <div className="img">
-                  <i />
-                </div>
-              </a>
-              <a href="/">
-                <div className="img">
-                  <i />
-                </div>
-              </a>
-            </div>
-          </div>
-        </div>
-        <Toolbar className="navbar">
-          <div className="container flex">
-            {user.status === 'logged' && user?.isAdmin ? (
-              <Link component={NavLink} to="/application">
-                <IconButton>
-                  <Badge badgeContent={applicationNotAccepted.length} color="secondary">
-                    <MailIcon />
-                  </Badge>
-                </IconButton>
-              </Link>
-            ) : null}
-            {user.status === 'logged' && !user.isAdmin ? (
-              <Link className="myZapiz" key="Мои записи" component={NavLink} to="/userRecords">
-                Мои записи
-              </Link>
-            ) : null}
-            {user.status === 'logged' && user?.isAdmin ? (
-              <Link key="Расписание записей" component={NavLink} to="/admin">
-                Расписание записей
-              </Link>
-            ) : null}
-
-            {user.status === 'logged' && !user?.isAdmin && (
-              <Link key="Главная" component={NavLink} to="/">
-                Главная
-              </Link>
-            )}
-            <Box className="navbartext">
-              {links.map((link) => (
-                <Link key={link.name} component={NavLink} to={link.to}>
-                  {link.name}
-                </Link>
-              ))}
-
-              {user.status !== 'loading' || (user.status === 'logged' && !user.isAdmin) ? (
-                <Link
-                  style={{ display: 'none' }}
-                  className="record"
-                  component={NavLink}
-                  to="/online-record"
-                >
-                  <Button variant="outlined">Записаться онлайн</Button>
-                </Link>
-              ) : null}
-            </Box>
-            <Box>
-              {user.status === 'logged' ? (
-                <Button
-                  style={{ backgroundColor: 'black' }}
-                  className="loginbtn"
-                  variant="text"
-                  onClick={() => setIsLogout(true)}
-                >
-                  Выход
-                </Button>
-              ) : (
-                <>
-                  <Button
-                    className="loginbtn"
-                    variant="text"
-                    onClick={() => {
-                      setAuth(true);
-                      setAuthType(1);
-                    }}
-                  >
-                    Регистрация
-                  </Button>
-                  <Button
-                    className="loginbtn"
-                    variant="text"
-                    onClick={() => {
-                      setAuth(true);
-                      setAuthType(2);
-                    }}
-                  >
-                    Вход
-                  </Button>
-                </>
-              )}
-            </Box>
-            {user.status !== 'loading' || (user.status === 'logged' && !user.isAdmin) ? (
-              <Box onClick={handleOpen}>Оставить заявку</Box>
-            ) : null}
-
-            <ModalButton open={open} setOpen={setOpen} />
-            <AuthModal
-              auth={auth}
-              setAuth={setAuth}
-              authType={authType}
-              setAuthType={setAuthType}
-            />
-            <LogoutModal isLogout={isLogout} setIsLogout={setIsLogout} />
-          </div>
+    <Box sx={{ display: 'flex' }}>
+      <CssBaseline />
+      <AppBar position="fixed" open={open}>
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleDrawerOpen}
+            edge="start"
+            sx={{
+              marginRight: 5,
+              ...(open && { display: 'none' }),
+            }}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" noWrap component="div">
+            Mini variant drawer
+          </Typography>
         </Toolbar>
       </AppBar>
-    </Box>
+      <Drawer variant="permanent" open={open}>
+        <DrawerHeader>
+          <IconButton onClick={handleDrawerClose}>
+            {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+          </IconButton>
+        </DrawerHeader>
+        <Divider />
+        <List>
+          {links?.map((link, index) => (
+            <ListItem key={link.to} disablePadding sx={{ display: 'block' }}>
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? 'initial' : 'center',
+                  px: 2.5,
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : 'auto',
+                    justifyContent: 'center',
+                  }}
+                >
+                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                </ListItemIcon>
+                <ListItemText primary={to} sx={{ opacity: open ? 1 : 0 }} />
+              </ListItemButton>
+            </ListItem>
+          ))
+          }
+        </List >
+        <Divider />
+        <List>
+          {['All mail', 'Trash', 'Spam'].map((text, index) => (
+            <ListItem key={text} disablePadding sx={{ display: 'block' }}>
+              <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? 'initial' : 'center',
+                  px: 2.5,
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : 'auto',
+                    justifyContent: 'center',
+                  }}
+                >
+                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                </ListItemIcon>
+                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+      </Drawer >
+      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+        <DrawerHeader />
+      </Box>
+    </Box >
   );
 }
