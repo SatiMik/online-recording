@@ -4,8 +4,8 @@ const { Master, MasterService, Service, Record } = require('../db/models');
 
 router.post('/', async (req, res) => {
   try {
-    const userId = req.session.user.id;
     console.log(req.body);
+    const userId = req.session.user.id;
     const { masterId, serviceId, date, time } = req.body;
     const result = await Record.create({
       masterId,
