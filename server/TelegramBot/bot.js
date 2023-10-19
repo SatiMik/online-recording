@@ -1,5 +1,4 @@
 const TelegramBot = require('node-telegram-bot-api');
-const { text } = require('express');
 const { User } = require('../db/models');
 
 const token = process.env.BOT_TOKEN;
@@ -11,7 +10,6 @@ const bot = new TelegramBot(token, { polling: true });
 const phoneNumberReg =
   /^\+?(\d{1,3})?[- .]*(\(?(?:\d{2,3})\)?[- .]*\d\d\d[- .]?\d\d[- .]*\d\d$)/;
 
-// Обработка команды /start
 bot.onText(/\/start/, (msg) => {
   const chatId = msg.chat.id;
 
@@ -25,15 +23,10 @@ bot.onText(/\/start/, (msg) => {
     },
   });
 });
-// bot.onText(phoneNumberReg, (msg) => {
-//   console.log('НОМЕР ==>', msg.text.replace(/\D/g, '').slice(-10));
-//   console.log('НОМЕР ==>', msg.text);
-// });
 
 bot.on('message', async (msg) => {
   const textMsg = msg.text;
-
-  if (textMsg.match(phoneNumberReg)) {
+  if (textMsg?.match(phoneNumberReg)) {
     console.log('НОМЕР ==> ', msg.text.replace(/\D/g, '').slice(-10));
     const phone = msg.text.replace(/\D/g, '').slice(-10);
     const chatId = msg.chat.id;
