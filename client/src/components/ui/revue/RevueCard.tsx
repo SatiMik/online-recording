@@ -30,12 +30,12 @@ function RevueCard({ revue, user }: RevueCardPropsType): JSX.Element {
   const dispatch = useAppDispatch();
 
   return (
-    <Box mt={8}>
-      <Container>
-        <Card sx={{ maxWidth: 345 }}>
+    <Box mt={1} style={{ width: '100%' }}>
+      <Container style={{ padding: '16px' }}>
+        <Card sx={{ width: '100%' }}>
           <>
             <CardContent>
-              <Typography variant="body2" color="text.secondary">
+              <Typography style={{ color: '#4a875d' }} variant="h6" color="text.secondary">
                 {revue.User?.name}
               </Typography>
               <Typography variant="body2" color="text.secondary">
@@ -46,8 +46,12 @@ function RevueCard({ revue, user }: RevueCardPropsType): JSX.Element {
                   '& > legend': { mt: 2 },
                 }}
               >
-                <Typography component="legend">Оценка:</Typography>
-                <Rating name="read-only" value={revue.rating} readOnly />
+                <Rating
+                  style={{ color: '#4a875d' }}
+                  name="read-only"
+                  value={revue.rating}
+                  readOnly
+                />
               </Box>
               <Typography gutterBottom variant="h5" component="div">
                 {revue.text}

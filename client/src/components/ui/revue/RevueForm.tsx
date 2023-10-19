@@ -27,23 +27,24 @@ export default function RevueForm(): JSX.Element {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-
   return (
-    <Box display="flex" flexDirection="column" alignItems="center">
+    <Box display="flex" flexDirection="column" alignItems="center" style={{ width: '100%', justifyContent: 'center' }}>
       <TextField
         name="text"
-        variant="outlined"
+        variant="standard"
         placeholder="Ваш отзыв"
         value={inputs.text}
         onChange={changeHandler}
+     
       />
       <Box
         sx={{
           '& > legend': { mt: 2 },
         }}
       >
-        <Typography component="legend">Оставьте оценку</Typography>
+        <Typography  component="legend">Оставьте оценку</Typography>
         <Rating
+          style={{ color: '#4a875d' }}
           name="rating"
           variant="outlined"
           value={inputs.rating}

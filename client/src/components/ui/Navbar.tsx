@@ -30,196 +30,137 @@ export default function NavBar(): JSX.Element {
   const links =
     user.status === 'guest'
       ? [
-        { to: '/', name: 'Главная' },
-        { to: '/service', name: 'Услуги' },
-        { to: '/master', name: 'Мастера' },
-        { to: '/sale', name: 'Акции' },
-        { to: '/revue', name: 'Отзывы' },
-
-      ]
+          { to: '/', name: 'Главная' },
+          { to: '/service', name: 'Услуги' },
+          { to: '/master', name: 'Мастера' },
+          { to: '/sale', name: 'Акции' },
+          { to: '/revue', name: 'Отзывы' },
+        ]
       : [
-        { to: '/', name: 'Главная' },
-        { to: '/service', name: 'Услуги' },
-        { to: '/master', name: 'Мастера' },
-        { to: '/sale', name: 'Акции' },
-        { to: '/revue', name: 'Отзывы' },
-
-      ];
+          { to: '/service', name: 'Услуги' },
+          { to: '/master', name: 'Мастера' },
+          { to: '/sale', name: 'Акции' },
+          { to: '/revue', name: 'Отзывы' },
+        ];
 
   return (
-    <Box sx={{ flexGrow: 1, backgroundColor: '#566F5F' }}>
-      <AppBar position="static">
-        <Toolbar sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-          {
-            user.status === 'logged' && user?.isAdmin ? (
-              <Link component={NavLink} to="/application" sx={linkStyle}>
+    <Box>
+      <AppBar className="header">
+        <div className="navnavbar">
+          <div className="cont container">
+            <h6>Салон Красоты</h6>
+            <div className="links">
+              <a href="/">
+                <div className="img">
+                  <i />
+                </div>
+              </a>
+              <a href="/">
+                <div className="img">
+                  <i />
+                </div>
+              </a>
+              <a href="/">
+                <div className="img">
+                  <i />
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+        <Toolbar className="navbar">
+          <div className="container flex">
+            {user.status === 'logged' && user?.isAdmin ? (
+              <Link component={NavLink} to="/application">
                 <IconButton>
-                  <Badge badgeContent={applicationNotAccepted.length} sx={{ color: 'white' }} color="secondary">
-                    <MailIcon style={{ color: 'white' }} />
+                  <Badge badgeContent={applicationNotAccepted.length} color="secondary">
+                    <MailIcon />
                   </Badge>
                 </IconButton>
               </Link>
-            ) : null
-          }
-          {user.status === 'logged' && !user.isAdmin ? (
-            <Link
-              key="Мои записи"
-              component={NavLink}
-              to="/userRecords"
-              sx={{
-                ...linkStyle,
-                padding: '6px 12px',
-                // transition: '0.3s',
-                // margin: '6px 14px',
-                '&:hover': {
-                  // transform: 'scale(1.05)',
-                  // backgroundColor: 'white',
-                  // color: '#566F5F',
-                  borderRadius: '4px',
-                  fontSize: '1.21em', // Добавьте это свойство для увеличения размера текста
-
-                },
-              }}
-            >
-              Мои записи
-            </Link>
-          ) : null
-          }
-          {user.status === 'logged' && user?.isAdmin ? (
-            <Link
-              key="Расписание записей"
-              component={NavLink}
-              to="/admin"
-              sx={{
-                ...linkStyle,
-                padding: '6px 12px',
-                transition: '0.1s',
-                // margin: '6px 14px',
-                '&:hover': {
-                  // transform: 'scale(1.05)',
-                  // backgroundColor: 'white',
-                  // color: '#566F5F',
-                  borderRadius: '4px',
-                  // fontSize: '1.21em', // Добавьте это свойство для увеличения размера текста
-
-                },
-              }}
-            >
-              Расписание записей
-            </Link>
-          ) : null
-
-          }
-          <Box>
-            {links.map((link) => (
-              <Link
-                key={link.name}
-                component={NavLink}
-                to={link.to}
-                sx={{
-                  ...linkStyle,
-                  padding: '6px 12px',
-                  // transition: '0.3s',
-                  // margin: '6px 14px',
-                  '&:hover': {
-                    // transform: 'scale(1.05)',
-                    // backgroundColor: 'white',
-                    // color: '#566F5F',
-                    borderRadius: '4px',
-                    // fontSize: '1.21em', // Добавьте это свойство для увеличения размера текста
-
-                  },
-                }}
-              >
-                {link.name}
+            ) : null}
+            {user.status === 'logged' && !user.isAdmin ? (
+              <Link className="myZapiz" key="Мои записи" component={NavLink} to="/userRecords">
+                Мои записи
               </Link>
-            ))}
-
-            {user.status === 'logged' && !user?.isAdmin ? (
-              <Link component={NavLink} to="/online-record" sx={linkStyle}>
-                <Button
-                  variant="outlined"
-                  sx={{
-                    borderColor: 'white',
-                    color: 'white',
-                    backgroundColor: '#566F5F',
-                    padding: '6px 14px',
-                    borderRadius: '4px',
-                    // transition: '0.2s',
-                    // '&:hover': {
-                    //   // transform: 'scale(1.05)',
-                    //   // backgroundColor: 'white',
-                    //   color: '#566F5F',
-                    //   fontBold: true,
-                    //   boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.2)', // Замените на нужное вам значение тени
-                    // },
-                  }}
-                >
-                  Записаться онлайн
-                </Button>
-
+            ) : null}
+            {user.status === 'logged' && user?.isAdmin ? (
+              <Link key="Расписание записей" component={NavLink} to="/admin">
+                Расписание записей
               </Link>
-            ) : null
-            }
-          </Box>
-          <Box>
-            {user.status === 'logged' ? (
-              <Button variant="text" sx={linkStyle} onClick={() => setIsLogout(true)}>
-                Выход
-              </Button>
-            ) : (
-              <>
-                <Button
-                  variant="text"
-                  sx={linkStyle}
-                  onClick={() => {
-                    setAuth(true);
-                    setAuthType(1);
-                  }}
-                >
-                  Регистрация
-                </Button>
-                <Button
-                  variant="text"
-                  sx={linkStyle}
-                  onClick={() => {
-                    setAuth(true);
-                    setAuthType(2);
-                  }}
-                >
-                  Вход
-                </Button>
-              </>
+            ) : null}
+
+            {user.status === 'logged' && !user?.isAdmin && (
+              <Link key="Главная" component={NavLink} to="/">
+                Главная
+              </Link>
             )}
-          </Box>
-          <Box
-            onClick={handleOpen}
-            sx={{
-              padding: '6px 14px',
-              backgroundColor: 'white',
-              color: '#566F5F',
-              borderRadius: '4px',
-              cursor: 'pointer',
-              fontWeight: 600,
-              fontSize: '16px',
-              borderColor: 'white',
-              // transition: '0.2s',
-              // '&:hover': {
-              //   transform: 'scale(1.05)',
-              //   backgroundColor: 'white',
-              //   color: '#566F5F',
-              //   fontBold: true,
-              //   boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.2)', // Замените на нужное вам значение тени
-              // },
-            }}
-          >
-            Оставить заявку
-          </Box>
+            <Box className="navbartext">
+              {links.map((link) => (
+                <Link key={link.name} component={NavLink} to={link.to}>
+                  {link.name}
+                </Link>
+              ))}
 
+              {user.status !== 'loading' || (user.status === 'logged' && !user.isAdmin) ? (
+                <Link
+                  style={{ display: 'none' }}
+                  className="record"
+                  component={NavLink}
+                  to="/online-record"
+                >
+                  <Button variant="outlined">Записаться онлайн</Button>
+                </Link>
+              ) : null}
+            </Box>
+            <Box>
+              {user.status === 'logged' ? (
+                <Button
+                  style={{ backgroundColor: 'black' }}
+                  className="loginbtn"
+                  variant="text"
+                  onClick={() => setIsLogout(true)}
+                >
+                  Выход
+                </Button>
+              ) : (
+                <>
+                  <Button
+                    className="loginbtn"
+                    variant="text"
+                    onClick={() => {
+                      setAuth(true);
+                      setAuthType(1);
+                    }}
+                  >
+                    Регистрация
+                  </Button>
+                  <Button
+                    className="loginbtn"
+                    variant="text"
+                    onClick={() => {
+                      setAuth(true);
+                      setAuthType(2);
+                    }}
+                  >
+                    Вход
+                  </Button>
+                </>
+              )}
+            </Box>
+            {user.status !== 'loading' || (user.status === 'logged' && !user.isAdmin) ? (
+              <Box onClick={handleOpen}>Оставить заявку</Box>
+            ) : null}
 
-          <ModalButton open={open} setOpen={setOpen} />
-          <AuthModal auth={auth} setAuth={setAuth} authType={authType} setAuthType={setAuthType} />
-          <LogoutModal isLogout={isLogout} setIsLogout={setIsLogout} />
+            <ModalButton open={open} setOpen={setOpen} />
+            <AuthModal
+              auth={auth}
+              setAuth={setAuth}
+              authType={authType}
+              setAuthType={setAuthType}
+            />
+            <LogoutModal isLogout={isLogout} setIsLogout={setIsLogout} />
+          </div>
         </Toolbar>
       </AppBar>
     </Box>

@@ -20,11 +20,15 @@ import OnlineMastersPage from './components/pages/online-record/OnlineMastersPag
 import UserRecordsPage from './components/pages/UserRecordsPage';
 import OnlineServicesPage from './components/pages/online-record/OnlineServicesPage';
 import NavBar from './components/ui/Navbar';
+import FooterNew from './components/footer/Footer';
 
 function App(): JSX.Element {
   const theme = createTheme({
+    typography: {
+      fontFamily: 'Raleway',
+    },
     palette: {
-      primary: { main: '#566F5F' },
+      primary: { main: '#F8F7FC' },
       secondary: { main: '#DFDBDC' },
       newColor: { main: '#AF8678' },
     },
@@ -43,36 +47,30 @@ function App(): JSX.Element {
       <Loader isLoading={user.status === 'loading'}>
         <>
           <NavBar />
-          <Box mt={5}>
-            <Container>
-              <Routes>
-                <Route path="/" element={<MainPage />} />
-                <Route path="/revue" element={<RevuePage />} />
-                <Route path="/sale" element={<SalePage />} />
-                <Route path="/service" element={<CategoryPage />} />
-                <Route path="/services/:categoryId" element={<ServicePage />} />
-                <Route path="/master" element={<MasterPage />} />
-                <Route path="/online-record" element={<OnlineRecordPage />} />
-                <Route path="/online-record/masters" element={<OnlineMastersPage />} />
-                <Route path="/admin" element={<AdminPage />} />
-               
-                <Route path="/online-record/services" element={<OnlineServicesPage />} />
+          <Routes>
+            <Route path="/" element={<MainPage />} />
+            <Route path="/revue" element={<RevuePage />} />
+            <Route path="/sale" element={<SalePage />} />
+            <Route path="/service" element={<CategoryPage />} />
+            <Route path="/services/:categoryId" element={<ServicePage />} />
+            <Route path="/master" element={<MasterPage />} />
+            <Route path="/online-record" element={<OnlineRecordPage />} />
+            <Route path="/online-record/masters" element={<OnlineMastersPage />} />
+            <Route path="/admin" element={<AdminPage />} />
 
-                <Route element={<PrivateRoute isAllowed={user.status === 'logged' && !user.isAdmin} />}>
-                  <Route path="/userRecords" element={<UserRecordsPage />} />
-                </Route>
+            <Route path="/online-record/services" element={<OnlineServicesPage />} />
 
-                <Route
-                  element={<PrivateRoute isAllowed={user.status === 'logged' && user?.isAdmin} />}
-                >
-                  <Route path="/application" element={<ApplicationPage />} />
-                </Route>
-              </Routes>
-            </Container>
-          </Box>
+            <Route element={<PrivateRoute isAllowed={user.status === 'logged' && !user.isAdmin} />}>
+              <Route path="/userRecords" element={<UserRecordsPage />} />
+            </Route>
+
+            <Route element={<PrivateRoute isAllowed={user.status === 'logged' && user?.isAdmin} />}>
+              <Route path="/application" element={<ApplicationPage />} />
+            </Route>
+          </Routes>
         </>
       </Loader>
-      {/* <FooterNew /> */}
+      <FooterNew />
     </ThemeProvider>
   );
 }
