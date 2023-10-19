@@ -5,8 +5,6 @@ import RevueForm from '../ui/revue/RevueForm';
 import RevueNotAcceptedList from '../ui/revue/RevueNotAcceptedList';
 import RevueAcceptedList from '../ui/revue/RevueAcceptedList';
 
-
-
 export default function RevuePage(): JSX.Element {
   const user = useAppSelector((store) => store.user);
 
@@ -49,15 +47,28 @@ export default function RevuePage(): JSX.Element {
       <RevueAcceptedList />
       {user.status === 'logged' && (
         <>
-          <Typography variant="h5" style={{ color: 'black', fontWeight: 'bold', textAlign: 'center', marginBottom: '60px', marginTop: '60px' }}>Оставьте свой отзыв</Typography>
-          <Box sx={{ display: 'flex', flexDirection: 'row', backgroundColor: '#566F5F'}}>
-          <CardMedia
-        component="img"
-        sx={{ width: '700px', height: '500px' }}
-        image="http://klublady.ru/uploads/posts/2022-02/1644286782_5-klublady-ru-p-frantsuzhenki-s-korotkimi-strizhkami-foto-5.jpg"
-        alt="Live from space album cover"
-      />
-          <RevueForm />
+          <Typography
+            variant="h5"
+            style={{
+              color: 'black',
+              fontWeight: 'bold',
+              textAlign: 'center',
+              marginBottom: '60px',
+              marginTop: '60px',
+            }}
+          >
+            Оставьте свой отзыв
+          </Typography>
+          <Box sx={{ display: 'flex', flexDirection: 'row', backgroundColor: '#566F5F' }}>
+            <CardMedia
+              component="img"
+              sx={{ width: '700px', height: '500px' }}
+              image="http://klublady.ru/uploads/posts/2022-02/1644286782_5-klublady-ru-p-frantsuzhenki-s-korotkimi-strizhkami-foto-5.jpg"
+              alt="Live from space album cover"
+            />
+            {(user.status === 'logged' && !user.isAdmin) || user.status === 'guest' ? (
+              <RevueForm />
+            ) : null}
           </Box>
         </>
       )}

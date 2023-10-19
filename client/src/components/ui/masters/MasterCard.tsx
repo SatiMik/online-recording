@@ -57,9 +57,11 @@ function MasterCard({ master, user }: BookCardPropsType): JSX.Element {
                 </Typography>
               </Box>
 
-              <Button onClick={() => setWorks(true)} size="small" sx={{ mt: 2 }}>
-                Посмотреть работы
-              </Button>
+              {(user.status === 'logged' && !user.isAdmin) || user.status === 'guest' ? (
+                <Button onClick={() => setWorks(true)} size="small" sx={{ mt: 2 }}>
+                  Посмотреть работы
+                </Button>
+              ) : null}
             </Box>
           </CardContent>
           <CardActions>
@@ -84,9 +86,11 @@ function MasterCard({ master, user }: BookCardPropsType): JSX.Element {
               </>
             )}
             <CardActions sx={{ justifyContent: 'space-between' }}>
-              <Button onClick={() => setOpenOnline(true)} variant="contained">
-                Записаться
-              </Button>
+              {(user.status === 'logged' && !user.isAdmin) || user.status === 'guest' ? (
+                <Button onClick={() => setOpenOnline(true)} variant="contained">
+                  Записаться
+                </Button>
+              ) : null}
             </CardActions>
           </CardActions>
           {open && <MasterModal open={open} master={master} setOpen={setOpen} />}
