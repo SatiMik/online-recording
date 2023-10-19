@@ -30,18 +30,18 @@ export default function NavBar(): JSX.Element {
   const links =
     user.status === 'guest'
       ? [
-        { to: '/', name: 'Главная' },
-        { to: '/service', name: 'Услуги' },
-        { to: '/master', name: 'Мастера' },
-        { to: '/sale', name: 'Акции' },
-        { to: '/revue', name: 'Отзывы' },
-      ]
+          { to: '/', name: 'Главная' },
+          { to: '/service', name: 'Услуги' },
+          { to: '/master', name: 'Мастера' },
+          { to: '/sale', name: 'Акции' },
+          { to: '/revue', name: 'Отзывы' },
+        ]
       : [
-        { to: '/service', name: 'Услуги' },
-        { to: '/master', name: 'Мастера' },
-        { to: '/sale', name: 'Акции' },
-        { to: '/revue', name: 'Отзывы' },
-      ];
+          { to: '/service', name: 'Услуги' },
+          { to: '/master', name: 'Мастера' },
+          { to: '/sale', name: 'Акции' },
+          { to: '/revue', name: 'Отзывы' },
+        ];
 
   return (
     <Box sx={{ flexGrow: 1, backgroundColor: '#566F5F' }}>
