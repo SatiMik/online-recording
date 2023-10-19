@@ -69,16 +69,8 @@ export default function NavBar(): JSX.Element {
               sx={{
                 ...linkStyle,
                 padding: '6px 12px',
-                // transition: '0.3s',
-                // margin: '6px 14px',
-                '&:hover': {
-                  // transform: 'scale(1.05)',
-                  // backgroundColor: 'white',
-                  // color: '#566F5F',
-                  borderRadius: '4px',
-                  fontSize: '1.21em', // Добавьте это свойство для увеличения размера текста
 
-                },
+
               }}
             >
               Мои записи
@@ -94,14 +86,8 @@ export default function NavBar(): JSX.Element {
                 ...linkStyle,
                 padding: '6px 12px',
                 transition: '0.1s',
-                // margin: '6px 14px',
                 '&:hover': {
-                  // transform: 'scale(1.05)',
-                  // backgroundColor: 'white',
-                  // color: '#566F5F',
                   borderRadius: '4px',
-                  // fontSize: '1.21em', // Добавьте это свойство для увеличения размера текста
-
                 },
               }}
             >
@@ -145,14 +131,24 @@ export default function NavBar(): JSX.Element {
                     backgroundColor: '#566F5F',
                     padding: '6px 14px',
                     borderRadius: '4px',
-                    // transition: '0.2s',
-                    // '&:hover': {
-                    //   // transform: 'scale(1.05)',
-                    //   // backgroundColor: 'white',
-                    //   color: '#566F5F',
-                    //   fontBold: true,
-                    //   boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.2)', // Замените на нужное вам значение тени
-                    // },
+                  }}
+                >
+                  Записаться онлайн
+                </Button>
+
+              </Link>
+            ) : null
+            }
+            {user.status === 'guest' ? (
+              <Link component={NavLink} to="/online-record" sx={linkStyle}>
+                <Button
+                  variant="outlined"
+                  sx={{
+                    borderColor: 'white',
+                    color: 'white',
+                    backgroundColor: '#566F5F',
+                    padding: '6px 14px',
+                    borderRadius: '4px',
                   }}
                 >
                   Записаться онлайн
@@ -192,29 +188,29 @@ export default function NavBar(): JSX.Element {
               </>
             )}
           </Box>
-          <Box
-            onClick={handleOpen}
-            sx={{
-              padding: '6px 14px',
-              backgroundColor: 'white',
-              color: '#566F5F',
-              borderRadius: '4px',
-              cursor: 'pointer',
-              fontWeight: 600,
-              fontSize: '16px',
-              borderColor: 'white',
-              // transition: '0.2s',
-              // '&:hover': {
-              //   transform: 'scale(1.05)',
-              //   backgroundColor: 'white',
-              //   color: '#566F5F',
-              //   fontBold: true,
-              //   boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.2)', // Замените на нужное вам значение тени
-              // },
-            }}
-          >
-            Оставить заявку
-          </Box>
+          {
+            user.status === 'logged' && user?.isAdmin ? (
+              null
+            ) :
+
+              (
+                <Box
+                  onClick={handleOpen}
+                  sx={{
+                    padding: '6px 14px',
+                    backgroundColor: 'white',
+                    color: '#566F5F',
+                    borderRadius: '4px',
+                    cursor: 'pointer',
+                    fontWeight: 600,
+                    fontSize: '16px',
+                    borderColor: 'white',
+                  }}
+                >
+                  Оставить заявку
+                </Box>
+              )
+          }
 
 
           <ModalButton open={open} setOpen={setOpen} />
