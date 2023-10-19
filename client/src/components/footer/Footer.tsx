@@ -33,7 +33,7 @@ export default function FooterNew(): JSX.Element {
                                 </Grid>
                                 <Grid item xs={4}>
                                     <Link href="#" underline="none">
-                                        <img src={fot1} alt="" width="200px" height="200px" style={{ width: '100%', borderRadius: '8px' }} />
+                                        {/* <img src={fot1} alt="" width="200px" height="200px" style={{ width: '100%', borderRadius: '8px' }} /> */}
                                         {/* <div className="gallery__fade">
                                             <Instagram />
                                         </div> */}

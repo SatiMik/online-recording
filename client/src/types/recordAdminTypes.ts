@@ -2,8 +2,9 @@ export type RecordType = {
   id: number;
   date: number;
   time: number;
-  service: string;
+  service: string | null;
   master: string | null;
+  masterId: number;
   user: string;
   phone: string;
 };
