@@ -19,7 +19,6 @@ export default function ApplicationPage(): JSX.Element {
   const [notAccepted, setNotAccepted] = useState(true);
   const [accepted, setAccepted] = useState(false);
   return (
-
     <Box>
       <Toolbar sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
         <Box>
@@ -28,7 +27,7 @@ export default function ApplicationPage(): JSX.Element {
               setNotAccepted(true);
               setAccepted(false);
             }}
-            style={{ border: '1px solid black', borderRadius: 0, margin: '10px' }}
+            style={{ backgroundColor: '#566F5F', color: 'white', borderRadius: 0, margin: '10px' }}
           >
             Не принятые
           </Button>
@@ -37,7 +36,7 @@ export default function ApplicationPage(): JSX.Element {
               setAccepted(true);
               setNotAccepted(false);
             }}
-            style={{ border: '1px solid black', borderRadius: 0, margin: '10px' }}
+            style={{ backgroundColor: '#566F5F', color: 'white', borderRadius: 0, margin: '10px' }}
           >
             Принятые
           </Button>
@@ -46,7 +45,6 @@ export default function ApplicationPage(): JSX.Element {
           {accepted && <AcceptedApplicationList />}
         </Box>
       </Toolbar>
-
     </Box>
   );
 }

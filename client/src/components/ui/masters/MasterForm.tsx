@@ -1,4 +1,4 @@
-import { Box, Button, TextField, Grid } from '@mui/material';
+import { Box, Button, TextField, Grid, Typography } from '@mui/material';
 import React, { useState } from 'react';
 import { useAppDispatch } from '../../../redux/hooks';
 import type { MasterFormType } from '../../../types/masterTypes';
@@ -18,6 +18,8 @@ export default function MasterForm(): JSX.Element {
   };
 
   return (
+    <Box>
+      <Typography variant="h4" component="div" style={{textAlign: 'center', marginBottom: '20px'}}>Добавить мастера</Typography>
     <Grid container flexDirection="column" rowGap={3} alignItems="center" backgroundColor="white">
       <Grid item xs={5}>
         <TextField
@@ -57,5 +59,6 @@ export default function MasterForm(): JSX.Element {
         </Button>
       </Grid>
     </Grid>
+    </Box>
   );
 }
