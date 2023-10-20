@@ -54,8 +54,8 @@ function App(): JSX.Element {
                 <Route path="/master" element={<MasterPage />} />
                 <Route path="/online-record" element={<OnlineRecordPage />} />
                 <Route path="/online-record/masters" element={<OnlineMastersPage />} />
-                <Route path="/admin" element={<AdminPage />} />
                
+
                 <Route path="/online-record/services" element={<OnlineServicesPage />} />
 
                 <Route element={<PrivateRoute isAllowed={user.status === 'logged' && !user.isAdmin} />}>
@@ -66,6 +66,7 @@ function App(): JSX.Element {
                   element={<PrivateRoute isAllowed={user.status === 'logged' && user?.isAdmin} />}
                 >
                   <Route path="/application" element={<ApplicationPage />} />
+                  <Route path="/admin" element={<AdminPage />} />
                 </Route>
               </Routes>
             </Container>
