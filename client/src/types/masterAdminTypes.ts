@@ -4,3 +4,8 @@ export type MasterType = {
   desc: string;
   img: string;
 };
+
+export type MasterIdNameType = {
+  id: number;
+  name: string;
+};

@@ -15,7 +15,8 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 400,
+  width: 500,
+  height: 400,
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
@@ -43,19 +44,21 @@ export default function MasterWorkModal({
   }, []);
 
   return (
-    <Modal
+    <Modal 
       open={works}
+      onClick={() => setWorks(false)}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
+
     >
-      <Box sx={style}>
-        <Button onClick={() => setWorks(false)}>Закрыть</Button>
+      <Box sx={{ ...style, width: 900, height: 800, backgroundColor: 'rgba(255, 255, 255, 0.001)', borderColor: 'rgba(255, 255, 255, 0.001)' }}>
         <Carousel>
           {items.map((item, i) => (
             // eslint-disable-next-line react/no-array-index-key
             <MasterWork key={i} item={item} />
           ))}
         </Carousel>
+        {/* <Button onClick={() => setWorks(false)}>Закрыть</Button> */}
       </Box>
     </Modal>
   );

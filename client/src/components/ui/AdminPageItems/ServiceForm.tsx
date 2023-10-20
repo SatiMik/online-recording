@@ -6,16 +6,16 @@ import { styled } from '@mui/system';
 import type { ServiceType } from '../../../types/serviceAdminTypes';
 
 type ServicePropsType = {
-  servicesObj: ServiceType[];
-  value: string;
-  setValue: (newValue: string) => void;
+  services: ServiceType[];
+  value: ServiceType | null;
+  setService: ( newValue: ServiceType | null, prevValue: ServiceType | null) => void;
 };
 export default function UseAutocomplete({
-  servicesObj,
+  services,
   value,
-  setValue,
+  setService,
 }: ServicePropsType): JSX.Element {
-  const services = servicesObj.map((service) => service.name);
+  // console.log('Services', services, 'value', value);
   const {
     getRootProps,
     getInputLabelProps,
@@ -27,21 +27,21 @@ export default function UseAutocomplete({
   } = useAutocomplete({
     id: 'use-autocomplete-demo',
     options: services,
-    getOptionLabel: (option) => option,
+    getOptionLabel: (option) => option.name,
     value,
-    onChange: (event, newValue) => setValue(newValue),
+    onChange: (event, newValue) => setService(newValue, value),
   });
 
   return (
     <div style={{ marginBottom: 24 }}>
-      <StyledLabel {...getInputLabelProps()}>Выбери услугу</StyledLabel>
+      <StyledLabel {...getInputLabelProps()}>Выберите услугу</StyledLabel>
       <StyledAutocompleteRoot {...getRootProps()} className={focused ? 'focused' : ''}>
         <StyledInput {...getInputProps()} />
       </StyledAutocompleteRoot>
       {groupedOptions.length > 0 && (
         <StyledListbox {...getListboxProps()}>
           {(groupedOptions as typeof services).map((option, index) => (
-            <StyledOption {...getOptionProps({ option, index })}>{option}</StyledOption>
+            <StyledOption {...getOptionProps({ option, index })}>{option.name}</StyledOption>
           ))}
         </StyledListbox>
       )}
