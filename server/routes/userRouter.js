@@ -10,24 +10,17 @@ const router = express.Router();
 
 const codeGenerate = () => {
   const randomNumber = parseInt(
-    Array.from({ length: 4 }, () => Math.floor(Math.random() * 10)).join('')
+    Array.from({ length: 4 }, () => Math.floor(Math.random() * 10)).join(''),
   );
   return randomNumber;
 };
 
-const phoneNumberReg =
-  /^\+?(\d{1,3})?[- .]*(\(?(?:\d{2,3})\)?[- .]*\d\d\d[- .]?\d\d[- .]*\d\d$)/;
+const phoneNumberReg = /^\+?(\d{1,3})?[- .]*(\(?(?:\d{2,3})\)?[- .]*\d\d\d[- .]?\d\d[- .]*\d\d$)/;
 
 router.post('/signup', async (req, res) => {
   const { name, phone, password } = req.body;
   const savePhone = phone.replace(/\D/g, '').slice(-10);
-  if (
-    name &&
-    phone &&
-    password &&
-    !(phone.length < 10) &&
-    phone.match(phoneNumberReg)
-  ) {
+  if (name && phone && password && !(phone.length < 10) && phone.match(phoneNumberReg)) {
     try {
       const [user, created] = await User.findOrCreate({
         where: { phone: savePhone },
@@ -37,7 +30,7 @@ router.post('/signup', async (req, res) => {
           code: codeGenerate(),
         },
       });
-      if (!created) return res.sendStatus(400);
+      if (!created) return res.status(400).json({ message: 'Не правильно заполнены поля!' });
       // const sessionUser = JSON.parse(JSON.stringify(user));
       // delete sessionUser.password;
       // req.session.user = sessionUser;
@@ -48,7 +41,7 @@ router.post('/signup', async (req, res) => {
     }
   }
 
-  return res.status(400).json('Невалидный номер');
+  return res.status(401).json({ message: 'Невалидный номер' });
 });
 
 router.post('/code', async (req, res) => {
@@ -70,15 +63,13 @@ router.post('/code', async (req, res) => {
           where: {
             id: sessionUser.id,
           },
-        }
+        },
       );
     } else {
-      return res.sendStatus(400);
+      return res.status(402).json({ message: 'Неверный код!' });
     }
     const { chatId } = user;
-    const textMessage = encodeURIComponent(
-      'Вы успешно зарегистрировались на сайте'
-    );
+    const textMessage = encodeURIComponent('Вы успешно зарегистрировались на сайте');
     try {
       const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${textMessage}`;
       fetch(url);
@@ -93,6 +84,7 @@ router.post('/code', async (req, res) => {
     return res.status(200).json(sessionUser);
   } catch (e) {
     console.log('11111111111111111111111111111', e);
+    return res.status(403).json({ message: 'Неверно введен код!' });
   }
 });
 
@@ -105,7 +97,7 @@ router.post('/login', async (req, res) => {
         where: { phone: userLoginPhone },
       });
       if (!(await bcrypt.compare(password, user.password))) {
-        return res.sendStatus(401);
+        return res.status(404).json({ message: 'Пользователь не найден!' });
       }
 
       const sessionUser = JSON.parse(JSON.stringify(user));
@@ -114,7 +106,7 @@ router.post('/login', async (req, res) => {
 
       const { chatId } = req.session.user;
       const textMessage = encodeURIComponent(
-        'Вы успешно вошли на сайт, если это были не Вы поменяйте пароль'
+        'Вы успешно вошли на сайт, если это были не Вы поменяйте пароль',
       );
       try {
         const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${textMessage}`;

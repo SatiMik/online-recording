@@ -7,14 +7,12 @@ console.log(token);
 
 const bot = new TelegramBot(token, { polling: true });
 
-const phoneNumberReg =
-  /^\+?(\d{1,3})?[- .]*(\(?(?:\d{2,3})\)?[- .]*\d\d\d[- .]?\d\d[- .]*\d\d$)/;
+const phoneNumberReg = /^\+?(\d{1,3})?[- .]*(\(?(?:\d{2,3})\)?[- .]*\d\d\d[- .]?\d\d[- .]*\d\d$)/;
 
 bot.onText(/\/start/, (msg) => {
   const chatId = msg.chat.id;
 
-  const requestPhoneMessage =
-    'Рад вас приветсвовать! Пожалуйста, введите свой номер телефона:';
+  const requestPhoneMessage = 'Рад вас приветсвовать! Пожалуйста, введите свой номер телефона:';
 
   bot.sendMessage(chatId, requestPhoneMessage, {
     reply_markup: {
@@ -34,10 +32,7 @@ bot.on('message', async (msg) => {
       const user = await User.findOne({ where: { phone: String(phone) } });
       console.log('ОПА', phone);
       if (user) {
-        bot.sendMessage(
-          chatId,
-          `Здравствуйте, ${user.name}\nВот ваш код: ${user.code}`
-        );
+        bot.sendMessage(chatId, `Здравствуйте, ${user.name}\nВот ваш код!: ${user.code}`);
         console.log(chatId);
         const chat = await User.update(
           { chatId: Number(chatId) },
@@ -45,14 +40,11 @@ bot.on('message', async (msg) => {
             where: {
               id: user.id,
             },
-          }
+          },
         );
         console.log(chat);
       } else {
-        bot.sendMessage(
-          chatId,
-          'Извините, но вы не зарегистрированы на сайте.'
-        );
+        bot.sendMessage(chatId, 'Извините, но этот номер не зарегистрирован на сайте.');
       }
     } catch (error) {
       console.error(error);
@@ -65,17 +57,15 @@ bot.on('message', async (msg) => {
 
 bot.on('contact', async (msg) => {
   const chatId = msg.chat.id;
-  const phone = msg.contact.phone_number;
+  const phone = msg.contact.phone_number.replace(/\D/g, '').slice(-10);
+  // const phone = msg.text.replace(/\D/g, '').slice(-10);
   console.log(phone);
 
   try {
     const user = await User.findOne({ where: { phone: String(phone) } });
     console.log(phone);
     if (user) {
-      bot.sendMessage(
-        chatId,
-        `Здравствуйте, ${user.name}\nВот ваш код: ${user.code}`
-      );
+      bot.sendMessage(chatId, `Здравствуйте, ${user.name}\nВот ваш код: ${user.code}`);
       console.log(chatId);
       const chat = await User.update(
         { chatId: Number(chatId) },
@@ -83,7 +73,7 @@ bot.on('contact', async (msg) => {
           where: {
             id: user.id,
           },
-        }
+        },
       );
       console.log(chat);
     } else {
