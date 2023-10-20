@@ -44,19 +44,21 @@ export default function MasterWorkModal({
   }, []);
 
   return (
-    <Modal
+    <Modal 
       open={works}
+      onClick={() => setWorks(false)}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
+
     >
-      <Box sx={style}>
+      <Box sx={{ ...style, width: 900, height: 800, backgroundColor: 'rgba(255, 255, 255, 0.001)', borderColor: 'rgba(255, 255, 255, 0.001)' }}>
         <Carousel>
           {items.map((item, i) => (
             // eslint-disable-next-line react/no-array-index-key
             <MasterWork key={i} item={item} />
-            ))}
+          ))}
         </Carousel>
-            <Button onClick={() => setWorks(false)}>Закрыть</Button>
+        {/* <Button onClick={() => setWorks(false)}>Закрыть</Button> */}
       </Box>
     </Modal>
   );
