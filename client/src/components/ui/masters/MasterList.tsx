@@ -15,10 +15,10 @@ export default function MasterList(): JSX.Element {
 
   const user = useAppSelector((store) => store.user);
   return (
-  
+
     <Grid container spacing={1} wrap="wrap" justifyContent="center">
       {masters?.map((master) => (
-        <Grid item xs={4}>
+        <Grid item xs={6}>
           <MasterCard
             key={master.id}
             master={master}
