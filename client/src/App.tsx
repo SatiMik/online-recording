@@ -23,9 +23,6 @@ import NavBar from './components/ui/Navbar';
 
 function App(): JSX.Element {
   const theme = createTheme({
-    typography: {
-      fontFamily: 'Raleway',
-    },
     palette: {
       primary: { main: '#566F5F' },
       secondary: { main: '#DFDBDC' },
@@ -57,13 +54,11 @@ function App(): JSX.Element {
                 <Route path="/master" element={<MasterPage />} />
                 <Route path="/online-record" element={<OnlineRecordPage />} />
                 <Route path="/online-record/masters" element={<OnlineMastersPage />} />
-                <Route path="/admin" element={<AdminPage />} />
+               
 
                 <Route path="/online-record/services" element={<OnlineServicesPage />} />
 
-                <Route
-                  element={<PrivateRoute isAllowed={user.status === 'logged' && !user.isAdmin} />}
-                >
+                <Route element={<PrivateRoute isAllowed={user.status === 'logged' && !user.isAdmin} />}>
                   <Route path="/userRecords" element={<UserRecordsPage />} />
                 </Route>
 
@@ -71,6 +66,7 @@ function App(): JSX.Element {
                   element={<PrivateRoute isAllowed={user.status === 'logged' && user?.isAdmin} />}
                 >
                   <Route path="/application" element={<ApplicationPage />} />
+                  <Route path="/admin" element={<AdminPage />} />
                 </Route>
               </Routes>
             </Container>

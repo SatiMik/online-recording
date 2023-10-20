@@ -21,8 +21,13 @@ router
       const { text, status, userId, rating, date } = req.body;
       const { chatId } = req.session.user;
       const textMessage = encodeURIComponent('Вы успешно записались');
-      const messege = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${textMessage}`;
-      fetch(messege);
+      try {
+        const messege = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${textMessage}`;
+        fetch(messege);
+      } catch (e) {
+        console.log('Error Fecth', e);
+      }
+
       const revue = await Revue.create({
         text,
         status,
@@ -49,11 +54,13 @@ router
       const result = await Revue.destroy({ where: { id: revueId } });
       if (result > 0) {
         const { chatId } = req.session.user;
-        const textMessage = encodeURIComponent(
-          'Вы успешно, отказались от записи'
-        );
-        const messege = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${textMessage}`;
-        fetch(messege);
+        const textMessage = encodeURIComponent('Вы успешно, отказались от записи');
+        try {
+          const messege = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${textMessage}`;
+          fetch(messege);
+        } catch (e) {
+          console.log('Error Fetch', e);
+        }
         res.status(200).json({ message: 'success' });
         return;
       }

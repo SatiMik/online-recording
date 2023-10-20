@@ -8,42 +8,46 @@ import {
   userCheckCodeThunk,
 } from './UserThunks';
 
-type UserState = UserLoadingType;
-const initialState: UserState = { status: 'loading' };
+type UserState = {
+  data: UserLoadingType;
+  error: Error | null;
+}
+const initialState: UserState = {
+  data: { status: 'loading' },
+  error: null,
+};
 
 export const userSlice = createSlice({
   name: 'user',
-  initialState: initialState as UserState,
+  initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(checkUserThunk.pending, (state) => ({ status: 'loading' }));
-    builder.addCase(checkUserThunk.fulfilled, (state, action) => ({
-      ...action.payload,
-      status: 'logged',
-    }));
-    builder.addCase(checkUserThunk.rejected, (state) => ({
-      status: 'guest',
-    }));
-    builder.addCase(signUpHandlerThunk.fulfilled, (state, action) => ({
-      ...action.payload,
-      status: 'logged',
-    }));
-    builder.addCase(signUpHandlerThunk.rejected, (state, action) => ({
-      status: 'guest',
-    }));
-    builder.addCase(loginHandlerThunk.fulfilled, (state, action) => ({
-      ...action.payload,
-      status: 'logged',
-    }));
-    builder.addCase(loginHandlerThunk.rejected, (state, action) => ({
-      status: 'guest',
-    }));
-    builder.addCase(logoutHandlerThunk.fulfilled, (state) => ({ status: 'guest' }));
-    builder.addCase(userCheckCodeThunk.pending, (state) => ({ status: 'loading' }));
-    builder.addCase(userCheckCodeThunk.fulfilled, (state, action) => ({
-      ...action.payload,
-      status: 'logged',
-    }));
+    builder.addCase(checkUserThunk.pending, (state) => { state.data = { status: 'loading' }; });
+    builder.addCase(checkUserThunk.fulfilled, (state, action) => {
+      state.data = { ...action.payload, status: 'logged' };
+    });
+    builder.addCase(checkUserThunk.rejected, (state) => {
+      state.data = { status: 'guest' };
+    });
+    builder.addCase(signUpHandlerThunk.fulfilled, (state, action) => {
+      state.data = { ...action.payload, status: 'logged' };
+    });
+    builder.addCase(signUpHandlerThunk.rejected, (state, action) => {
+      state.data = { status: 'guest' };
+      state.error = new Error(action.error.message);
+    });
+    builder.addCase(loginHandlerThunk.fulfilled, (state, action) => {
+      state.data = { ...action.payload, status: 'logged' };
+    });
+    builder.addCase(loginHandlerThunk.rejected, (state, action) => {
+      state.data = { status: 'guest' };
+      state.error = new Error(action.error.message);
+    });
+    builder.addCase(logoutHandlerThunk.fulfilled, (state) => { state.data = { status: 'guest' }; });
+    builder.addCase(userCheckCodeThunk.pending, (state) => { state.data = { status: 'loading' }; });
+    builder.addCase(userCheckCodeThunk.fulfilled, (state, action) => {
+      state.data = { ...action.payload, status: 'logged' };
+    });
   },
 });
 
