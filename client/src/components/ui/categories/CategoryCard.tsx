@@ -26,17 +26,22 @@ type CategoryCardPropsType = {
   user: UserLoadingType;
 };
 
+
+const categoryImgArr = [{img:'https://static.tildacdn.com/tild6130-3937-4562-b163-383239646430/1618492697_37-p-kosm.jpeg'},{img:'https://mia-bags.ru/wp-content/uploads/3/0/0/300352d84f75a57dd4a8853e4f3ff15b.jpeg'},{img:'https://salonv.ru/upload/iblock/6c8/inpo633b79wemkzd89x1p1e6mxs02lry.jpg'}]
 // сделать всю карточку кнопкой
 const linkStyle = { color: 'violet', mr: 2, fontFamily: 'Raleway, Arial' };
 function CategoryCard({ category, user }: CategoryCardPropsType): JSX.Element {
   const [open, setOpen] = useState<boolean>(false);
 
   const dispatch = useAppDispatch();
+  console.log(category.id);
+  
 
   return (
     <Box mt={8}>
       <Container>
         <Card sx={{ width: 345 }}>
+          <CardMedia component="img" height="240" image={categoryImgArr[category.id-1].img} alt="Image" />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
               {category.name}

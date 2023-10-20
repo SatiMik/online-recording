@@ -50,6 +50,10 @@ export default function AuthModal({
 
   const [inputCode, setInputCode] = useState({});
 
+  //   const handleClose = (): void => {
+  //     setClose(false);
+  //   };
+  // }
   const changeHandler: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     setInput((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
@@ -89,6 +93,9 @@ export default function AuthModal({
       open={auth}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
+      onClick={() => {
+        setAuth(false);
+      }}
     >
       <Box sx={style} display="flex" flexDirection="column" alignItems="center" component="form">
         {error && (

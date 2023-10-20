@@ -1,3 +1,4 @@
+import { Button } from '@mui/material';
 import React from 'react';
 
 export default function TimeItem(): JSX.Element {
@@ -31,21 +32,22 @@ export default function TimeItem(): JSX.Element {
   return (
     <>
       {timeArray.map((time) => (
-        <button
+        <Button
           key={time}
           style={{
             width: '100px',
             height: '50px',
             fontSize: '16px',
-            borderColor: 'black',
+            borderRadius:'0',
+            border: '1px solid #566F5F',
             color: 'black',
-            background: '#dcdcdc',
+            background: '#cfb4a1',
             padding: '8px 16px',
           }}
           type="button"
         >
           {time}
-        </button>
+        </Button>
       ))}
     </>
   );

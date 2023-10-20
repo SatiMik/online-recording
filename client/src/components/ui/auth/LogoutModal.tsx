@@ -20,10 +20,10 @@ export default function LogoutModal({
     setIsLogout(false);
   };
   return (
-    <Dialog open={isLogout} onClose={handleClose} aria-labelledby="alert-dialog-title-logout">
+    <Dialog open={isLogout} onClose={handleClose} aria-labelledby="alert-dialog-title-logout" >
       <DialogTitle id="alert-dialog-title-logout">Вы уверены, что хотите выйти?</DialogTitle>
       <DialogActions>
-        <Button style = {{backgroundColor:'violet'}} onClick={handleClose} autoFocus>
+        <Button style = {{backgroundColor:'#566F5F', color: 'white'}} onClick={handleClose} autoFocus>
           Нет
         </Button>
         <Button
