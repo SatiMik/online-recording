@@ -4,7 +4,7 @@ const { Master, MasterService, Service, Record } = require('../db/models');
 
 router.post('/', async (req, res) => {
   try {
-    console.log(req.body);
+    console.log('-------------',req.body);
     const userId = req.session.user.id;
     const { masterId, serviceId, date, time } = req.body;
     const result = await Record.create({
@@ -63,3 +63,5 @@ router.get('/services/:categoryId', async (req, res) => {
 });
 
 module.exports = router;
+
+

@@ -33,7 +33,7 @@ const getAllRecords = async () => {
   masters = masters.map((master) => ({ id: master.id, name: master.name }));
   // eslint-disable-next-line no-return-assign
   masters.forEach((master) => {
-    const recordsArray = recordsFromDatabase.filter((record) => record.Master.id === master.id);
+    const recordsArray = recordsFromDatabase.filter((record) => record?.Master?.id === master.id);
     const recordsObj = {};
     for (let i = 800; i < 2000; i += 50) {
       recordsObj[i] = {
@@ -48,15 +48,15 @@ const getAllRecords = async () => {
       };
     }
     recordsArray.forEach((record) => {
-      let newTime = record.time;
+      let newTime = record?.time;
       if (record.time % 100 === 30) newTime += 20; //
       recordsObj[newTime] = {
-        status: record.Service.time / 30,
+        status: record?.Service?.time / 30,
         statusFree: 0,
         record,
         time: newTime,
         master: {
-          id: master.id,
+          id: master?.id,
           name: master.name,
         },
       };
@@ -85,7 +85,7 @@ const getAllRecords = async () => {
     }
     records.push({
       master: {
-        id: master.id,
+        id: master?.id,
         name: master.name,
       },
       records: recordsAgainArray,
@@ -99,6 +99,7 @@ router
   .get(async (req, res) => {
     try {
       const records = await getAllRecords();
+      console.log(records);
       res.json(records);
     } catch (err) {
       console.error(err);
@@ -126,10 +127,10 @@ router
       });
       await Record.create({
         date: req.body.date,
-        time: req.body.time,
-        serviceId: service.id,
-        masterId: master.id,
-        userId: user.id,
+        time: req.body?.time,
+        serviceId: service?.id,
+        masterId: master?.id,
+        userId: user?.id,
       });
 
       const records = await getAllRecords();
