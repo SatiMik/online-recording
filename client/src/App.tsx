@@ -62,7 +62,7 @@ function App(): JSX.Element {
 
                 <Route
                   element={
-                    <PrivateRoute isAllowed={user.data.status === 'logged' && !user.isAdmin} />
+                    <PrivateRoute isAllowed={user.data?.status === 'logged' && !user.data?.isAdmin} />
                   }
                 >
                   <Route path="/userRecords" element={<UserRecordsPage />} />
@@ -70,11 +70,13 @@ function App(): JSX.Element {
 
                 <Route
                   element={
-                    <PrivateRoute isAllowed={user.data.status === 'logged' && user.data?.isAdmin} />
+                    <PrivateRoute isAllowed={user.data?.status === 'logged' && user.data?.isAdmin} />
                   }
                 >
+                  <Route path="/admin" element={<AdminPage />} />
                   <Route path="/application" element={<ApplicationPage />} />
                 </Route>
+
               </Routes>
             </Container>
           </Box>

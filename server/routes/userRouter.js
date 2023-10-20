@@ -78,7 +78,7 @@ router.post('/code', async (req, res) => {
     }
 
     delete sessionUser.password;
-    delete sessionUser.data.code;
+    delete sessionUser.code;
     delete sessionUser.valid;
     req.session.user = sessionUser;
     return res.status(200).json(sessionUser);

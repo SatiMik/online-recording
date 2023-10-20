@@ -30,18 +30,18 @@ export default function NavBar(): JSX.Element {
   const links =
     user.data.status === 'guest'
       ? [
-          { to: '/', name: 'Главная' },
-          { to: '/service', name: 'Услуги' },
-          { to: '/master', name: 'Мастера' },
-          { to: '/sale', name: 'Акции' },
-          { to: '/revue', name: 'Отзывы' },
-        ]
+        { to: '/', name: 'Главная' },
+        { to: '/service', name: 'Услуги' },
+        { to: '/master', name: 'Мастера' },
+        { to: '/sale', name: 'Акции' },
+        { to: '/revue', name: 'Отзывы' },
+      ]
       : [
-          { to: '/service', name: 'Услуги' },
-          { to: '/master', name: 'Мастера' },
-          { to: '/sale', name: 'Акции' },
-          { to: '/revue', name: 'Отзывы' },
-        ];
+        { to: '/service', name: 'Услуги' },
+        { to: '/master', name: 'Мастера' },
+        { to: '/sale', name: 'Акции' },
+        { to: '/revue', name: 'Отзывы' },
+      ];
 
   return (
     <Box sx={{ flexGrow: 1, backgroundColor: '#566F5F' }}>
@@ -60,7 +60,7 @@ export default function NavBar(): JSX.Element {
               </IconButton>
             </Link>
           ) : null}
-          {user.data.status === 'logged' && !user.isAdmin ? (
+          {user.data.status === 'logged' && !user.data.isAdmin ? (
             <Link
               key="Мои записи"
               component={NavLink}
@@ -137,7 +137,7 @@ export default function NavBar(): JSX.Element {
               </Link>
             ))}
 
-            {(user.data.status === 'logged' && !user.isAdmin) || user.data.status === 'guest' ? (
+            {(user.data.status === 'logged' && !user.data.isAdmin) || user.data.status === 'guest' ? (
               <Link component={NavLink} to="/online-record" sx={linkStyle}>
                 <Button
                   variant="outlined"
@@ -184,7 +184,7 @@ export default function NavBar(): JSX.Element {
               </>
             )}
           </Box>
-          {(user.data.status === 'logged' && !user.isAdmin) || user.data.status === 'guest' ? (
+          {(user.data.status === 'logged' && !user.data.isAdmin) || user.data.status === 'guest' ? (
             <Box
               onClick={handleOpen}
               sx={{
