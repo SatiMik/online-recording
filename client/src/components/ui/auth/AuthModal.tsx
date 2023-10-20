@@ -71,6 +71,7 @@ export default function AuthModal({
         setCode(true);
       } else {
         await dispatch(loginHandlerThunk(input));
+        setAuth(false)
       }
     } catch (error) {
       console.error(error);
