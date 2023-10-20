@@ -21,6 +21,8 @@ export default function AdminPage(): JSX.Element {
     setModalData({ status: true, record });
   };
   const handleClose = (): void => {setModalData({ status: false, record: {} })};
+
+  
   return (
     <>
       <Container style={{ display: 'flex', flexDirection: 'row' }}>
