@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
+import { Box, Button, Grid, TextField } from '@mui/material';
 import type { SaleFormType } from '../../../types/saleTypes';
-import { useAppDispatch } from '../../../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import { addSaleThunk } from '../../../redux/slices/sale/SaleThunks';
 
 export default function SaleForm(): JSX.Element {
-  const [input, setInput] = useState<SaleFormType>({ description: '', img: '' });
+  const [input, setInput] = useState({ description: '', img: '' });
 
   const dispatch = useAppDispatch();
 
@@ -28,10 +29,26 @@ export default function SaleForm(): JSX.Element {
   };
 
   return (
-    <form onSubmit={submitHandler}>
-      <input name="description" placeholder="Название акции" onChange={changeHandler} />
-      <input type="file" name="file" />
-      <input type="submit" value="Загрузить файл" />
-    </form>
+    <Box component="form" onSubmit={submitHandler}>
+      <Grid container spacing={3} flexDirection="column" alignItems="center">
+        <Grid item xs={5}>
+          <TextField
+            name="description"
+            label="Название акции"
+            placeholder="Название акции"
+            onChange={changeHandler}
+            style={{ width: '400px' }}
+          />
+        </Grid>
+        <Grid item xs={5}>
+          <TextField style={{ width: '400px' }} variant="outlined" placeholder="Изображение" type="file" name="file" />
+        </Grid>
+        <Grid item xs={5}>
+          <Button style={{ height: '55px', marginLeft:'30px' }} type="submit" variant="contained">
+            Загрузить файл
+          </Button>
+        </Grid>
+      </Grid>
+    </Box>
   );
 }

@@ -8,17 +8,13 @@ import {
   Typography,
   CardActions,
   Button,
-  FormControlLabel,
-  Checkbox,
   Box,
   Container,
-  Link,
   Fab,
   Grid,
 } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import { Link as NavLink } from 'react-router-dom';
 import type { MasterType } from '../../../types/masterTypes';
 import type { UserLoadingType } from '../../../types/userTypes';
 import { useAppDispatch } from '../../../redux/hooks';
@@ -44,11 +40,11 @@ function MasterCard({ master, user }: BookCardPropsType): JSX.Element {
   return (
     <Box mt={8}>
       <Container>
-        <Card sx={{ width: 300 }}>
+        <Card sx={{ width: 500 }}>
           <CardMedia sx={{ height: 400 }} image={master.img} title="green iguana" />
-          <CardContent sx={{ height: 90 }}>
-            <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-              <Box>
+          <CardContent sx={{ height: 150 }}>
+            <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', flexDirection: 'column' }}>
+              <Box sx={{ marginBottom: '10px', flexDirection: 'column' }}>
                 <Typography gutterBottom variant="h5" component="div">
                   {master.name}
                 </Typography>
@@ -57,12 +53,20 @@ function MasterCard({ master, user }: BookCardPropsType): JSX.Element {
                 </Typography>
               </Box>
 
-              <Button onClick={() => setWorks(true)} size="small" sx={{ mt: 2 }}>
-                Посмотреть работы
-              </Button>
+              {(user.status === 'logged' && !user.isAdmin) || user.status === 'guest' ? (
+                <Button onClick={() => setWorks(true)} size="small" sx={{ mt: 1 }}>
+                  Посмотреть работы
+                </Button>
+              ) : null}
             </Box>
           </CardContent>
-          <CardActions>
+          {works && <MasterWorkModal works={works} setWorks={setWorks} master={master} />}
+          <CardActions sx={{ justifyContent: 'space-between' }}>
+            {(user.status === 'logged' && !user.isAdmin) || user.status === 'guest' ? (
+              <Button onClick={() => setOpenOnline(true)} variant="contained">
+                Записаться
+              </Button>
+            ) : null}
             {user.status === 'logged' && user?.isAdmin && (
               <>
                 <Button
@@ -83,14 +87,8 @@ function MasterCard({ master, user }: BookCardPropsType): JSX.Element {
                 </Button>
               </>
             )}
-            <CardActions sx={{ justifyContent: 'space-between' }}>
-              <Button onClick={() => setOpenOnline(true)} variant="contained">
-                Записаться
-              </Button>
-            </CardActions>
           </CardActions>
           {open && <MasterModal open={open} master={master} setOpen={setOpen} />}
-          {works && <MasterWorkModal works={works} setWorks={setWorks} master={master} />}
           {openOnline && (
             <OnlineModalRecordMaster open={openOnline} setOpen={setOpenOnline} master={master} />
           )}

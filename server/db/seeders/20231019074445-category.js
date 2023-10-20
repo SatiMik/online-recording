@@ -5,39 +5,23 @@ module.exports = {
       'Categories',
       [
         {
-
+          id: 1,
           name: 'Косметология',
         },
         {
+          id: 2,
           name: 'Ногтевой сервис',
         },
         {
+          id: 3,
           name: 'Парикмахерские услуги',
-
         },
       ],
       {},
     );
-    // await queryInterface.bulkInsert(
-    //   'Masters',
-    //   [
-    //     {
-    //       name: 'Дарья',
-    //       desc: 'бубылда',
-    //       img: 'https://mdbcdn.b-cdn.net/wp-content/uploads/2018/01/full-carousel.jpg',
-
-    //     },
-    //   ],
-    //   {},
-    // );
   },
 
   async down(queryInterface, Sequelize) {
-    /**
-     * Add commands to revert seed here.
-     *
-     * Example:
-     * await queryInterface.bulkDelete('People', null, {});
-     */
+    await queryInterface.bulkDelete('Categories', null, {});
   },
 };

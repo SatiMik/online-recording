@@ -13,6 +13,7 @@ export default function RevueNotAcceptedList(): JSX.Element {
     void dispatch(getRevuesThunk());
   }, []);
 
+  
   const user = useAppSelector((store) => store.user);
   return (
     <Box

@@ -4,4 +4,3 @@ export type ServiceType = {
     price: string;
     time: number;
   };
-  
