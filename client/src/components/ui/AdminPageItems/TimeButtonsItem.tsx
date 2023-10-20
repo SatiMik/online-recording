@@ -4,10 +4,14 @@ import type { RecordFromBackType } from '../../../types/recordAdminTypes';
 
 type TimeButtonsPropsType = {
   times: RecordFromBackType[] | null | undefined;
+  time: number;
   setTime: (newTime: number) => void;
 };
-export default function TimeButtonItem({ times, setTime }: TimeButtonsPropsType): JSX.Element {
-  console.log('TImeS', times);
+export default function TimeButtonItem({
+  times,
+  time,
+  setTime,
+}: TimeButtonsPropsType): JSX.Element {
   return (
     <Grid container rowSpacing={1} alignItems="center" justifyContent="center">
       {times?.map((el) => (
@@ -17,13 +21,13 @@ export default function TimeButtonItem({ times, setTime }: TimeButtonsPropsType)
               setTime(el.time);
             }}
             style={{
+              backgroundColor: el.time === time ? '#4a875d' : 'white',
               borderRadius: '50px',
               width: '75px',
               height: `20px`,
               fontSize: '12px',
               borderColor: 'black',
               color: 'black',
-              background: 'white',
             }}
             type="button"
           >
