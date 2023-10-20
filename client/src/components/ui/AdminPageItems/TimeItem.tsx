@@ -33,12 +33,13 @@ export default function TimeItem(): JSX.Element {
     <>
       {timeArray.map((time) => (
         <Button
+          disabled
           key={time}
           style={{
             width: '100px',
             height: '50px',
             fontSize: '16px',
-            borderRadius:'0',
+            borderRadius: '0',
             border: '1px solid #566F5F',
             color: 'black',
             background: '#cfb4a1',
