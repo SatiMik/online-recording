@@ -20,11 +20,12 @@ import OnlineMastersPage from './components/pages/online-record/OnlineMastersPag
 import UserRecordsPage from './components/pages/UserRecordsPage';
 import OnlineServicesPage from './components/pages/online-record/OnlineServicesPage';
 import NavBar from './components/ui/Navbar';
+import FooterNew from './components/footer/Footer';
 
 function App(): JSX.Element {
   const theme = createTheme({
     palette: {
-      primary: { main: '#566F5F' },
+      primary: { main: '#F8F7FC' },
       secondary: { main: '#DFDBDC' },
       newColor: { main: '#AF8678' },
     },
@@ -55,10 +56,12 @@ function App(): JSX.Element {
                 <Route path="/online-record" element={<OnlineRecordPage />} />
                 <Route path="/online-record/masters" element={<OnlineMastersPage />} />
                 <Route path="/admin" element={<AdminPage />} />
-               
+
                 <Route path="/online-record/services" element={<OnlineServicesPage />} />
 
-                <Route element={<PrivateRoute isAllowed={user.status === 'logged' && !user.isAdmin} />}>
+                <Route
+                  element={<PrivateRoute isAllowed={user.status === 'logged' && !user.isAdmin} />}
+                >
                   <Route path="/userRecords" element={<UserRecordsPage />} />
                 </Route>
 
@@ -72,7 +75,7 @@ function App(): JSX.Element {
           </Box>
         </>
       </Loader>
-      {/* <FooterNew /> */}
+      <FooterNew />
     </ThemeProvider>
   );
 }

@@ -43,7 +43,14 @@ function MasterCard({ master, user }: BookCardPropsType): JSX.Element {
         <Card sx={{ width: 500 }}>
           <CardMedia sx={{ height: 400 }} image={master.img} title="green iguana" />
           <CardContent sx={{ height: 150 }}>
-            <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', flexDirection: 'column' }}>
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                flexDirection: 'column',
+              }}
+            >
               <Box sx={{ marginBottom: '10px', flexDirection: 'column' }}>
                 <Typography gutterBottom variant="h5" component="div">
                   {master.name}
