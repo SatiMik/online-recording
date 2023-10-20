@@ -56,7 +56,7 @@ export default function OnlineModalRecordMaster({
     masterId: master.id,
     date: value,
     time: 0,
-    userId: (user.status === 'logged' && user.id) || 0,
+    userId: (user.data.status === 'logged' && user.id) || 0,
   });
   const [isRecord, setIsRecord] = useState(false);
   const handleClose = (): void => {

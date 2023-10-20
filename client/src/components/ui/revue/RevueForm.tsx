@@ -16,7 +16,7 @@ export default function RevueForm(): JSX.Element {
   const [inputs, setInputs] = useState<RevueFormType>({
     text: '',
     status: false,
-    userId: (user.status === 'logged' && user.id) || 0,
+    userId: (user.data.status === 'logged' && user.id) || 0,
     rating: 0,
     date: new Date(),
     User: [],
@@ -65,7 +65,7 @@ export default function RevueForm(): JSX.Element {
           setInputs({
             text: '',
             status: false,
-            userId: (user.status === 'logged' && user.id) || 0,
+            userId: (user.data.status === 'logged' && user.id) || 0,
             User: [],
           });
           setOpenWaitingModal(true);

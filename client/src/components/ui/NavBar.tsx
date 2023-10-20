@@ -139,7 +139,7 @@ export default function MiniDrawer(): JSX.Element {
         <List>
           
           {const links = 
-          user.status === 'guest'
+          user.data.status === 'guest'
             ? [
                 { to: '/', name: 'Главная' },
                 { to: '/service', name: 'Услуги' },

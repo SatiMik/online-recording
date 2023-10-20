@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 import Carousel from 'react-material-ui-carousel';
 import ServiceForm from '../ui/services/ServiceForm';
 import ServiceList from '../ui/services/ServiceList';
@@ -14,7 +13,7 @@ export default function ServicePage(): JSX.Element {
   const user = useAppSelector((store) => store.user);
   return (
     <>
-      {user.status === 'logged' && user.isAdmin && <ServiceForm />}
+      {user.data.status === 'logged' && user.isAdmin && <ServiceForm />}
       <ServiceList />
     </>
   );

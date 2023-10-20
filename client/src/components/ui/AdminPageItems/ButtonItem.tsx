@@ -28,7 +28,7 @@ export default function ButtonItem({ record, handleOpen }: RecordPropsType): JSX
       type="button"
     >
       {record.record
-        ? `Гость ${record.record.User.name}\n на услугу ${record.record.Service.name} \n стоимость: ${record.record.Service.price}`
+        ? `Гость ${record.record.user.data.name}\n на услугу ${record.record.Service.name} \n стоимость: ${record.record.Service.price}`
         : ''}
     </Button>
   );

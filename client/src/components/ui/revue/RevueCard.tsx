@@ -59,8 +59,8 @@ function RevueCard({ revue, user }: RevueCardPropsType): JSX.Element {
               </Typography>
             </CardContent>
             <CardActions>
-              {((user.status === 'logged' && user.isAdmin) ||
-                (user.status === 'logged' && user.id === revue.userId)) && (
+              {((user.data.status === 'logged' && user.isAdmin) ||
+                (user.data.status === 'logged' && user.id === revue.userId)) && (
                 <>
                   <Button
                     onClick={() => void dispatch(deleteRevueThunk({ id: revue.id }))}
@@ -68,7 +68,7 @@ function RevueCard({ revue, user }: RevueCardPropsType): JSX.Element {
                   >
                     Удалить
                   </Button>
-                  {user.status === 'logged' && user.id === revue.userId && (
+                  {user.data.status === 'logged' && user.id === revue.userId && (
                     <Button onClick={() => setOpen(true)} size="small">
                       Редактировать
                     </Button>
@@ -76,7 +76,7 @@ function RevueCard({ revue, user }: RevueCardPropsType): JSX.Element {
                 </>
               )}
 
-              {user.status === 'logged' && user.isAdmin && !revue.status && (
+              {user.data.status === 'logged' && user.isAdmin && !revue.status && (
                 <Button
                   onClick={() =>
                     void dispatch(changeStatusThunk({ id: revue.id, status: !revue.status }))

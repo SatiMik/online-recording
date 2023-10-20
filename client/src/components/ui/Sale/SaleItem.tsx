@@ -56,7 +56,7 @@ export default function SaleItem({ sale }: SaleItemProps): JSX.Element {
                 </Grid>
               )}
 
-              {user.status === 'logged' && user.isAdmin && (
+              {user.data.status === 'logged' && user.isAdmin && (
                 <Grid container>
                   <Button onClick={() => void dispatch(deleteSaleThunk(sale.id))} size="medium">
                     Удалить

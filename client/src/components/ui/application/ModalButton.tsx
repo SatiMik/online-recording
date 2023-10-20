@@ -17,8 +17,8 @@ export default function ModalButton({ open, setOpen }: ModalButtonProps): JSX.El
 
   const user = useAppSelector((store) => store.user);
   const [userInputs, setUserInputs] = useState({
-    clientName: user.status === 'logged' ? user.name : '',
-    phone: user.status === 'logged' ? user.phone : '',
+    clientName: user.data.status === 'logged' ? user.data.name : '',
+    phone: user.data.status === 'logged' ? user.data.phone : '',
     status: false,
   });
 
@@ -36,7 +36,7 @@ export default function ModalButton({ open, setOpen }: ModalButtonProps): JSX.El
 
   return (
     <Box>
-      {user.status === 'logged' && (
+      {user.data.status === 'logged' && (
         <Dialog open={open} onClose={handleClose} aria-labelledby="alert-dialog-title-logout">
           <DialogContent>
             <DialogContentText sx={{ textAlign: 'center' }}>Подтвердите данные</DialogContentText>
@@ -86,11 +86,12 @@ export default function ModalButton({ open, setOpen }: ModalButtonProps): JSX.El
           </DialogActions>
         </Dialog>
       )}
-      {user.status === 'guest' && (
-        <Dialog open={open} onClose={handleClose} aria-labelledby="alert-dialog-title-logout" >
+      {user.data.status === 'guest' && (
+        <Dialog open={open} onClose={handleClose} aria-labelledby="alert-dialog-title-logout">
           <Dialog open={open} onClose={handleClose}>
             <DialogTitle sx={{ textAlign: 'center' }}>
-              Заполните данные для обратной связи            </DialogTitle>
+              Заполните данные для обратной связи{' '}
+            </DialogTitle>
             <DialogContent>
               {/* <DialogContentText sx={{ textAlign: 'center' }}> */}
               {/* Заполните данные для обратной связи
@@ -134,15 +135,14 @@ export default function ModalButton({ open, setOpen }: ModalButtonProps): JSX.El
                     }),
                   )
                 }
-              // добавить условие на закрытие модалки после отправки 
+                // добавить условие на закрытие модалки после отправки
               >
                 Отправить
               </Button>
             </DialogActions>
           </Dialog>
         </Dialog>
-      )
-      }
-    </Box >
+      )}
+    </Box>
   );
 }

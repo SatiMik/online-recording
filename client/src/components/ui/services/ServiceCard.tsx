@@ -46,11 +46,11 @@ function ServiceCard({ service }: ServiceCardPropsType): JSX.Element {
             </Typography>
           </CardContent>
           <CardActions>
-            {(user.status === 'logged' && !user.isAdmin) || user.status === 'guest' ? (
+            {(user.data.status === 'logged' && !user.isAdmin) || user.data.status === 'guest' ? (
               <Button onClick={() => setOpenServiceModal(true)}>Записаться</Button>
             ) : null}
 
-            {user.status === 'logged' && user?.isAdmin && (
+            {user.data.status === 'logged' && user.data?.isAdmin && (
               <>
                 <Button
                   onClick={() => void dispatch(deleteServiceThunk({ id: service.id }))}

@@ -94,7 +94,7 @@ export default function AuthModal({
       open={auth}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
-      onClick={() => {
+      onBackdropClick={() => {
         setAuth(false);
       }}
     >

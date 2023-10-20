@@ -8,9 +8,8 @@ export default function MasterPage(): JSX.Element {
   const user = useAppSelector((store) => store.user);
   return (
     <>
-    
-      {user.status === 'logged' && user.isAdmin && <MasterForm />}
-    
+      {user.data.status === 'logged' && user.isAdmin && <MasterForm />}
+
       <Box sx={{ display: 'flex', flexDirection: 'row' }}>
         <MasterList />
       </Box>

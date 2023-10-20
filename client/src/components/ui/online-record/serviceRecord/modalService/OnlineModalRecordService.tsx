@@ -47,13 +47,12 @@ export default function OnlineModalRecordService({
     masterId: masters[option]?.Master?.id,
     date: value,
     time: 0,
-    userId: (user.status === 'logged' && user.id) || 0,
+    userId: (user.data.status === 'logged' && user.id) || 0,
   });
 
   const handleClose = (): void => {
     setOpen(false);
   };
-
 
   const dispatch = useAppDispatch();
 
@@ -70,10 +69,9 @@ export default function OnlineModalRecordService({
     const rightRecords = records?.records.filter(
       (el) => el.statusFree * 30 >= masters[option]?.Service?.time,
     );
-  console.log(rightRecords);
-  console.log(masters);
-  
-  
+    console.log(rightRecords);
+    console.log(masters);
+
     setTimes(rightRecords);
 
     setChosen(1);
@@ -92,7 +90,6 @@ export default function OnlineModalRecordService({
       time: times[chosen - 1]?.time,
     }));
     setIsRecord((prev) => !prev);
-    
   };
   useEffect(() => {
     if (input.time !== 0)
@@ -159,9 +156,9 @@ export default function OnlineModalRecordService({
               setChosen(i + 1);
             }}
           >
-           {freeTime.time % 100
-                ? `${Math.floor(freeTime.time / 100)}:30`
-                : `${Math.floor(freeTime.time / 100)}:00`}
+            {freeTime.time % 100
+              ? `${Math.floor(freeTime.time / 100)}:30`
+              : `${Math.floor(freeTime.time / 100)}:00`}
           </Button>
         ))}
         <Button onClick={addRecordHandler}>Записаться</Button>

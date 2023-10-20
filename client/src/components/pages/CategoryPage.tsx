@@ -8,7 +8,7 @@ export default function CategoryPage(): JSX.Element {
 
   return (
     <>
-      {user.status === 'logged' && user.isAdmin && <CategoryForm />}
+      {user.data.status === 'logged' && user.data.isAdmin && <CategoryForm />}
       <CategoryList />
     </>
   );

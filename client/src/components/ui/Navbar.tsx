@@ -28,7 +28,7 @@ export default function NavBar(): JSX.Element {
     setOpen(true);
   };
   const links =
-    user.status === 'guest'
+    user.data.status === 'guest'
       ? [
           { to: '/', name: 'Главная' },
           { to: '/service', name: 'Услуги' },
@@ -47,7 +47,7 @@ export default function NavBar(): JSX.Element {
     <Box sx={{ flexGrow: 1, backgroundColor: '#566F5F' }}>
       <AppBar position="static">
         <Toolbar sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-          {user.status === 'logged' && user?.isAdmin ? (
+          {user.data.status === 'logged' && user.data?.isAdmin ? (
             <Link component={NavLink} to="/application" sx={linkStyle}>
               <IconButton>
                 <Badge
@@ -60,7 +60,7 @@ export default function NavBar(): JSX.Element {
               </IconButton>
             </Link>
           ) : null}
-          {user.status === 'logged' && !user.isAdmin ? (
+          {user.data.status === 'logged' && !user.isAdmin ? (
             <Link
               key="Мои записи"
               component={NavLink}
@@ -73,7 +73,7 @@ export default function NavBar(): JSX.Element {
               Мои записи
             </Link>
           ) : null}
-          {user.status === 'logged' && user?.isAdmin ? (
+          {user.data.status === 'logged' && user.data?.isAdmin ? (
             <Link
               key="Расписание записей"
               component={NavLink}
@@ -91,7 +91,7 @@ export default function NavBar(): JSX.Element {
             </Link>
           ) : null}
 
-          {user.status === 'logged' && !user?.isAdmin && (
+          {user.data.status === 'logged' && !user.data?.isAdmin && (
             <Link
               key="Главная"
               component={NavLink}
@@ -137,7 +137,7 @@ export default function NavBar(): JSX.Element {
               </Link>
             ))}
 
-            {(user.status === 'logged' && !user.isAdmin) || user.status === 'guest' ? (
+            {(user.data.status === 'logged' && !user.isAdmin) || user.data.status === 'guest' ? (
               <Link component={NavLink} to="/online-record" sx={linkStyle}>
                 <Button
                   variant="outlined"
@@ -155,7 +155,7 @@ export default function NavBar(): JSX.Element {
             ) : null}
           </Box>
           <Box>
-            {user.status === 'logged' ? (
+            {user.data.status === 'logged' ? (
               <Button variant="text" sx={linkStyle} onClick={() => setIsLogout(true)}>
                 Выход
               </Button>
@@ -184,7 +184,7 @@ export default function NavBar(): JSX.Element {
               </>
             )}
           </Box>
-          {(user.status === 'logged' && !user.isAdmin) || user.status === 'guest' ? (
+          {(user.data.status === 'logged' && !user.isAdmin) || user.data.status === 'guest' ? (
             <Box
               onClick={handleOpen}
               sx={{

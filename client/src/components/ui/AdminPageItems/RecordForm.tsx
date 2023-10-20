@@ -29,8 +29,8 @@ export default function RecordForm({ record, handleClose }: RecordFormPropsType)
     service: record.record ? record.record.Service : null,
     master: record.master.name,
     masterId: record.record ? 0 : record.master.id,
-    user: record.record ? record.record.User.name : '',
-    phone: record.record ? record.record.User.phone : '',
+    user: record.record ? record.record.user.data.name : '',
+    phone: record.record ? record.record.user.data.phone : '',
   });
   console.log(inputs);
   const [recordTimes, setRecordTimes] = useState<RecordFromBackType[] | null>();

@@ -43,7 +43,14 @@ function MasterCard({ master, user }: BookCardPropsType): JSX.Element {
         <Card sx={{ width: 500 }}>
           <CardMedia sx={{ height: 400 }} image={master.img} title="green iguana" />
           <CardContent sx={{ height: 150 }}>
-            <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', flexDirection: 'column' }}>
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                flexDirection: 'column',
+              }}
+            >
               <Box sx={{ marginBottom: '10px', flexDirection: 'column' }}>
                 <Typography gutterBottom variant="h5" component="div">
                   {master.name}
@@ -53,7 +60,7 @@ function MasterCard({ master, user }: BookCardPropsType): JSX.Element {
                 </Typography>
               </Box>
 
-              {(user.status === 'logged' && !user.isAdmin) || user.status === 'guest' ? (
+              {(user.data.status === 'logged' && !user.isAdmin) || user.data.status === 'guest' ? (
                 <Button onClick={() => setWorks(true)} size="small" sx={{ mt: 1 }}>
                   Посмотреть работы
                 </Button>
@@ -62,12 +69,12 @@ function MasterCard({ master, user }: BookCardPropsType): JSX.Element {
           </CardContent>
           {works && <MasterWorkModal works={works} setWorks={setWorks} master={master} />}
           <CardActions sx={{ justifyContent: 'space-between' }}>
-            {(user.status === 'logged' && !user.isAdmin) || user.status === 'guest' ? (
+            {(user.data.status === 'logged' && !user.isAdmin) || user.data.status === 'guest' ? (
               <Button onClick={() => setOpenOnline(true)} variant="contained">
                 Записаться
               </Button>
             ) : null}
-            {user.status === 'logged' && user?.isAdmin && (
+            {user.data.status === 'logged' && user.data?.isAdmin && (
               <>
                 <Button
                   onClick={() => void dispatch(deleteMasterThunk({ id: master.id }))}

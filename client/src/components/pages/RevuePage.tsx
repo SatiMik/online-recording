@@ -8,11 +8,10 @@ import RevueAcceptedList from '../ui/revue/RevueAcceptedList';
 export default function RevuePage(): JSX.Element {
   const user = useAppSelector((store) => store.user);
   console.log(user);
-  
+
   return (
     <>
       <Box>
-
         <CardMedia
           component="img"
           sx={{ width: '100%', height: '500px', opacity: 0.4 }}
@@ -20,7 +19,6 @@ export default function RevuePage(): JSX.Element {
           alt="Live from space album cover"
         />
         <Box sx={{ marginTop: '-20%', marginBottom: '20%' }}>
-
           <Typography
             variant="h2"
             style={{
@@ -51,10 +49,10 @@ export default function RevuePage(): JSX.Element {
           </Typography>
         </Box>
       </Box>
-      {user.status === 'logged' && user.isAdmin && <RevueNotAcceptedList />}
+      {user.data.status === 'logged' && user.isAdmin && <RevueNotAcceptedList />}
 
       <RevueAcceptedList />
-      {user.status === 'logged' && (
+      {user.data.status === 'logged' && (
         <>
           <Typography
             variant="h5"
@@ -75,7 +73,7 @@ export default function RevuePage(): JSX.Element {
               image="http://klublady.ru/uploads/posts/2022-02/1644286782_5-klublady-ru-p-frantsuzhenki-s-korotkimi-strizhkami-foto-5.jpg"
               alt="Live from space album cover"
             />
-            {(user.status === 'logged' && !user.isAdmin) || user.status === 'guest' ? (
+            {(user.data.status === 'logged' && !user.isAdmin) || user.data.status === 'guest' ? (
               <RevueForm />
             ) : null}
           </Box>

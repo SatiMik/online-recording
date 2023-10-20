@@ -32,7 +32,7 @@ bot.on('message', async (msg) => {
       const user = await User.findOne({ where: { phone: String(phone) } });
       console.log('ОПА', phone);
       if (user) {
-        bot.sendMessage(chatId, `Здравствуйте, ${user.name}\nВот ваш код!: ${user.code}`);
+        bot.sendMessage(chatId, `Здравствуйте, ${user.data.name}\nВот ваш код!: ${user.data.code}`);
         console.log(chatId);
         const chat = await User.update(
           { chatId: Number(chatId) },
@@ -65,7 +65,7 @@ bot.on('contact', async (msg) => {
     const user = await User.findOne({ where: { phone: String(phone) } });
     console.log(phone);
     if (user) {
-      bot.sendMessage(chatId, `Здравствуйте, ${user.name}\nВот ваш код: ${user.code}`);
+      bot.sendMessage(chatId, `Здравствуйте, ${user.data.name}\nВот ваш код: ${user.data.code}`);
       console.log(chatId);
       const chat = await User.update(
         { chatId: Number(chatId) },
