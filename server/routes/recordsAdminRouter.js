@@ -51,7 +51,7 @@ const getAllRecords = async () => {
       let newTime = record?.time;
       if (record.time % 100 === 30) newTime += 20; //
       recordsObj[newTime] = {
-        status: record?.Service?.time / 30,
+        status: record.Service.time / 30,
         statusFree: 0,
         record,
         time: newTime,
@@ -99,7 +99,6 @@ router
   .get(async (req, res) => {
     try {
       const records = await getAllRecords();
-      console.log(records);
       res.json(records);
     } catch (err) {
       console.error(err);

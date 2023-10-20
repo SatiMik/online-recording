@@ -32,10 +32,10 @@ export default function MasterForm(): JSX.Element {
       </Grid>
       <Grid item xs={5}>
         <TextField
-          name="name"
+          name="desc"
           variant="outlined"
-          placeholder="Имя"
-          value={inputs.name}
+          placeholder="Описание"
+          value={inputs.desc}
           onChange={changeHandler}
         />
       </Grid>

@@ -23,6 +23,7 @@ export default function MasterItem({ master, handleOpen }: MastersPropsType): JS
   return (
     <Container style={{ display: 'flex', flexDirection: 'column' }}>
       <Button
+        disabled
         style={{
           width: '300px',
           height: '50px',

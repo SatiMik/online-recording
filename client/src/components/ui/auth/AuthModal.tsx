@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 
 import { Box, Button, Modal, TextField, Typography } from '@mui/material';
 
-import { useAppDispatch } from '../../../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../../redux/hooks';
 import {
   loginHandlerThunk,
   signUpHandlerThunk,
@@ -50,6 +50,10 @@ export default function AuthModal({
 
   const [inputCode, setInputCode] = useState({});
 
+  //   const handleClose = (): void => {
+  //     setClose(false);
+  //   };
+  // }
   const changeHandler: React.ChangeEventHandler<HTMLInputElement> = (e) => {
     setInput((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
@@ -62,31 +66,91 @@ export default function AuthModal({
     e.preventDefault();
     void dispatch(userCheckCodeThunk(inputCode));
   };
+  const error = useAppSelector((store) => store.user.error);
 
   const submitHandler: React.FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
-    try {
+    console.log(error);
+
+    if (!error) {
       if (authType === 1) {
         await dispatch(signUpHandlerThunk(input));
-        setCode(true);
       } else {
         await dispatch(loginHandlerThunk(input));
         setAuth(false)
       }
-    } catch (error) {
-      console.error(error);
+      
+      if (!error && authType === 1) {
+        setCode(true);
+      }
     }
   };
+
+  const errorStatus = error?.message.slice(error?.message.length - 3);
+  console.log(errorStatus);
 
   return (
     <Modal
       open={auth}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
+      onClick={() => {
+        setAuth(false);
+      }}
     >
       <Box sx={style} display="flex" flexDirection="column" alignItems="center" component="form">
+        {error && (
+          <Box>
+            {errorStatus === '500' && (
+              <Typography sx={{ color: 'red' }}>Неверно набран пароль!</Typography>
+            )}
+          </Box>
+        )}
+        {error && (
+          <Box>
+            {errorStatus === '400' && (
+              <Typography sx={{ color: 'red' }}>Такой номер уже зарегистрирован!</Typography>
+            )}
+          </Box>
+        )}
+        {error && (
+          <Box>
+            {errorStatus === '403' && (
+              <Typography sx={{ color: 'red' }}>Неверно введен код!</Typography>
+            )}
+          </Box>
+        )}
+        {error && (
+          <Box>
+            {errorStatus === '404' && (
+              <Typography sx={{ color: 'red' }}>Пользователь не найден!</Typography>
+            )}
+          </Box>
+        )}
+        {error && (
+          <Box>
+            {errorStatus === '401' && (
+              <Typography sx={{ color: 'red' }}>Невалидный номер</Typography>
+            )}
+          </Box>
+        )}
+        {error && (
+          <Box>
+            {errorStatus === '404' && (
+              <Typography sx={{ color: 'red' }}>Пользователь не найден!</Typography>
+            )}
+          </Box>
+        )}
+
         {code ? (
           <>
+            <Typography sx={{ textAlign: 'center' }}>
+              Зарегистрируйтесь в телеграмм боте для получения кода регистрации!
+            </Typography>
+            <a href="https://t.me/satisfactionElbrus_bot" target="_blank" rel="noreferrer">
+              <img src="/qr.png" alt="qrCode" />
+            </a>
+            <Typography>Ведите код регистрации</Typography>
             <TextField
               variant="outlined"
               name="code"
@@ -106,17 +170,13 @@ export default function AuthModal({
         ) : (
           <>
             {authType === 1 && (
-              <>
-                <TextField
-                  variant="outlined"
-                  name="name"
-                  placeholder="Ваше имя"
-                  value={input.name}
-                  onChange={changeHandler}
-                />
-
-                {/* <Typography>Не верный код</Typography> */}
-              </>
+              <TextField
+                variant="outlined"
+                name="name"
+                placeholder="Ваше имя"
+                value={input.name}
+                onChange={changeHandler}
+              />
             )}
 
             <TextField
