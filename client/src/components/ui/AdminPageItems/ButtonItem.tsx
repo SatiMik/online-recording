@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from '@mui/material';
 import type { RecordFromBackType } from '../../../types/recordAdminTypes';
 
 type RecordPropsType = {
@@ -8,16 +9,15 @@ type RecordPropsType = {
 export default function ButtonItem({ record, handleOpen }: RecordPropsType): JSX.Element {
   const color = record.status !== -1 ? '#bbbbbb' : '#f9f9f9';
   return (
-    <button
+    <Button
       onClick={() => handleOpen(record)}
       style={{
-        borderRadius: '40px',
+        borderRadius: '0',
         width: '300px',
         height: `${Math.abs(record.status) * 50}px`,
         fontSize: '16px',
-        borderColor: 'black',
+        border: '1px solid #566F5F',
         color: 'black',
-        background: color,
         padding: '8px 16px',
       }}
       type="button"
@@ -25,6 +25,6 @@ export default function ButtonItem({ record, handleOpen }: RecordPropsType): JSX
       {record.record
         ? `Гость ${record.record.User.name}\n на услугу ${record.record.Service.name} \n стоимость: ${record.record.Service.price}`
         : ''}
-    </button>
+    </Button>
   );
 }

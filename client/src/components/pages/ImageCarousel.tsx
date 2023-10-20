@@ -11,7 +11,6 @@ const imageStyle = {
   maxWidth: '90%', // Устанавливаем максимальную ширину изображения
   border: '2px solid #333', // Добавляем рамку
 };
-
 export default function ImageCarousel(): JSX.Element {
   return (
     <Carousel
@@ -45,5 +44,5 @@ export default function ImageCarousel(): JSX.Element {
         {/* <p className="legend" style={{ position: 'absolute', bottom: '20px', left: '50%', transform: 'translateX(-50%)', color: 'white', fontSize: '24px', fontWeight: 'bold' }}>Salon 3</p> */}
       </div>
     </Carousel>
-  );
+  )
 }

@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Record.init({
-    date: DataTypes.INTEGER,
+    date: DataTypes.DATE,
     time: DataTypes.INTEGER,
     serviceId: DataTypes.INTEGER,
     masterId: DataTypes.INTEGER,

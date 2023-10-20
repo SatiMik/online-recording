@@ -28,6 +28,7 @@ type RevueCardPropsType = {
 function RevueCard({ revue, user }: RevueCardPropsType): JSX.Element {
   const [open, setOpen] = useState<boolean>(false);
   const dispatch = useAppDispatch();
+  console.log(revue);
 
   return (
     <Box mt={1} style={{ width: '100%' }}>

@@ -50,7 +50,7 @@ export default function FooterNew(): JSX.Element {
                   <Facebook /> facebook
                 </Link>
                 {/* </li>
-                                <li> */}
+                                  <li> */}
                 <Link
                   href="#"
                   className="footer__link"
@@ -60,7 +60,7 @@ export default function FooterNew(): JSX.Element {
                   <Twitter /> twitter
                 </Link>
                 {/* </li>
-                                <li> */}
+                                  <li> */}
                 <Link
                   href="#"
                   className="footer__link"
@@ -70,7 +70,7 @@ export default function FooterNew(): JSX.Element {
                   <Instagram /> instagram
                 </Link>
                 {/* </li>
-                                <li> */}
+                                  <li> */}
                 <Link
                   href="#"
                   className="footer__link"
@@ -86,8 +86,8 @@ export default function FooterNew(): JSX.Element {
         </CardContent>
       </Box>
       {/* <Typography variant="body2" align="center" sx={{ mt: 2 }}>
-                © 2022, All rights reserved
-            </Typography> */}
+                  © 2022, All rights reserved
+              </Typography> */}
     </Box>
   );
 }

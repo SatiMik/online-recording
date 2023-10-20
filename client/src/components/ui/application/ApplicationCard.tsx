@@ -14,21 +14,20 @@ export default function ApplicationCard({ application }: ApplicationItemTypeProp
   const dispatch = useAppDispatch();
 
   return (
-    <Card sx={{ width: 500, height: 200, borderRadius: '10px', marginBottom: '20px' }}>
-      <CardHeader title="Заявка от клиента" />
+    <Card sx={{ width: 500, height: 250, borderRadius: '10px', marginBottom: '20px', marginTop: '20px' }}>
+      <CardHeader title={`Заявка  #${application.id}`} />
       <CardContent
         sx={{
           display: 'flex',
           flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
         }}
       >
-        <Typography sx={{ mt: 1, fontSize: 20 }}>{application.clientName}</Typography>
-        <Typography sx={{ mt: 1, fontSize: 18 }}>{application.phone}</Typography>
+        <Typography sx={{ mt: 1, fontSize: 20,  }}>{` Клиент: ${application.clientName}`}</Typography>
+        <Typography sx={{ mt: 1, fontSize: 20 }}>{` Номер телефона: ${application.clientName}`}</Typography>
         {!application.status && (
           <Button
             variant="contained"
+            style={{ marginTop: '30px' }}
             onClick={() =>
               void dispatch(
                 changeStatusApplicationThunk({ id: application.id, status: !application.status }),

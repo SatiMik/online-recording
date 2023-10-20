@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import Box from '@mui/material/Box';
-import { Container } from '@mui/material';
+import { Container, Grid } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { getMastersThunk } from '../../redux/slices/master/MasterThunks';
 import MasterCard from '../ui/masters/MasterCard';

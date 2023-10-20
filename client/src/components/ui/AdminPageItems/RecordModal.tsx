@@ -1,4 +1,4 @@
-import { Box, Typography, Button, Modal } from '@mui/material';
+import { Typography, Modal, Grid } from '@mui/material';
 import React from 'react';
 import type { RecordFromBackType } from '../../../types/recordAdminTypes';
 import RecordForm from './RecordForm';
@@ -24,6 +24,12 @@ type ModalPropsType = {
 };
 
 export default function RecordModal({ modalData, handleClose }: ModalPropsType): JSX.Element {
+  console.log('Modal', modalData);
+  let messageAdd = `Добавить запись к мастеру ${modalData.record.master.name} на ${Math.floor(
+    modalData.record.time / 100,
+  )}:`;
+  if (modalData.record.time % 100) messageAdd += '30';
+  else messageAdd += '00';
   const date = 1;
   return (
     <Modal
@@ -32,7 +38,7 @@ export default function RecordModal({ modalData, handleClose }: ModalPropsType):
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
     >
-      <Box sx={style} textAlign="center">
+      <Grid sx={style} textAlign="center" justifyContent="center">
         {modalData.record.record ? (
           <>
             <Typography id="modal-modal-title" variant="h6" component="h2">
@@ -43,12 +49,12 @@ export default function RecordModal({ modalData, handleClose }: ModalPropsType):
         ) : (
           <>
             <Typography id="modal-modal-title" variant="h6" component="h2">
-              Добавить запись
+              {messageAdd}
             </Typography>
             <RecordForm record={modalData.record} handleClose={handleClose} />
           </>
         )}
-      </Box>
+      </Grid>
     </Modal>
   );
 }

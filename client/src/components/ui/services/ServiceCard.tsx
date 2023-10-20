@@ -46,9 +46,10 @@ function ServiceCard({ service }: ServiceCardPropsType): JSX.Element {
             </Typography>
           </CardContent>
           <CardActions>
-            <Button onClick={() => setOpenServiceModal(true)}>
-              Записаться
-            </Button>
+            {(user.status === 'logged' && !user.isAdmin) || user.status === 'guest' ? (
+              <Button onClick={() => setOpenServiceModal(true)}>Записаться</Button>
+            ) : null}
+
             {user.status === 'logged' && user?.isAdmin && (
               <>
                 <Button
@@ -65,7 +66,11 @@ function ServiceCard({ service }: ServiceCardPropsType): JSX.Element {
           </CardActions>
           {open && <ServiceModal open={open} service={service} setOpen={setOpen} />}
           {openServiceModal && (
-            <OnlineModalRecordService open={openServiceModal} setOpen={setOpenServiceModal} service={service} />
+            <OnlineModalRecordService
+              open={openServiceModal}
+              setOpen={setOpenServiceModal}
+              service={service}
+            />
           )}
         </Card>
       </Container>

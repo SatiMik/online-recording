@@ -1,6 +1,8 @@
 const router = require('express').Router();
 const { Revue, User } = require('../db/models');
 
+const token = '6653330494:AAGgYCOOjrdCWYlcKtZ16bfB79ESvO7ppIw';
+
 router
   .route('/')
   .get(async (req, res) => {
@@ -17,7 +19,10 @@ router
   .post(async (req, res) => {
     try {
       const { text, status, userId, rating, date } = req.body;
-
+      const { chatId } = req.session.user;
+      const textMessage = encodeURIComponent('Вы успешно записались');
+      const messege = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${textMessage}`;
+      fetch(messege);
       const revue = await Revue.create({
         text,
         status,
@@ -43,6 +48,12 @@ router
       const { revueId } = req.params;
       const result = await Revue.destroy({ where: { id: revueId } });
       if (result > 0) {
+        const { chatId } = req.session.user;
+        const textMessage = encodeURIComponent(
+          'Вы успешно, отказались от записи'
+        );
+        const messege = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${textMessage}`;
+        fetch(messege);
         res.status(200).json({ message: 'success' });
         return;
       }
@@ -57,7 +68,6 @@ router
       const targetRevue = await Revue.findOne({ where: { id: revueId } });
       if (req.body.text) targetRevue.text = req.body.text;
       if (req.body.rating) targetRevue.rating = req.body.rating;
-
       targetRevue.status = !targetRevue.status;
       await targetRevue.save();
       const result = await Revue.findOne({
